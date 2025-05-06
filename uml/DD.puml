@@ -1,0 +1,72 @@
+
+
+
+@startuml 'https://plantuml.com/sequence-diagram'
+
+
+
+class Personnage{
+    - p_nom : String
+    - p_race : Race
+    - p_classe : Classe
+    - p_stats : Statistiques
+    - p_inventaire : Inventaire
+    - p_equipement : Equipement
+    + attaquer(cible : Monstre)
+    + seDeplacer(cases : int)
+}
+
+
+class Race {
+    - r_nom : String
+    + Bonustats(stats : Statistiques)  
+}
+
+class Classe {
+    - c_nom : String
+    + Init(stats : Statistiques, inv : Inventaire)
+}
+
+class Statistiques {
+  - pointsDeVie : int
+  - force : int
+  - dexterite : int
+  - vitesse : int
+  - initiative : int
+  + appliquerModificateur(force : int, dex : int, vit : int, init : int)
+}
+
+class Equipement {
+    - e_nom : String
+    - e_type : String
+}
+
+
+class Arme {
+    - degats : int
+    - portee : int
+    + modifieStats(stats : Statistiques)
+}
+
+class Armure {
+    - classeArmure : int
+    +modifieStats(stats : Statistiques)
+}
+
+
+
+Personnage --> Race
+Personnage --> Classe
+Personnage --> Statistiques
+Personnage --> Equipement
+
+Equipement <|-- Arme
+Equipement <|-- Armure
+
+
+
+
+
+
+
+@enduml
