@@ -16,7 +16,7 @@ class Personnage{
     + seDeplacer(cases : int)
 }
 
-
+package car {
 class Race {
     - r_nom : String
     + Bonustats(stats : Statistiques)  
@@ -53,12 +53,11 @@ class Armure {
     +modifieStats(stats : Statistiques)
 }
 
+}
 
 
-Personnage --> Race
-Personnage --> Classe
-Personnage --> Statistiques
-Personnage --> Equipement
+
+Personnage --> car
 
 Equipement <|-- Arme
 Equipement <|-- Armure
