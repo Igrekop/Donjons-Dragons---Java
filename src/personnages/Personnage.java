@@ -18,5 +18,4 @@ public abstract class Personnage {
     }
 
     public abstract void attaquer(Personnage cible);
-    public abstract void seDeplacer(int x, int y);
 }
