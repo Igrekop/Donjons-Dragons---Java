@@ -18,4 +18,34 @@ public abstract class Personnage {
     }
 
     public abstract void attaquer(Personnage cible);
+
+    public void buff(String stat, int valeur) {
+        switch (stat.toLowerCase()) {
+            case "force":
+                this.force += valeur;
+                break;
+            case "vitesse":
+                this.vitesse += valeur;
+                break;
+            case "dexterite":
+                this.dexterite += valeur;
+                break;
+            case "pointDeVie":
+                this.pointDeVie += valeur;
+                break;
+            case "initiative":
+                this.initiative += valeur;
+                break;
+            default:
+                System.out.println("Stat inconnue : " + stat);
+        }
+    }
+
+    public void debuff(String stat, int valeur) {
+        buff(stat, -valeur);
+    }
+
+
 }
+
+
