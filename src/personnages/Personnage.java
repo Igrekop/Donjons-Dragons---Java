@@ -20,6 +20,17 @@ public abstract class Personnage {
     }
 
     public abstract void attaquer(Personnage cible);
+
+    @Override
+    public String toString() {
+        return "Nom : " + nom +
+                "\nPoints de vie : " + pointDeVie +
+                "\nForce : " + force +
+                "\nDextérité : " + dexterite +
+                "\nVitesse : " + vitesse +
+                "\nInitiative : " + initiative;
+    }
+
 }
 
 

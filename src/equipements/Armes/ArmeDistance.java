@@ -6,6 +6,6 @@ public class ArmeDistance extends Armes {
     }
 
     public String toString() {
-        return "Arme à distance : " + nom + " [Déqâts : " + degats + "]";
+        return "Arme à distance : " + nom + " [Déqâts : " + degats +  ", Portée : " + portee + "]";
     }
 }

@@ -26,4 +26,8 @@ public abstract class Races {
         personnage.dexterite += bonusDexterite;
         personnage.vitesse += bonusVitesse;
     }
+
+    public String getNom() {
+        return nom;
+    }
 }
