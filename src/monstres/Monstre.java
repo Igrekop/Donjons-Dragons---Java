@@ -1,6 +1,6 @@
 package monstres;
 
-public class monstre {
+public abstract class Monstre {
     public String espece;
     public int numero;
     public int pointDeVie;
@@ -12,7 +12,7 @@ public class monstre {
     public int portee;
     public String degats;
 
-    public monstre(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
+    public Monstre(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
                    int classeArmure, String typeAttaque, int portee, String degats) {
         this.espece = espece;
         this.numero = numero;
@@ -25,6 +25,8 @@ public class monstre {
         this.portee = portee;
         this.degats = degats;
     }
+
+    public abstract void attaquer();
 
     public String toString() {
         return espece + " #" + numero + " [PV: " + pointDeVie + ", Attaque: " + typeAttaque +
