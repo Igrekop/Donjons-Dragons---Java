@@ -3,7 +3,7 @@ package races;
 import personnages.*;
 
 public abstract class Races {
-    protected String nom;
+    public String nom;
     protected int bonusForce;
     protected int bonusDexterite;
     protected int bonusVitesse;
