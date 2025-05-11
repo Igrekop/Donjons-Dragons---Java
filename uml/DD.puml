@@ -5,62 +5,227 @@
 
 
 
-class Personnage{
-    - p_nom : String
-    - p_race : Race
-    - p_classe : Classe
-    - p_stats : Statistiques
-    - p_inventaire : Inventaire
-    - p_equipement : Equipement
-    + attaquer(cible : Monstre)
-    + seDeplacer(cases : int)
-}
-
-package car {
-class Race {
-    - r_nom : String
-    + Bonustats(stats : Statistiques)  
-}
-
-class Classe {
-    - c_nom : String
-    + Init(stats : Statistiques, inv : Inventaire)
-}
-
-class Statistiques {
-  - pointsDeVie : int
-  - force : int
-  - dexterite : int
-  - vitesse : int
-  - initiative : int
-  + appliquerModificateur(force : int, dex : int, vit : int, init : int)
-}
-
-class Equipement {
-    - e_nom : String
-    - e_type : String
-}
 
 
-class Arme {
-    - degats : int
-    - portee : int
-    + modifieStats(stats : Statistiques)
+package races {
+
+
+class Races{
+    - nom : String
+    - bonusForce : int 
+    - bonusDexterite : int 
+    - bonusVitesse : int 
+    - bonusPV : int
+    - bonusInitiative : int
+    + appliquerBonus(personnage : Personnage) 
 }
 
-class Armure {
-    - classeArmure : int
-    +modifieStats(stats : Statistiques)
-}
+class Elfe {
+        + Elfe()
+    }
+
+class Halfelin {
+        + Halfelin()
+    }
+
+    class Humain {
+        + Humain()
+    }
+
+     class Nain {
+        + Nain()
+    }
+
+
+    Races <|-- Elfe
+    Races <|-- Halfelin
+    Races <|-- Humain
+    Races <|-- Nain
 
 }
 
+package personnages {
+
+    class Personnage {
+    + nom : String
+    + pointDeVie : int
+    + force : int
+    + dexterite : int
+    + vitesse : int
+    + initiative : int
+    --
+    + Personnage(nom: String, pointDeVie: int, force: int, dexterite: int, vitesse: int, initiative: int)
+    + attaquer(cible: Personnage)
+    + buff(stat: String, valeur: int)
+    + debuff(stat: String, valeur: int)
+}
+abstract Personnage
+
+    class Joueur {
+    - classe : Classe
+    + Joueur(nom: String, classe: Classe)
+    + attaquer(cible: Personnage)
+    + toString() : String
+}
+
+ Personnage <|-- Joueur
+  
+
+}
+package classes {
+
+abstract class Classe {
+        + nom : String
+        + pvDeBase : int
+        + equipement : String
+        --
+        + Classe(nom: String, pvDeBase: int)
+        + getEquipement() : String
+    }
+
+ class Clerc {
+        + Clerc()
+        + genererEquipementDeBase() : void
+    }
+class Guerrier {
+        + Guerrier()
+        + genererEquipementDeBase() : void
+    }
+
+class Magicien {
+        + Magicien()
+        + genererEquipementDeBase() : void
+    }
+
+class Roublard {
+        + Roublard()
+        + genererEquipementDeBase() : void
+    }
 
 
-Personnage --> car
 
-Equipement <|-- Arme
-Equipement <|-- Armure
+
+    Classe <|-- Clerc
+    Classe <|-- Guerrier
+    Classe <|-- Magicien
+    Classe <|-- Roublard
+
+}
+
+package equipements {
+    interface EquipementDeBase {
+        + genererEquipementDeBase() : void
+    }
+}
+
+package Monstres{
+     class monstre {
+        + espece : String
+        + numero : int
+        + pointDeVie : int
+        + force : int
+        + dexterite : int
+        + initiative : int
+        + classeArmure : int
+        + typeAttaque : String
+        + portee : int
+        + degats : String
+        + Monstre(espece: String, numero: int, pointDeVie: int, force: int, dexterite: int, initiative: int,
+                  classeArmure: int, typeAttaque: String, portee: int, degats: String)
+        + toString() : String
+    }
+
+    class Squelette {
+        + Squelette(numero: int)
+    }
+
+    class Dragon {
+        + Dragon(numero: int)
+    }
+
+     class Gobelin {
+        + Gobelin(numero: int)
+    }
+
+    monstre <|-- Squelette
+    monstre <|-- Dragon
+    monstre <|-- Gobelin
+
+}
+
+
+
+ 
+package arme {
+    abstract class Arme {
+        + nom : String
+        + degats : String
+        + portee : int
+        --
+        + Arme(nom: String, degats: String, portee: int)
+        + buffDebuff(personnage: Personnage) : void
+    }
+
+    class Courante_cac {
+        + Courante_cac(nom: String, degats: String)
+    }
+
+    class Distance {
+        + Distance(nom: String, degats: String, portee: int)
+    }
+
+    class Guerre_cac {
+        + Guerre_cac(nom: String, degats: String)
+        + buffDebuff(per: Personnage) : void
+    }
+
+    Arme <|-- Courante_cac
+    Arme <|-- Distance
+    Arme <|-- Guerre_cac
+    Arme --> personnages.Personnage
+
+}
+
+
+package armures {
+    class Armure {
+        + nom : String
+        + classeArmure : int
+        + estLourde : boolean
+        --
+        + Armure(nom: String, classeArmure: int, estLourde: boolean)
+        + toString() : String
+        + buffDebuff(per: Personnage) : void
+    }
+
+        class Legere {
+        + Legere(nom: String, classeArmure: int)
+    }
+
+     class Lourd {
+        + Lourd(nom: String, classeArmure: int)
+        + buffDebuff(p: Personnage) : void
+    }
+
+
+    Armure <|-- Legere
+    Armure <|-- Lourd
+    Armure --> personnages.Personnage
+
+   
+}
+
+
+
+
+
+
+
+equipements <|-- Arme
+equipements<|-- Armure
+
+personnages.Joueur --> classes.Classe
+Classe ..|> equipements.EquipementDeBase
 
 
 

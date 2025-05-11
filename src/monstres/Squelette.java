@@ -1,6 +1,6 @@
-package monstres.Monstre;
+package monstres;
 
-import monstres.monstre;
+
 
 public class Squelette extends monstre {
     public Squelette(int numero) {

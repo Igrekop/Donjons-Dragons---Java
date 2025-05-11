@@ -1,6 +1,6 @@
-package monstres.Monstre;
+package monstres;
 
-import monstres.monstre;
+
 
 public class Dragon extends monstre {
     public Dragon(int numero) {

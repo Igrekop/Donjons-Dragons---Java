@@ -1,6 +1,8 @@
-package monstres.Monstre;
+package monstres;
 
-import monstres.monstre;
+
+
+
 
 public class Gobelin extends monstre {
     public Gobelin(int numero) {
