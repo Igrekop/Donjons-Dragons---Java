@@ -14,4 +14,8 @@ public class ArmeDeGuerre extends Armes {
     public int getModificateurForce() {
         return 4;   // Augmentation de la force
     }
+
+    public String toString() {
+        return "Arme de guerre : " + nom + " [Déqâts : " + degats + "]";
+    }
 }

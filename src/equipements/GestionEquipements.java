@@ -32,4 +32,12 @@ public class GestionEquipements {
 
         return equipements;
     }
+
+    public static void afficherEquipements(List<Equipement> equipements) {
+        System.out.println("Liste des équipements disponibles :\n");
+        for (Equipement equipement : equipements) {
+            System.out.println(equipement);
+        }
+    }
+
 }
