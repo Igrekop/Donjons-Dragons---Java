@@ -1,5 +1,7 @@
 import classes.*;
 import equipements.*;
+import monstres.Dragon;
+import monstres.Monstre;
 import personnages.*;
 import races.*;
 
@@ -29,5 +31,8 @@ public class Main {
         for (Equipement equipement : equipements) {
             System.out.println(equipement);
         }
+
+        Monstre smolder = new Dragon(1);
+        System.out.println(smolder);
     }
 }
