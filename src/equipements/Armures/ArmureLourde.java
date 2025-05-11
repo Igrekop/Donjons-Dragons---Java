@@ -9,4 +9,10 @@ public class ArmureLourde extends Armure {
     public int getModificateurVitesse() {
         return -4;  // Réduction de la vitesse
     }
+
+    @Override
+    public String toString() {
+        return "Armure lourde : " + nom + " [Classe d'armure : " + classeArmure + "]";
+    }
+
 }

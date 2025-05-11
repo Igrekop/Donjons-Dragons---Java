@@ -3,6 +3,8 @@ import equipements.*;
 import personnages.*;
 import races.*;
 
+import java.util.List;
+
 public class Main {
     public static void main(String args[]) {
         Races elfe = new Elfe();  // Créer une instance de race Elfe
@@ -27,6 +29,7 @@ public class Main {
         System.out.println("\nAprès l'attaque de " + joueur1.nom + " sur " + joueur2.nom);
         System.out.println(joueur2);  // Affiche les stats du joueur2 après l'attaque
 
-        
+        List<Equipement> equipement = GestionEquipements.initialiserEquipements();
+        GestionEquipements.afficherEquipements(equipement);
     }
 }
