@@ -1,6 +1,6 @@
 package personnages;
 
-import classes.*;
+import classes.Classe;
 
 public class Joueur extends Personnage{
     private Classe classe;
