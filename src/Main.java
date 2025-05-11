@@ -5,15 +5,28 @@ import races.*;
 
 public class Main {
     public static void main(String args[]) {
-        System.out.println("Bienvenue dans DOOnjon et Dragons");
-        Classe guerrier = new Guerrier();
-        Joueur joueur1 = new Joueur("Thorgal", guerrier);
-        System.out.println(joueur1);
+        Races elfe = new Elfe();  // Créer une instance de race Elfe
+        Races nain = new Nain();  // Créer une instance de race Nain
 
+        // Création des classes
+        Classe guerrier = new Guerrier();  // Classe Guerrier
         Classe magicien = new Magicien();
-        Joueur joueur2 = new Joueur("Gandalf", magicien);
-        System.out.println(joueur2);
-        joueur2.attaquer(joueur1);
+
+        // Création des personnages avec leurs classes et races respectives
+        Joueur joueur1 = new Joueur("Aragorn", guerrier, elfe);  // Un Guerrier Elfe
+        Joueur joueur2 = new Joueur("Gimli", magicien, nain);  // Un Magicien Nain
+
+        // Affichage des informations des personnages
         System.out.println(joueur1);
+        System.out.println(joueur2);
+
+        // Exemple d'attaque : joueur1 attaque joueur2
+        joueur1.attaquer(joueur2);
+
+        // Affichage des informations après l'attaque
+        System.out.println("\nAprès l'attaque de " + joueur1.nom + " sur " + joueur2.nom);
+        System.out.println(joueur2);  // Affiche les stats du joueur2 après l'attaque
+
+        
     }
 }
