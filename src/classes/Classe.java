@@ -1,19 +1,33 @@
 package classes;
 
-import equipements.EquipementDeBase;
+import equipements.Equipement;
+import equipements.GestionEquipements;
 
-public abstract class Classe implements EquipementDeBase {
+import java.util.List;
+
+public abstract class Classe {
     public String nom;
     public int pvDeBase;
-    public String equipement;
+    public List<Equipement> equipements;
 
     public Classe(String nom, int pvDeBase) {
         this.nom = nom;
         this.pvDeBase = pvDeBase;
+        equipements = GestionEquipements.initialiserEquipements();
+        genererEquipementDeBase();
     }
 
-    public String getEquipement() {
-        return equipement;
+    protected abstract void genererEquipementDeBase();
+
+    public String getNom() {
+        return nom;
     }
 
+    public int getPvDeBase() {
+        return pvDeBase;
+    }
+
+    public List<Equipement> getEquipements() {
+        return equipements;
+    }
 }
