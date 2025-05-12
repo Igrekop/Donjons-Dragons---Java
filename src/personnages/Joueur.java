@@ -8,7 +8,7 @@ public class Joueur extends Personnage{
     private Races race;
 
     public Joueur(String nom, Classe classe, Races race) {
-        super(nom, classe.pvDeBase, 0, 0, 0, 0);
+        super(nom, classe.getPvDeBase(), 0, 0, 0, 0);
         this.classe = classe;
         this.race = race;
 
