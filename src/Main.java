@@ -4,6 +4,7 @@ import monstres.Dragon;
 import monstres.Monstre;
 import personnages.*;
 import races.*;
+import Des.*;
 
 import java.util.List;
 
@@ -34,5 +35,9 @@ public class Main {
 
         Monstre smolder = new Dragon(1);
         System.out.println(smolder);
+
+        System.out.println("Lancer 2d6 : " + Des.lancerDes("2d6"));
+        System.out.println("Lancer 1d8 : " + Des.lancerDes("1d8"));
+        System.out.println("Lancer 3d4 : " + Des.lancerDes("3d4"));
     }
 }
