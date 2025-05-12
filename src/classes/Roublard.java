@@ -12,12 +12,12 @@ public class Roublard extends Classe {
 
     @Override
     public void genererEquipementDeBase() {
-        equipements.clear();
+        getEquipements().clear();
         List<Equipement> equipementsDisponibles = GestionEquipements.initialiserEquipements();
         for (Equipement equipement : equipementsDisponibles) {
             if (equipement.getNom().equals("Rapière") ||
                     equipement.getNom().equals("Arc court")) {
-                equipements.add(equipement);
+                getEquipements().add(equipement);
             }
         }
     }

@@ -6,9 +6,9 @@ import equipements.GestionEquipements;
 import java.util.List;
 
 public abstract class Classe {
-    public String nom;
-    public int pvDeBase;
-    public List<Equipement> equipements;
+    private String nom;
+    private int pvDeBase;
+    private List<Equipement> equipements;
 
     public Classe(String nom, int pvDeBase) {
         this.nom = nom;

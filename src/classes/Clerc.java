@@ -12,13 +12,13 @@ public class Clerc extends Classe {
 
     @Override
     public void genererEquipementDeBase() {
-        equipements.clear();
+        getEquipements().clear();
         List<Equipement> equipementsDisponibles = GestionEquipements.initialiserEquipements();
         for (Equipement equipement : equipementsDisponibles) {
             if (equipement.getNom().equals("Masse d'armes") ||
                     equipement.getNom().equals("Armure d'écailles") ||
                     equipement.getNom().equals("Arbalète légère")) {
-                equipements.add(equipement);
+                getEquipements().add(equipement);
             }
         }
     }
