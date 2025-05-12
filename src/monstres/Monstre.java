@@ -1,16 +1,16 @@
 package monstres;
 
 public abstract class Monstre {
-    public String espece;
-    public int numero;
-    public int pointDeVie;
-    public int force;
-    public int dexterite;
-    public int initiative;
-    public int classeArmure;
-    public String typeAttaque;
-    public int portee;
-    public String degats;
+    private String espece;
+    private int numero;
+    private int pointDeVie;
+    private int force;
+    private int dexterite;
+    private int initiative;
+    private int classeArmure;
+    private String typeAttaque;
+    private int portee;
+    private String degats;
 
     public Monstre(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
                    int classeArmure, String typeAttaque, int portee, String degats) {

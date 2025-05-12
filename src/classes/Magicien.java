@@ -12,12 +12,12 @@ public class Magicien extends Classe {
 
     @Override
     public void genererEquipementDeBase() {
-        equipements.clear();
+        getEquipements().clear();
         List<Equipement> equipementsDisponibles = GestionEquipements.initialiserEquipements();
         for (Equipement equipement : equipementsDisponibles) {
             if (equipement.getNom().equals("Bâton") ||
                     equipement.getNom().equals("Fronde")){
-                equipements.add(equipement);
+                getEquipements().add(equipement);
             }
         }
     }
