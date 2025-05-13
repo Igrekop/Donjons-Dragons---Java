@@ -21,6 +21,6 @@ public class Roublard extends Classe {
             }
         }
 
-        GestionEquipements.equiperPremiersObjets(getEquipements());
+
     }
 }

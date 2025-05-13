@@ -1,12 +1,12 @@
 package equipements;
 import equipements.Armes.*;
 import equipements.Armures.*;
+import personnages.Personnage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestionEquipements {
-    private static Object[] equiper = new Object[2];
     public static List<Equipement> initialiserEquipements() {
         List<Equipement> equipements = new ArrayList<>();
 
@@ -42,28 +42,24 @@ public class GestionEquipements {
 
     }
 
+    public static void equiperPremiereArmeEtArmure(Personnage personnage, List<Equipement> equipements) {
+        boolean armeEquipee = false;
+        boolean armureEquipee = false;
 
-    public static void equiperPremiersObjets(List<Equipement> equipements) {
-        // On équipe les deux premiers équipements s'ils existent
-        for (int i = 0; i < 2 && i < equipements.size(); i++) {
-            equiper[i] = equipements.get(i);
-        }
-    }
-
-    public static void equiperObjet(int index, Equipement equipement) {
-        if (index >= 0 && index < equiper.length) {
-            equiper[index] = equipement;
-        }
-    }
-
-    public static List<Equipement> getEquiper() {
-        List<Equipement> equipementsEquipes = new ArrayList<>();
-        for (Object item : GestionEquipements.equiper) {
-            if (item instanceof Equipement) {
-                equipementsEquipes.add((Equipement) item);
+        for (Equipement eq : equipements) {
+            if (!armeEquipee && eq instanceof Armes) {
+                personnage.equiper(0, eq); // slot 0 pour arme
+                armeEquipee = true;
+            } else if (!armureEquipee && eq instanceof Armure) {
+                personnage.equiper(1, eq); // slot 1 pour armure
+                armureEquipee = true;
             }
+
+            if (armeEquipee && armureEquipee) break;
         }
-        return equipementsEquipes;
     }
+
+
+
 
 }

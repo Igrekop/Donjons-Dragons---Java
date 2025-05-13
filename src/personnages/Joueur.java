@@ -1,7 +1,6 @@
 package personnages;
 import classes.Classe;
 import equipements.Equipement;
-import equipements.GestionEquipements;
 import races.Races;
 import equipements.Armes.Armes;
 import equipements.Armures.Armure;
@@ -9,6 +8,7 @@ import equipements.Armures.Armure;
 public class Joueur extends Personnage{
     private Classe classe;
     private Races race;
+
 
     public Joueur(String nom, Classe classe, Races race) {
         super(nom, classe.getPvDeBase(), 0, 0, 0, 0);
@@ -30,19 +30,31 @@ public class Joueur extends Personnage{
 
     @Override
     public void equiper(Equipement equipement, Object equipe) {
+        int slot = -1;
+
         if (equipement instanceof Armes) {
-            GestionEquipements.equiperObjet(0, equipement); // arme
-            System.out.println(this.nom + " a équipé l'arme : " + equipement.getNom());
+            slot = 0; // Arme
         } else if (equipement instanceof Armure) {
-            GestionEquipements.equiperObjet(1, equipement); // armure
-            System.out.println(this.nom + " a équipé l'armure : " + equipement.getNom());
+            slot = 1; // Armure
         } else {
             System.out.println("Type d'équipement inconnu.");
+            return;
         }
 
-        // Appliquer les modificateurs de l'équipement à ce joueur
+        // Si déjà un équipement dans ce slot, retirer ses modificateurs
+        Equipement ancien = getEquiper().size() > slot ? getEquiper().get(slot) : null;
+        if (ancien != null) {
+            this.force -= ancien.getModificateurForce();
+            this.vitesse -= ancien.getModificateurVitesse();
+        }
+
+        super.equiper(slot, equipement); // Appelle la méthode de Personnage
+
+        // Appliquer les modificateurs du nouvel équipement
         this.force += equipement.getModificateurForce();
         this.vitesse += equipement.getModificateurVitesse();
+
+        System.out.println(this.nom + " a équipé : " + equipement.getNom());
     }
 
 

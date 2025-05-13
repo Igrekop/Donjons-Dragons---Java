@@ -21,6 +21,5 @@ public class Magicien extends Classe {
             }
         }
 
-        GestionEquipements.equiperPremiersObjets(getEquipements());
     }
 }

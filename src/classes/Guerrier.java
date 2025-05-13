@@ -21,6 +21,5 @@ public class Guerrier extends Classe {
             }
         }
 
-        GestionEquipements.equiperPremiersObjets(getEquipements());
     }
 }
