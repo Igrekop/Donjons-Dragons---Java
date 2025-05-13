@@ -41,9 +41,27 @@ public class Main {
 
         joueur2.attaquer(smolder);
 
+        GestionEquipements.equiperPremiereArmeEtArmure(joueur1, guerrier.getEquipements());
+
+        // Affichage des infos joueur
+        System.out.println("==== Infos du joueur après équipement ====");
+        System.out.println(joueur1);
+
+        // Affichage des équipements réellement équipés
+        System.out.println("==== Équipements équipés par Arthur ====");
+        List<Equipement> equipe = joueur1.getEquiper();
+        for (Equipement eq : equipe) {
+            System.out.println(" - " + eq.getNom() + " | Force: " + eq.getModificateurForce() + ", Vitesse: " + eq.getModificateurVitesse());
+        }
+
+        // Affichage
+        System.out.println("==== Équipement de Arthur ====");
+        for (Equipement eq : joueur1.getClasse().getEquipements()) {
+            System.out.println(eq);
+        }
+
         System.out.println("Lancer 2d6 : " + Des.lancerDes("2d6"));
         System.out.println("Lancer 1d8 : " + Des.lancerDes("1d8"));
         System.out.println("Lancer 3d4 : " + Des.lancerDes("3d4"));
-
     }
 }

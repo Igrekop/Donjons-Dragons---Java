@@ -20,5 +20,6 @@ public class Guerrier extends Classe {
                 getEquipements().add(equipement);
             }
         }
+
     }
 }
