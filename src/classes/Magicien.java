@@ -20,5 +20,6 @@ public class Magicien extends Classe {
                 getEquipements().add(equipement);
             }
         }
+
     }
 }

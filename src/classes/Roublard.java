@@ -20,5 +20,7 @@ public class Roublard extends Classe {
                 getEquipements().add(equipement);
             }
         }
+
+
     }
 }

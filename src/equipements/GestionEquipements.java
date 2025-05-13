@@ -1,6 +1,7 @@
 package equipements;
 import equipements.Armes.*;
 import equipements.Armures.*;
+import personnages.Personnage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +39,27 @@ public class GestionEquipements {
         for (Equipement equipement : equipements) {
             System.out.println(equipement);
         }
+
     }
- }
+
+    public static void equiperPremiereArmeEtArmure(Personnage personnage, List<Equipement> equipements) {
+        boolean armeEquipee = false;
+        boolean armureEquipee = false;
+
+        for (Equipement eq : equipements) {
+            if (!armeEquipee && eq instanceof Armes) {
+                personnage.equiper(0, eq); // slot 0 pour arme
+                armeEquipee = true;
+            } else if (!armureEquipee && eq instanceof Armure) {
+                personnage.equiper(1, eq); // slot 1 pour armure
+                armureEquipee = true;
+            }
+
+            if (armeEquipee && armureEquipee) break;
+        }
+    }
+
+
+
+
+}
