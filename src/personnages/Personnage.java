@@ -90,6 +90,14 @@ public abstract class Personnage {
         force = force_change;
     }
 
+    public void setForce_change(int force_change) {
+        force += force_change;
+    }
+
+    public void setVitesse_change(int vitesse_change) {
+        vitesse += vitesse_change;
+    }
+
     public void setDexterite(int dexterite_change) {
         dexterite = dexterite_change;
     }

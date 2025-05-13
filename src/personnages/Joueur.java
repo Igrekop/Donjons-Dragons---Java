@@ -42,17 +42,17 @@ public class Joueur extends Personnage{
         // Si déjà un équipement dans ce slot, retirer ses modificateurs
         Equipement ancien = getEquiper().size() > slot ? getEquiper().get(slot) : null;
         if (ancien != null) {
-            this.force -= ancien.getModificateurForce();
-            this.vitesse -= ancien.getModificateurVitesse();
+            this.setForce_change(-(ancien.getModificateurForce()));
+            this.setVitesse_change(-(ancien.getModificateurVitesse()));
         }
 
         super.equiper(slot, equipement); // Appelle la méthode de Personnage
 
         // Appliquer les modificateurs du nouvel équipement
-        this.force += equipement.getModificateurForce();
-        this.vitesse += equipement.getModificateurVitesse();
+        this.setForce_change(equipement.getModificateurForce());
+        this.setVitesse_change(equipement.getModificateurVitesse());
 
-        System.out.println(this.nom + " a équipé : " + equipement.getNom());
+        System.out.println(this.getNom() + " a équipé : " + equipement.getNom());
     }
 
 
