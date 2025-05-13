@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestionEquipements {
+    private static Object[] equiper = new Object[2];
     public static List<Equipement> initialiserEquipements() {
         List<Equipement> equipements = new ArrayList<>();
 
@@ -38,6 +39,31 @@ public class GestionEquipements {
         for (Equipement equipement : equipements) {
             System.out.println(equipement);
         }
+
+    }
+
+
+    public static void equiperPremiersObjets(List<Equipement> equipements) {
+        // On équipe les deux premiers équipements s'ils existent
+        for (int i = 0; i < 2 && i < equipements.size(); i++) {
+            equiper[i] = equipements.get(i);
+        }
+    }
+
+    public static void equiperObjet(int index, Equipement equipement) {
+        if (index >= 0 && index < equiper.length) {
+            equiper[index] = equipement;
+        }
+    }
+
+    public static List<Equipement> getEquiper() {
+        List<Equipement> equipementsEquipes = new ArrayList<>();
+        for (Object item : GestionEquipements.equiper) {
+            if (item instanceof Equipement) {
+                equipementsEquipes.add((Equipement) item);
+            }
+        }
+        return equipementsEquipes;
     }
 
 }

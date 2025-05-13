@@ -1,7 +1,10 @@
 package personnages;
 import classes.Classe;
 import equipements.Equipement;
+import equipements.GestionEquipements;
 import races.Races;
+import equipements.Armes.Armes;
+import equipements.Armures.Armure;
 
 public class Joueur extends Personnage{
     private Classe classe;
@@ -24,6 +27,26 @@ public class Joueur extends Personnage{
         System.out.println(nom + " attaque " + cible.nom);
         cible.pointDeVie -= 4;
     }
+
+    @Override
+    public void equiper(Equipement equipement, Object equipe) {
+        if (equipement instanceof Armes) {
+            GestionEquipements.equiperObjet(0, equipement); // arme
+            System.out.println(this.nom + " a équipé l'arme : " + equipement.getNom());
+        } else if (equipement instanceof Armure) {
+            GestionEquipements.equiperObjet(1, equipement); // armure
+            System.out.println(this.nom + " a équipé l'armure : " + equipement.getNom());
+        } else {
+            System.out.println("Type d'équipement inconnu.");
+        }
+
+        // Appliquer les modificateurs de l'équipement à ce joueur
+        this.force += equipement.getModificateurForce();
+        this.vitesse += equipement.getModificateurVitesse();
+    }
+
+
+
     //Pour après les équipements
     /*public void equiper(Equipement equipement) {
         if (this.equipement != null) {
