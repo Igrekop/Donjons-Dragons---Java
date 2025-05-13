@@ -1,6 +1,8 @@
 package personnages;
 
 
+import equipements.Equipement;
+
 public abstract class Personnage {
     public String nom;
     public int pointDeVie;
@@ -20,6 +22,10 @@ public abstract class Personnage {
     }
 
     public abstract void attaquer(Personnage cible);
+
+
+    public abstract void equiper(Equipement equipement, Object equipe);
+
 
     @Override
     public String toString() {

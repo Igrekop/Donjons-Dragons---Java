@@ -26,15 +26,25 @@ public class Main {
 
         joueur2.attaquer(joueur1);
 
-        // Affichage des équipements
-        List<Equipement> equipements = GestionEquipements.initialiserEquipements();
-        System.out.println("\n==== Liste des équipements disponibles ====");
-        for (Equipement equipement : equipements) {
-            System.out.println(equipement);
-        }
+
+
+        System.out.println(joueur1.getClasse().getEquipements());
 
         Monstre smolder = new Dragon(1);
         System.out.println(smolder);
+
+        // Liste d'équipements disponibles
+        List<Equipement> equipementsDispo = GestionEquipements.initialiserEquipements();
+
+        // Équiper le joueur 1
+        joueur1.getClasse().equiper(0, equipementsDispo.get(0)); // Armure d'écailles
+        joueur1.getClasse().equiper(1, equipementsDispo.get(6)); // Épée longue
+
+        // Affichage
+        System.out.println("==== Équipement de Arthur ====");
+        for (Equipement eq : joueur1.getClasse().getEquiper()) {
+            System.out.println(eq);
+        }
 
         System.out.println("Lancer 2d6 : " + Des.lancerDes("2d6"));
         System.out.println("Lancer 1d8 : " + Des.lancerDes("1d8"));
