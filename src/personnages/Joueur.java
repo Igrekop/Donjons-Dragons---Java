@@ -1,6 +1,7 @@
 package personnages;
 import classes.Classe;
 import equipements.Equipement;
+import monstres.*;
 import races.Races;
 
 public class Joueur extends Personnage{
@@ -13,16 +14,13 @@ public class Joueur extends Personnage{
         this.race = race;
 
         race.appliquerBonus(this);
-        for (Equipement equipement : classe.getEquipements()) {
-            this.force += equipement.getModificateurForce();
-            this.vitesse += equipement.getModificateurVitesse();
-        }
     }
 
     @Override
-    public void attaquer(Personnage cible) {
-        System.out.println(nom + " attaque " + cible.nom);
-        cible.pointDeVie -= 4;
+    public void attaquer(Monstre cible) {
+        System.out.println(getNom() + " attaque " + cible.getEspece());
+        cible.setPointdeVie(4);
+        System.out.println(cible.getEspece() + " : " + cible.getPointdeVie());
     }
     //Pour après les équipements
     /*public void equiper(Equipement equipement) {
@@ -43,14 +41,14 @@ public class Joueur extends Personnage{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Nom : ").append(nom).append("\n")
+        sb.append("Nom : ").append(getNom()).append("\n")
                 .append("Race : ").append(race.getNom()).append("\n")
                 .append("Classe : ").append(classe.getNom()).append("\n")
-                .append("PV : ").append(pointDeVie).append("\n")
-                .append("Force : ").append(force).append("\n")
-                .append("Dextérité : ").append(dexterite).append("\n")
-                .append("Vitesse : ").append(vitesse).append("\n")
-                .append("Initiative : ").append(initiative).append("\n")
+                .append("PV : ").append(getPointDeVie()).append("\n")
+                .append("Force : ").append(getForce()).append("\n")
+                .append("Dextérité : ").append(getDexterite()).append("\n")
+                .append("Vitesse : ").append(getVitesse()).append("\n")
+                .append("Initiative : ").append(getInitiative()).append("\n")
                 .append("Équipements : \n");
 
         for (Equipement equipement : classe.getEquipements()) {

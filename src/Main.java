@@ -13,18 +13,21 @@ public class Main {
         Races humain = new Humain();
         Races elfe = new Elfe();
         Classe guerrier = new Guerrier();
+        Classe roublard = new Roublard();
 
         // Création des joueurs
         Joueur joueur1 = new Joueur("Arthur", guerrier, humain);
         Joueur joueur2 = new Joueur("Luna", guerrier, elfe);
+        Joueur joueur3 = new Joueur("Yanis", roublard, humain);
 
         // Affichage des joueurs
         System.out.println("==== Joueurs ====");
         System.out.println(joueur1);
         System.out.println();
         System.out.println(joueur2);
+        System.out.println(joueur3);
+        System.out.println();
 
-        joueur2.attaquer(joueur1);
 
         // Affichage des équipements
         List<Equipement> equipements = GestionEquipements.initialiserEquipements();
@@ -36,8 +39,11 @@ public class Main {
         Monstre smolder = new Dragon(1);
         System.out.println(smolder);
 
+        joueur2.attaquer(smolder);
+
         System.out.println("Lancer 2d6 : " + Des.lancerDes("2d6"));
         System.out.println("Lancer 1d8 : " + Des.lancerDes("1d8"));
         System.out.println("Lancer 3d4 : " + Des.lancerDes("3d4"));
+
     }
 }
