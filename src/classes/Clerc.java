@@ -22,6 +22,6 @@ public class Clerc extends Classe {
             }
         }
 
-        GestionEquipements.equiperPremiersObjets(getEquipements());
+
     }
 }

@@ -33,16 +33,22 @@ public class Main {
         Monstre smolder = new Dragon(1);
         System.out.println(smolder);
 
-        // Liste d'équipements disponibles
-        List<Equipement> equipementsDispo = GestionEquipements.initialiserEquipements();
+        GestionEquipements.equiperPremiereArmeEtArmure(joueur1, guerrier.getEquipements());
 
-        // Équiper le joueur 1
-        joueur1.getClasse().equiper(0, equipementsDispo.get(0)); // Armure d'écailles
-        joueur1.getClasse().equiper(1, equipementsDispo.get(6)); // Épée longue
+        // Affichage des infos joueur
+        System.out.println("==== Infos du joueur après équipement ====");
+        System.out.println(joueur1);
+
+        // Affichage des équipements réellement équipés
+        System.out.println("==== Équipements équipés par Arthur ====");
+        List<Equipement> equipe = joueur1.getEquiper();
+        for (Equipement eq : equipe) {
+            System.out.println(" - " + eq.getNom() + " | Force: " + eq.getModificateurForce() + ", Vitesse: " + eq.getModificateurVitesse());
+        }
 
         // Affichage
         System.out.println("==== Équipement de Arthur ====");
-        for (Equipement eq : joueur1.getClasse().getEquiper()) {
+        for (Equipement eq : joueur1.getEquiper()) {
             System.out.println(eq);
         }
 
