@@ -1,5 +1,7 @@
 package monstres;
 
+import personnages.Joueur;
+
 public abstract class Monstre {
     private String espece;
     private int numero;
@@ -26,10 +28,26 @@ public abstract class Monstre {
         this.degats = degats;
     }
 
-    public abstract void attaquer();
+    public abstract void attaquer(Joueur cible);
 
     public String toString() {
         return espece + " #" + numero + " [PV: " + pointDeVie + ", Attaque: " + typeAttaque +
                 ", Dégâts: " + degats + ", Portée: " + portee + "]";
+    }
+
+    public int getPointdeVie() {
+        return pointDeVie;
+    }
+
+    public String getEspece() {
+        return espece;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public int setPointdeVie(int pv) {
+        return pointDeVie -= pv;
     }
 }

@@ -1,5 +1,7 @@
 package monstres;
 
+import personnages.Joueur;
+
 public class Gobelin extends Monstre {
     public Gobelin(int numero) {
         super("Gobelin", numero, 10, 4, 6, 5,
@@ -7,7 +9,7 @@ public class Gobelin extends Monstre {
     }
 
     @Override
-    public void attaquer() {
+    public void attaquer(Joueur cible) {
 
     }
 }

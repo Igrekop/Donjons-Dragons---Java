@@ -1,5 +1,7 @@
 package monstres;
 
+import personnages.Joueur;
+
 public class Squelette extends Monstre {
     public Squelette(int numero) {
         super("Squelette", numero, 15, 5, 0, 4,
@@ -7,7 +9,7 @@ public class Squelette extends Monstre {
     }
 
     @Override
-    public void attaquer() {
+    public void attaquer(Joueur cible) {
 
     }
 }

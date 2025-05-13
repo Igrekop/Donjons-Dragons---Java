@@ -20,11 +20,11 @@ public abstract class Races {
     }
 
     public void appliquerBonus(Personnage personnage) {
-        personnage.pointDeVie += bonusPV;
-        personnage.initiative += bonusInitiative;
-        personnage.force += bonusForce;
-        personnage.dexterite += bonusDexterite;
-        personnage.vitesse += bonusVitesse;
+        personnage.setPointDeVie(bonusPV);
+        personnage.setInitiative(bonusInitiative);
+        personnage.setForce(bonusForce);
+        personnage.setDexterite(bonusDexterite);
+        personnage.setVitesse(bonusVitesse);
     }
 
     public String getNom() {
