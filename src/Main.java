@@ -48,7 +48,7 @@ public class Main {
 
         // Affichage
         System.out.println("==== Équipement de Arthur ====");
-        for (Equipement eq : joueur1.getEquiper()) {
+        for (Equipement eq : joueur1.getClasse().getEquipements()) {
             System.out.println(eq);
         }
 
