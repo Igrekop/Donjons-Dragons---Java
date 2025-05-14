@@ -41,8 +41,6 @@ public class Main {
 
         joueur2.attaquer(smolder);
 
-        GestionEquipements.equiperPremiereArmeEtArmure(joueur1, guerrier.getEquipements());
-
         // Affichage des infos joueur
         System.out.println("==== Infos du joueur après équipement ====");
         System.out.println(joueur1);

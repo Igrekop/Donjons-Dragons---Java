@@ -1,6 +1,4 @@
 package personnages;
-
-
 import equipements.Equipement;
 import monstres.Monstre;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ public abstract class Personnage {
     private int dexterite;
     private int vitesse;
     private int initiative;
-    private Equipement[] equipementEquipe = new Equipement[2];
+    Equipement[] equipementEquipe = new Equipement[2];
 
     public Personnage (String nom, int pointDeVie, int force, int dexterite, int vitesse, int initiative) {
         this.nom = nom;
@@ -86,12 +84,12 @@ public abstract class Personnage {
         pointDeVie = pv;
     }
 
-    public void setForce(int force_change) {
-        force = force_change;
+    public void addPdV(int pv) {
+        pointDeVie += pv;
     }
 
-    public void setForce_change(int force_change) {
-        force += force_change;
+    public void setForce(int force_change) {
+        force = force_change;
     }
 
     public void setVitesse_change(int vitesse_change) {
