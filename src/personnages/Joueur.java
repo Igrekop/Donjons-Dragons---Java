@@ -1,10 +1,13 @@
 package personnages;
 import classes.Classe;
 import equipements.Equipement;
+import equipements.GestionEquipements;
 import monstres.*;
 import races.Races;
 import equipements.Armes.Armes;
 import equipements.Armures.Armure;
+
+import java.util.List;
 
 public class Joueur extends Personnage{
     private Classe classe;
@@ -17,6 +20,7 @@ public class Joueur extends Personnage{
         this.race = race;
 
         race.appliquerBonus(this);
+        GestionEquipements.equiperPremiereArmeEtArmure(this, classe.getEquipements());
     }
 
     @Override
@@ -26,51 +30,34 @@ public class Joueur extends Personnage{
         System.out.println(cible.getEspece() + " : " + cible.getPointdeVie());
     }
 
-    @Override
     public void equiper(Equipement equipement, Object equipe) {
-        int slot = -1;
+        int forceAvant = getForce();
+        int vitesseAvant = getVitesse();
 
+        // Vérifier si l'équipement est déjà équipé et le retirer si nécessaire
         if (equipement instanceof Armes) {
-            slot = 0; // Arme
+            if (equipementEquipe[0] != null) {
+                setForce(getForce() - equipementEquipe[0].getModificateurForce());
+                setVitesse(getVitesse() - equipementEquipe[0].getModificateurVitesse());
+                classe.getEquipements().add(equipementEquipe[0]);
+            }
+            equipementEquipe[0] = equipement;
         } else if (equipement instanceof Armure) {
-            slot = 1; // Armure
-        } else {
-            System.out.println("Type d'équipement inconnu.");
-            return;
+            if (equipementEquipe[1] != null) {
+                setVitesse(getVitesse() - equipementEquipe[1].getModificateurVitesse());
+                classe.getEquipements().add(equipementEquipe[1]);
+            }
+            equipementEquipe[1] = equipement;
         }
 
-        // Si déjà un équipement dans ce slot, retirer ses modificateurs
-        Equipement ancien = getEquiper().size() > slot ? getEquiper().get(slot) : null;
-        if (ancien != null) {
-            this.setForce_change(-(ancien.getModificateurForce()));
-            this.setVitesse_change(-(ancien.getModificateurVitesse()));
-        }
+        // Appliquer les bonus/malus de l'équipement équipé
+        setForce(getForce() + equipement.getModificateurForce());
+        setVitesse(getVitesse() + equipement.getModificateurVitesse());
 
-        super.equiper(slot, equipement); // Appelle la méthode de Personnage
-
-        // Appliquer les modificateurs du nouvel équipement
-        this.setForce_change(equipement.getModificateurForce());
-        this.setVitesse_change(equipement.getModificateurVitesse());
-
-        System.out.println(this.getNom() + " a équipé : " + equipement.getNom());
+        System.out.println("[ÉQUIPEMENT] " + getNom() + " équipe : " + equipement.getNom());
+        System.out.println("Force avant : " + forceAvant + ", Force après : " + getForce());
+        System.out.println("Vitesse avant : " + vitesseAvant + ", Vitesse après : " + getVitesse());
     }
-
-
-
-    //Pour après les équipements
-    /*public void equiper(Equipement equipement) {
-        if (this.equipement != null) {
-            // Déséquiper l'ancien équipement (restauration des stats)
-            this.force -= this.equipement.getModificateurForce();
-            this.vitesse -= this.equipement.getModificateurVitesse();
-        }
-
-        this.equipement = equipement;
-
-        // Appliquer les bonus de l'équipement
-        this.force += equipement.getModificateurForce();
-        this.vitesse += equipement.getModificateurVitesse();
-    }*/
 
 
     @Override

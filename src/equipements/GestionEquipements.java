@@ -48,10 +48,10 @@ public class GestionEquipements {
 
         for (Equipement eq : equipements) {
             if (!armeEquipee && eq instanceof Armes) {
-                personnage.equiper(0, eq); // slot 0 pour arme
+                personnage.equiper(eq, null);  // Utiliser la méthode equiper du joueur
                 armeEquipee = true;
             } else if (!armureEquipee && eq instanceof Armure) {
-                personnage.equiper(1, eq); // slot 1 pour armure
+                personnage.equiper(eq, null);  // Utiliser la méthode equiper du joueur
                 armureEquipee = true;
             }
 

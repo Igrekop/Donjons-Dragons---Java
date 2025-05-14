@@ -11,7 +11,6 @@ public abstract class Classe {
     private int pvDeBase;
     private List<Equipement> equipements;
 
-
     public Classe(String nom, int pvDeBase) {
         this.nom = nom;
         this.pvDeBase = pvDeBase;
@@ -32,8 +31,4 @@ public abstract class Classe {
     public List<Equipement> getEquipements() {
         return equipements;
     }
-
-
-
-
 }
