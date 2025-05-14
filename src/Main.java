@@ -26,8 +26,6 @@ public class Main {
         System.out.println();
         System.out.println(joueur2);
         System.out.println(joueur3);
-        System.out.println();
-
 
         // Affichage des équipements
         List<Equipement> equipements = GestionEquipements.initialiserEquipements();
