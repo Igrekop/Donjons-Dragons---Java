@@ -20,6 +20,7 @@ public class Joueur extends Personnage{
         this.race = race;
 
         race.appliquerBonus(this);
+
         GestionEquipements.equiperPremiereArmeEtArmure(this, classe.getEquipements());
     }
 
