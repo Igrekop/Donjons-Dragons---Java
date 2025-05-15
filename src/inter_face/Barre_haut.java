@@ -28,12 +28,14 @@ public class Barre_haut implements INTERFACE {
         System.out.println(barre);
         System.out.println("Tour " + tour +":");
         for (Object obj : participants) {
-            if (obj instanceof Joueur) {
+            if (obj instanceof Joueur ) {
                 Joueur joueur = (Joueur) obj;
-                System.out.println("      " + joueur.getNom() + " (" + joueur.getClasse().getNom() +" "+ joueur.getRace().getNom() + ")" +" " + joueur.getPointDeVie());
+                String prefixe = (joueur == J0) ? "-> " : "   ";
+                String pseudo = joueur.getNom().substring(0, 3);
+                System.out.println(prefixe  + pseudo + "   " +joueur.getNom() + " (" + joueur.getClasse().getNom() +" "+ joueur.getRace().getNom()  +", " + joueur.getPointDeVie() + ")");
             } else if (obj instanceof Monstre) {
                 Monstre monstre = (Monstre) obj;
-                System.out.println("Monstre: " + monstre.getEspece() + " " + monstre.getPointdeVie());
+                System.out.println("Monstre: " + monstre.getEspece() + ", " + monstre.getPointdeVie());
             }
             // Tu peux ajouter d'autres vérifications si tu as plus de types d'objets à afficher
         }
