@@ -37,7 +37,9 @@ public class Main {
             System.out.println(equipement);
         }
 
-        Monstre smolder = mj.creemonstreperso();
+        Monstre smolder = mj.creemonstre();
+        Monstre smolder2 = mj.creemonstre();
+        System.out.println(smolder);
         System.out.println(smolder);
 
         joueur2.attaquer(smolder);
