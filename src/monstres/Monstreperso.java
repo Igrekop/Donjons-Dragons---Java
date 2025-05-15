@@ -3,10 +3,12 @@ package monstres;
 import Des.Des;
 import personnages.Joueur;
 
-public class Gobelin extends Monstre {
-    public Gobelin(int numero) {
-        super("Gobelin", numero, 10, 4, 0, 5,
-                9, "coup de dague", 1, "1d6");
+public class Monstreperso extends Monstre {
+
+    public Monstreperso(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
+                        int classeArmure, String typeAttaque, int portee, String degats) {
+
+        super(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
     }
 
     public void attaquer(Joueur cible) {
@@ -39,5 +41,3 @@ public class Gobelin extends Monstre {
         }
     }
 }
-
-
