@@ -9,7 +9,6 @@ import personnages.Joueur;
 import races.Elfe;
 import races.Humain;
 import races.Races;
-import monstres.*;
 
 public class Inter_manag {
     public static void main(String[] args) {
@@ -19,11 +18,12 @@ public class Inter_manag {
         Classe guerrier = new Guerrier();
         Classe roublard = new Roublard();
         Maitredujeux mj = new Maitredujeux();
+        map_milieu map = new map_milieu(); // création d'une instance
 
         // Création des joueurs
         Joueur joueur1 = new Joueur("Arthur", guerrier, humain);
         Joueur joueur2 = new Joueur("Luna", guerrier, elfe);
-        Joueur joueur3 = new Joueur("Yanis", roublard, humain);
+        Joueur joueur3 = new Joueur("Sonic", roublard, humain);
 
         List<Object> participants = new ArrayList<>();
         participants.add(joueur1);
@@ -31,6 +31,8 @@ public class Inter_manag {
         participants.add(joueur3);
 
         barreHaut.Affichage(joueur1, 1, participants,2);
+
+        map.Affichage(participants);
 
 
     }
