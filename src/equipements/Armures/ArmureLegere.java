@@ -10,4 +10,13 @@ public class ArmureLegere extends Armure {
         return "Armure légère : " + nom + " [Classe d'armure : " + classeArmure + "]";
     }
 
+    @Override
+    public int getPortee() {
+        return 0;
+    }
+
+    @Override
+    public String getDegats() {
+        return "";
+    }
 }

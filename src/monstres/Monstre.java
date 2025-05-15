@@ -50,4 +50,8 @@ public abstract class Monstre {
     public int setPointdeVie(int pv) {
         return pointDeVie -= pv;
     }
+
+    public int getClasseArmure() {
+        return this.classeArmure;
+    }
 }
