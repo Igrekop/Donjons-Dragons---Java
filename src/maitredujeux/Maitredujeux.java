@@ -89,6 +89,10 @@ public class Maitredujeux {
             espece = scanner.nextLine().trim();
         } while (espece.isEmpty());
 
+        compteurMonstres.putIfAbsent(espece, 0);
+        int numero = compteurMonstres.get(espece) + 1;
+        compteurMonstres.put(espece, numero);
+
         int pointDeVie = saisirEntierPositif("Points de vie : ");
         int portee = saisirEntierMin("Portée de l'attaque (>=1) : ", 1);
         int force = 0;
@@ -112,7 +116,7 @@ public class Maitredujeux {
         System.out.print("Dégâts (ex: 1d6) : ");
         String degats = scanner.nextLine();
 
-        return new Monstreperso(espece, 1, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
+        return new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
     }
 
     private int saisirEntierPositif(String message) {
