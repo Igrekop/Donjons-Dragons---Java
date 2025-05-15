@@ -8,4 +8,9 @@ public class ArmeCourante extends Armes {
     public String toString() {
         return "Arme Courante : " + nom + " [Déqâts : " + degats + "]";
     }
+
+    @Override
+    public int getClasseArmure() {
+        return 0;
+    }
 }

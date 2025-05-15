@@ -19,4 +19,9 @@ public class ArmureLegere extends Armure {
     public String getDegats() {
         return "";
     }
+
+    @Override
+    public int getClasseArmure() {
+        return classeArmure;
+    }
 }

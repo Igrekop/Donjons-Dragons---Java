@@ -25,4 +25,9 @@ public class ArmureLourde extends Armure {
         return "Armure lourde : " + nom + " [Classe d'armure : " + classeArmure + "]";
     }
 
+    @Override
+    public int getClasseArmure() {
+        return classeArmure;
+    }
+
 }

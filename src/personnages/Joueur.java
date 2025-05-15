@@ -26,7 +26,7 @@ public class Joueur extends Personnage{
     }
 
     public void attaquer(Monstre cible) {
-        System.out.println(getNom() + " attaque " + cible.getEspece());
+        System.out.println(getNom() + " attaque " + cible.getEspece() + " avec " + getEquiper().getFirst().getNom() + " !");
 
         int jetAttaque = Des.lancerDes("1d20");
         int modificateur = 0;
