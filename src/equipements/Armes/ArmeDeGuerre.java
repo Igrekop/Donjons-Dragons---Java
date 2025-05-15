@@ -15,6 +15,11 @@ public class ArmeDeGuerre extends Armes {
         return 4;   // Augmentation de la force
     }
 
+    @Override
+    public int getClasseArmure() {
+        return 0;
+    }
+
     public String toString() {
         return "Arme de guerre : " + nom + " [Déqâts : " + degats + "]";
     }

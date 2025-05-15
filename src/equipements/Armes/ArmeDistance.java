@@ -8,4 +8,9 @@ public class ArmeDistance extends Armes {
     public String toString() {
         return "Arme à distance : " + nom + " [Déqâts : " + degats +  ", Portée : " + portee + "]";
     }
+
+    @Override
+    public int getClasseArmure() {
+        return 0;
+    }
 }

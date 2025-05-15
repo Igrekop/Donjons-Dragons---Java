@@ -1,6 +1,7 @@
 package monstres;
 
 import personnages.Joueur;
+import Des.*;
 
 public abstract class Monstre {
     private String espece;
@@ -30,6 +31,7 @@ public abstract class Monstre {
 
     public abstract void attaquer(Joueur cible);
 
+
     public String toString() {
         return espece + " #" + numero + " [PV: " + pointDeVie + ", Attaque: " + typeAttaque +
                 ", Dégâts: " + degats + ", Portée: " + portee + "]";
@@ -38,6 +40,14 @@ public abstract class Monstre {
     public int getPointdeVie() {
         return pointDeVie;
     }
+
+    public String getDegats() {return degats;}
+
+    public int getForce() {return force;}
+
+    public int getPortee() {return portee;}
+
+    public String getTypeAttaque() {return typeAttaque;}
 
     public String getEspece() {
         return espece;

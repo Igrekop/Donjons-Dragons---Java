@@ -38,6 +38,8 @@ public class Main {
         System.out.println(smolder);
 
         joueur2.attaquer(smolder);
+        smolder.attaquer(joueur2);
+
 
         // Affichage des infos joueur
         System.out.println("==== Infos du joueur après équipement ====");
@@ -59,5 +61,6 @@ public class Main {
         System.out.println("Lancer 2d6 : " + Des.lancerDes("2d6"));
         System.out.println("Lancer 1d8 : " + Des.lancerDes("1d8"));
         System.out.println("Lancer 3d4 : " + Des.lancerDes("3d4"));
+
     }
 }

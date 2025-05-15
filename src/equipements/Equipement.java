@@ -7,4 +7,5 @@ public interface Equipement {
     int getModificateurForce();
     int getPortee();
     String getDegats();
+    int getClasseArmure();
 }
