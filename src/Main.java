@@ -46,7 +46,7 @@ public class Main {
         smolder.attaquer(joueur2);
 
 
-        // Affichage des infos joueur
+        // Affichage des infos joueur4
         System.out.println("==== Infos du joueur après équipement ====");
         System.out.println(joueur1);
 
