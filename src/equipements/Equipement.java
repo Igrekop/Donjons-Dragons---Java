@@ -5,4 +5,6 @@ public interface Equipement {
     String getType();
     int getModificateurVitesse();
     int getModificateurForce();
+    int getPortee();
+    String getDegats();
 }

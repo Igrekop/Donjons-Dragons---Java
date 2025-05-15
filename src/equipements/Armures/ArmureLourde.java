@@ -11,6 +11,16 @@ public class ArmureLourde extends Armure {
     }
 
     @Override
+    public int getPortee() {
+        return 0;
+    }
+
+    @Override
+    public String getDegats() {
+        return "";
+    }
+
+    @Override
     public String toString() {
         return "Armure lourde : " + nom + " [Classe d'armure : " + classeArmure + "]";
     }

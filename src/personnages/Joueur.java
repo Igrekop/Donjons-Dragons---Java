@@ -6,6 +6,7 @@ import monstres.*;
 import races.Races;
 import equipements.Armes.Armes;
 import equipements.Armures.Armure;
+import Des.*;
 
 import java.util.List;
 
@@ -24,12 +25,44 @@ public class Joueur extends Personnage{
         GestionEquipements.equiperPremiereArmeEtArmure(this, classe.getEquipements());
     }
 
-    @Override
     public void attaquer(Monstre cible) {
         System.out.println(getNom() + " attaque " + cible.getEspece());
-        cible.setPointdeVie(4);
-        System.out.println(cible.getEspece() + " : " + cible.getPointdeVie());
+
+        int jetAttaque = Des.lancerDes("1d20");
+        int modificateur = 0;
+        int degats = 0;
+
+        // Vérification du type d'arme
+        Equipement arme = equipementEquipe[0];
+        if (arme != null) {
+            if (arme.getType().contains("Arme à distance")) {
+                modificateur = getDexterite();
+            } else if (arme.getType().contains("Arme de guerre") || arme.getType().contains("Arme courante")) {
+                modificateur = getForce();
+            }
+        }
+
+        jetAttaque += modificateur;
+        System.out.println("Jet d'attaque : " + jetAttaque);
+
+        // Vérification de la portée
+        if (arme != null && arme.getPortee() < 2) {
+            System.out.println("L'arme est de corps-à-corps, portée : 1 case");
+        }
+
+        if (jetAttaque > cible.getClasseArmure()) {
+            System.out.println("Attaque réussie!");
+            if (arme != null) {
+                degats = Des.lancerDes(arme.getDegats());
+            }
+            System.out.println("Dégâts infligés : " + degats);
+            cible.setPointdeVie(degats);
+            System.out.println(cible.getEspece() + " PV restants : " + cible.getPointdeVie());
+        } else {
+            System.out.println("Attaque échouée!");
+        }
     }
+
 
     public void equiper(Equipement equipement, Object equipe) {
         int forceAvant = getForce();
