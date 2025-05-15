@@ -1,6 +1,7 @@
 package races;
 
 import personnages.*;
+import Des.*;
 
 public abstract class Races {
     public String nom;
@@ -21,10 +22,10 @@ public abstract class Races {
 
     public void appliquerBonus(Personnage personnage) {
         personnage.addPdV(bonusPV);
-        personnage.setInitiative(bonusInitiative);
-        personnage.setForce(bonusForce);
-        personnage.setDexterite(bonusDexterite);
-        personnage.setVitesse(bonusVitesse);
+        personnage.setInitiative(Des.lancerDes("4d4") + 3 + bonusInitiative);
+        personnage.setForce(Des.lancerDes("4d4") + 3 + bonusForce);
+        personnage.setDexterite(Des.lancerDes("4d4") + 3 + bonusDexterite);
+        personnage.setVitesse(Des.lancerDes("4d4") + 3 + bonusVitesse);
     }
 
     public String getNom() {
