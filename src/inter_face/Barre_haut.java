@@ -5,19 +5,11 @@ import monstres.*;
 import java.util.List;
 
 
-public class Barre_haut implements INTERFACE {
+public class Barre_haut {
     private static final String barre = "********************************************************************************"; // 1
 
 
-    @Override
-    public void Affichage() {
-        System.out.println(barre);
-    }
 
-    @Override
-    public void MaJ() {
-
-    }
 
     public void Affichage(Joueur J0, int donj, List<Object> participants, int tour) {
         System.out.println(barre);
