@@ -1,7 +1,9 @@
 import classes.*;
 import equipements.*;
+import maitredujeux.Maitredujeux;
 import monstres.Dragon;
 import monstres.Monstre;
+import monstres.Squelette;
 import personnages.*;
 import races.*;
 import Des.*;
@@ -14,6 +16,7 @@ public class Main {
         Races elfe = new Elfe();
         Classe guerrier = new Guerrier();
         Classe roublard = new Roublard();
+        Maitredujeux mj = new Maitredujeux();
 
         // Création des joueurs
         Joueur joueur1 = new Joueur("Arthur", guerrier, humain);
@@ -34,7 +37,7 @@ public class Main {
             System.out.println(equipement);
         }
 
-        Monstre smolder = new Dragon(1);
+        Monstre smolder = mj.creemonstreperso();
         System.out.println(smolder);
 
         joueur2.attaquer(smolder);

@@ -17,7 +17,7 @@ public class Dragon extends Monstre {
         int modificateur = 0;
         int degats = 0;
 
-        if (getPortee() == 0) {
+        if (getPortee() == 1) {
             modificateur = getForce();
             System.out.println("L'attaque est corps à corps !");
         } else {
