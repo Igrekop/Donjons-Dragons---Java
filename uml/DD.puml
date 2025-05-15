@@ -225,7 +225,41 @@ package Armures {
 }
 }
 
+package inter_face {
 
+
+    class Barre_haut  {
+        -static final String barre
+        +void Affichage(Joueur J0, int donj, List<Object> participants, int tour)
+        +void SAL(int nb)
+    }
+
+
+
+    class map_milieu {
+            - static final String letters
+            - String[][] map
+            + void Affichage(List<Object> participants)
+        }
+
+    class Inter_manag {
+                +main(String[] args)
+        }
+
+
+
+         Inter_manag --> Barre_haut
+         Inter_manag --> map_milieu
+
+
+}
+
+Inter_manag --> Joueur
+Inter_manag --> Maitredujeux
+map_milieu --> Joueur
+         map_milieu --> Monstre
+         Barre_haut --> Joueur
+         Barre_haut --> Monstre
 Joueur --> equipements.Equipement
 Joueur --> classes.Classe
 Joueur --> races.Races
