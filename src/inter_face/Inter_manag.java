@@ -18,7 +18,7 @@ public class Inter_manag {
         Classe guerrier = new Guerrier();
         Classe roublard = new Roublard();
         Maitredujeux mj = new Maitredujeux();
-        map_milieu map = new map_milieu(); // création d'une instance
+        map_milieu map = new map_milieu(18,24); // création d'une instance
 
         // Création des joueurs
         Joueur joueur1 = new Joueur("Arthur", guerrier, humain);
