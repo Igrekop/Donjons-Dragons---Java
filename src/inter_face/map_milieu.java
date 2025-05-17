@@ -6,10 +6,10 @@ import personnages.Joueur;
 import java.util.List;
 
 public class map_milieu {
-    private final String letters;
-    private final String[][] map;
-    private final int rows;
-    private final int cols;
+    private  String letters;
+    private  String[][] map;
+    private  int rows;
+    private int cols;
 
     public map_milieu(int rows, int cols) {
         this.rows = rows;
