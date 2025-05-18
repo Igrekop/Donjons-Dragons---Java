@@ -25,4 +25,13 @@ public class ArmeDeGuerre extends Armes {
     public String toString() {
         return "Arme de guerre : " + getNom() + " [Dégâts : " + getDegats() + "]";
     }
+
+    @Override
+    public boolean estArme() {
+        return true;
+    }
+    @Override
+    public boolean estArmure() {
+        return false;
+    }
 }
