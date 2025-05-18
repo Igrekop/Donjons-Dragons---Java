@@ -156,6 +156,9 @@ package equipements {
         + getType(): String
         + getModificateurVitesse(): int
         + getModificateurForce(): int
+        + getPortee(): int
+        + getDegats(): String
+        + getClasseArmure(): int
     }
 
     interface EquipementDeBase {
@@ -165,7 +168,10 @@ package equipements {
     class GestionEquipements {
         + initialiserEquipements(): List<Equipement>
         + afficherEquipements(List<Equipement>): void
+        + equiperPremiereArmeEtArmure(personnage: Personnage, equipements: List<Equipement>)
     }
+
+
 
     EquipementDeBase <|-- GestionEquipements
 
@@ -188,17 +194,20 @@ package Armes {
     class ArmeCourante {
         + ArmeCourante(nom: String, degats: String)
         + toString(): String
+        + getClasseArmure(): int Override
     }
 
     class ArmeDistance {
         + ArmeDistance(nom: String, degats: String, portee: int)
         + toString(): String
+        + getClasseArmure(): int Override
     }
 
     class ArmeDeGuerre {
         + ArmeDeGuerre(nom: String, degats: String)
-        + getModificateurVitesse(): int
-        + getModificateurForce(): int
+        + getModificateurVitesse(): int Override
+        + getModificateurForce(): int Override
+        + getClasseArmure(): int Override
         + toString(): String
     }
 
@@ -216,20 +225,26 @@ package Armures {
         + Armure(String nom, int classeArmure, String type)
         + getNom(): String
         + getType(): String
-        + getClasseArmure(): int
-        + getModificateurVitesse(): int
-        + getModificateurForce(): int
+        + getClasseArmure(): int Override
+        + getModificateurVitesse(): int Override
+        + getModificateurForce(): int Override
     }
 
     class ArmureLegere {
         + ArmureLegere(nom: String, classeArmure: int)
-        + toString(): String
+        + toString(): String Override
+        + getPortee(): int Override
+        + getDegats(): String Override
+        + getClasseArmure(): int Override
     }
 
     class ArmureLourde {
         + ArmureLourde(nom: String, classeArmure: int)
-        + getModificateurVitesse(): int
-        + toString(): String
+        + getModificateurVitesse(): int «override»
+        + getPortee(): int Override
+        + getDegats(): String Override
+        + toString(): String Override
+        + getClasseArmure(): int Override
     }
 
     Armure <|-- ArmureLegere
