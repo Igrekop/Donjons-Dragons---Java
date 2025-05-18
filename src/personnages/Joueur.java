@@ -56,8 +56,8 @@ public class Joueur extends Personnage{
                 degats = Des.lancerDes(arme.getDegats());
             }
             System.out.println("Dégâts infligés : " + degats);
-            cible.setPointdeVie(degats);
-            System.out.println(cible.getEspece() + " PV restants : " + cible.getPointdeVie());
+            cible.subirDegats(degats);
+            System.out.println(cible.getEspece() + " PV restants : " + cible.getPointDeVie());
         } else {
             System.out.println("Attaque échouée!");
         }
@@ -121,4 +121,9 @@ public class Joueur extends Personnage{
     public Races getRace() {
         return race;
     }
+
+    public int getClasseArmureActuelle() {
+        return this.getEquiper().getLast().getClasseArmure();
+    }
+
 }

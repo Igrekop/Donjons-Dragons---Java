@@ -27,7 +27,7 @@ public class Barre_haut {
                 System.out.println(prefixe  + pseudo + "   " +joueur.getNom() + " (" + joueur.getClasse().getNom() +" "+ joueur.getRace().getNom()  +", " + joueur.getPointDeVie() + ")");
             } else if (obj instanceof Monstre) {
                 Monstre monstre = (Monstre) obj;
-                System.out.println("Monstre: " + monstre.getEspece() + ", " + monstre.getPointdeVie());
+                System.out.println("Monstre: " + monstre.getEspece() + ", " + monstre.getPointDeVie());
             }
             // Tu peux ajouter d'autres vérifications si tu as plus de types d'objets à afficher
         }
