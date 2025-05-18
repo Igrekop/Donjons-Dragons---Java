@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String args[]) {
+        List<Equipement> equipementsDisponibles = GestionEquipements.initialiserEquipements();
         Races humain = new Humain();
         Races elfe = new Elfe();
         Classe guerrier = new Guerrier();
