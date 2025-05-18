@@ -7,28 +7,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Classe {
-    private String nom;
-    private int pvDeBase;
-    private List<Equipement> equipements;
+    private String m_nom;
+    private int m_pvDeBase;
+    private List<Equipement> m_equipements;
 
     public Classe(String nom, int pvDeBase) {
-        this.nom = nom;
-        this.pvDeBase = pvDeBase;
-        equipements = GestionEquipements.initialiserEquipements();
+        this.m_nom = nom;
+        this.m_pvDeBase = pvDeBase;
+        m_equipements = GestionEquipements.initialiserEquipements();
         genererEquipementDeBase();
     }
 
     protected abstract void genererEquipementDeBase();
 
     public String getNom() {
-        return nom;
+        return m_nom;
     }
 
     public int getPvDeBase() {
-        return pvDeBase;
+        return m_pvDeBase;
     }
 
     public List<Equipement> getEquipements() {
-        return equipements;
+        return m_equipements;
+    }
+
+    @Override
+    public String toString() {
+        return "Classe: " + m_nom + ", PV de base: " + m_pvDeBase + ", Equipements: " + m_equipements;
     }
 }
