@@ -38,8 +38,8 @@ public class Main {
             System.out.println(equipement);
         }
 
-        Monstre smolder = mj.creemonstre();
-        Monstre smolder2 = mj.creemonstre();
+        Monstre smolder = mj.creerMonstre();
+        Monstre smolder2 = mj.creerMonstre();
         System.out.println(smolder);
         System.out.println(smolder2);
 
