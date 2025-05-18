@@ -119,28 +119,35 @@ package monstres {
         - int portee
         - String degats
         + Monstre(...)
-        + attaquer()
+        + attaquer(cible: Personnage)
         + toString(): String
     }
 
-    class Squelette {
+    class Squelette extends Monstre {
         + Squelette(numero: int)
-        + attaquer(): void
+        + attaquer(cible: Personnage): void
     }
 
-    class Dragon {
+    class Dragon extends Monstre {
         + Dragon(numero: int)
-        + attaquer(): void
+        + attaquer(cible: Personnage): void
     }
 
-    class Gobelin {
+    class Gobelin extends Monstre {
         + Gobelin(numero: int)
-        + attaquer(): void
+        + attaquer(cible: Personnage): void
+    }
+
+    class Monstreperso extends Monstre {
+        + Monstreperso(espece: int,numero: int,pointDeVie: int,force: int,dexterite: int,initiative: int,
+                                classeArmure: int,typeAttaque: String,portee:int ,degats: int)
+        + attaquer(cible: Personnage)
     }
 
     Monstre <|-- Squelette
     Monstre <|-- Dragon
     Monstre <|-- Gobelin
+    Monstre <|-- Monstreperso
 }
 
 package equipements {
