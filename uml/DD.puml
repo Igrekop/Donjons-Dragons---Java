@@ -253,6 +253,18 @@ package Armures {
 }
 }
 
+package Des {
+class Des {
+    - random : Random
+    - DICE_FACES : String[]
+    - lancerDes(nombreFaces: int, nombreDes: int): int
+    - printDiceFace(num: int, faces: int): void
+    + lancerDes(notation: String): int
+    + lancerDesAvecAnimation(notation: String): void
+    + main(args: String[]): void
+}
+}
+
 package inter_face {
 
 
