@@ -35,26 +35,46 @@ package races {
 }
 
 package personnages {
-    abstract class Personnage {
-        - String nom
-        - int pointDeVie
-        - int force
-        - int dexterite
-        - int vitesse
-        - int initiative
-        + attaquer(Personnage cible)
-        + toString(): String
-    }
+   abstract class Personnage {
+            - nom : String
+            - pointDeVie : int
+            - force : int
+            - dexterite : int
+            - vitesse : int
+            - initiative : int
+            - equipementEquipe : Equipement[]
+            + Personnage(nom: String, pointDeVie: int, force: int, dexterite: int, vitesse: int, initiative: int)
+            + attaquer(cible: Monstre) : void
+            + equiper(slot: int, equipement: Equipement) : void
+            + equiper(equipement: Equipement, equipe: Object) : void
+            + getEquiper() : List<Equipement>
+            + toString() : String
+            + getNom() : String
+            + getPointDeVie() : int
+            + getForce() : int
+            + getDexterite() : int
+            + getVitesse() : int
+            + getInitiative() : int
+            + setNom(nom : String) : void
+            + setPointDeVie(pv : int) : void
+            + addPdV(pv : int) : void
+            + setForce(force : int) : void
+            + setVitesse_change(vitesse : int) : void
+            + setDexterite(dex : int) : void
+            + setVitesse(vitesse : int) : void
+            + setInitiative(initiative : int) : void
+        }
 
     class Joueur {
-        - Classe classe
-        - Races race
-        + Joueur(String nom, Classe classe, Races race)
-        + attaquer(Personnage cible)
-        + toString(): String
-        + getClasse(): Classe
-        + getRace(): Races
-    }
+            - classe : Classe
+            - race : Races
+            + Joueur(nom: String, classe: Classe, race: Races)
+            + attaquer(cible: Monstre) : void
+            + equiper(equipement: Equipement, equipe: Object) : void
+            + toString() : String
+            + getClasse() : Classe
+            + getRace() : Races
+        }
 
     Personnage <|-- Joueur
     
@@ -265,6 +285,22 @@ class Des {
 }
 }
 
+package maitredujeux {
+    class Maitredujeux {
+        - lignes : ArrayList<String>
+        - compteurMonstres : Map<String, Integer>
+        - especesPerso : ArrayList<String>
+        + Maitredujeux()
+        + ajouterLignes(ligne: String) : void
+        + afficherligne() : void
+        + creemonstre() : Monstre
+        + creemonstreperso() : Monstreperso
+        - creerMonstreEspece(espece: String) : Monstre
+        - saisirEntierPositif(message: String) : int
+        - saisirEntierMin(message: String, min: int) : int
+    }
+}
+
 package inter_face {
 
 
@@ -314,5 +350,10 @@ Joueur --> races.Races
 Races --> Personnage
 Classe --> "0..*" equipements.Equipement : "utilise"
 Classe --> equipements.GestionEquipements : "gère"
+Maitredujeux --> Monstre : utilise
+Maitredujeux --> Monstreperso : crée
+Maitredujeux --> Gobelin : crée
+Maitredujeux --> Dragon : crée
+Maitredujeux --> Squelette : crée
 
 @enduml
