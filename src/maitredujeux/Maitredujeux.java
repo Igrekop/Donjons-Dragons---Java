@@ -13,6 +13,8 @@ public class Maitredujeux {
     private Map<String, Integer> m_compteurMonstres;
     private ArrayList<String> m_especesPerso;
     private final Scanner m_scanner;
+    private Map<String, Monstreperso> m_monstresPersonnalises = new HashMap<>();
+
 
     public Maitredujeux() {
         m_lignes = new ArrayList<>();
@@ -83,7 +85,23 @@ public class Maitredujeux {
             case "gobelin": return new Gobelin(numero);
             case "dragon": return new Dragon(numero);
             case "squelette": return new Squelette(numero);
-            default: return new Monstreperso(espece, numero, 50, 10, 10, 10, 10, "attaque basique", 1, "1d6");
+            default:
+                Monstreperso modele = m_monstresPersonnalises.get(espece);
+                if (modele != null) {
+                    return new Monstreperso(
+                            modele.getEspece(),
+                            numero,
+                            modele.getPointDeVie(),
+                            modele.getForce(),
+                            modele.getDexterite(),
+                            modele.getInitiative(),
+                            modele.getClasseArmure(),
+                            modele.getTypeAttaque(),
+                            modele.getPortee(),
+                            modele.getDegats()
+                    );
+                }
+                return new Monstreperso(espece, numero, 50, 10, 10, 10, 10, "attaque basique", 1, "1d6");
         }
     }
 
@@ -122,6 +140,9 @@ public class Maitredujeux {
 
         System.out.print("Dégâts (ex: 1d6) : ");
         String degats = m_scanner.nextLine();
+
+        Monstreperso m = new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
+        m_monstresPersonnalises.put(espece, m);
 
         return new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
     }

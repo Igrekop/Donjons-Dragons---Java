@@ -88,4 +88,15 @@ public abstract class Monstre {
     public int getClasseArmure() {
         return m_classeArmure;
     }
+
+    public int getInitiative() {
+        return m_initiative;
+    }
+
+    public boolean estMort() {
+        if (this.getPointDeVie() <= 0) {
+            return true;
+        }
+        else {return false;}
+    }
 }
