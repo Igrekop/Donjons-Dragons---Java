@@ -66,14 +66,25 @@ package personnages {
         }
 
     class Joueur {
-            - classe : Classe
-            - race : Races
-            + Joueur(nom: String, classe: Classe, race: Races)
-            + attaquer(cible: Monstre) : void
-            + equiper(equipement: Equipement, equipe: Object) : void
-            + toString() : String
-            + getClasse() : Classe
-            + getRace() : Races
+            - Classe m_classe
+            - Races m_race
+            - ArrayList<Equipement> m_inventaire
+            - int posX
+            - int posY
+
+            + Joueur(String nom, Classe classe, Races race)
+            + void attaquer(Monstre cible)
+            + void equiper(Equipement equipement, Object equipe)
+            + void ajouterEquipement(Equipement equipement)
+            + void afficherInventaire()
+            + int getClasseArmureActuelle()
+            + void setPosition(int x, int y)
+            + void seDeplacer(String direction, map_milieu map)
+            + void ramasserEquipement(map_milieu map)
+            + String toString()
+            + Classe getClasse()
+            + Races getRace()
+            + ArrayList<Equipement> getEquipements()
         }
 
     Personnage <|-- Joueur
@@ -306,17 +317,14 @@ package maitredujeux {
 
 package inter_face {
 
-
     class Barre_haut  {
-        -static final String barre
-        +void Affichage(Joueur J0, int donj, List<Object> participants, int tour)
-        +void SAL(int nb)
-    }
+            - static final String barre
+            + void Affichage(Joueur J0, int donj, List<Object> participants, int tour)
+            + void SAL(int nb)
+        }
 
-
-
-    class map_milieu {
-            - String[][] map
+        class map_milieu {
+            - Case[][] map
             - letters: String
             - rows: int
             - cols: int
@@ -325,12 +333,24 @@ package inter_face {
             + isValidPosition(int row, int col): boolean
             + map_milieu(int rows, int cols)
             + addObstacle(int row, int col): void
-            + addEquipment(int row, int col): void
+            + addEquipement(int row, int col, Equipement e): void
             + Affichage(List<Object> participants): void
         }
 
-    class Inter_manag {
-                +main(String[] args)
+        class Inter_manag {
+            + main(String[] args)
+        }
+
+        class Obstacle() {
+            +toString()
+        }
+
+        class Case {
+            - contenu : Object
+            + getContenu(): Object
+            + setContenu(Object contenu): void
+            + estVide(): boolean
+            + afficher(): String
         }
 
 

@@ -52,7 +52,7 @@ public class Main {
         Joueur joueurActif = joueur1;
 
         barreHaut.Affichage(joueurActif, numeroDonjon, participants, tourActuel);
-        map.Affichage(participants);
+        map.Print(participants);
 
         // 8. Tour par tour (simulation de 3 tours ici)
         for (int tour = 1; tour <= 3; tour++) {
@@ -69,7 +69,7 @@ public class Main {
 
             // Affichage mis à jour à la fin du tour
             barreHaut.Affichage(joueurActif, numeroDonjon, participants, tour + 1);
-            map.Affichage(participants);
+            map.Print(participants);
         }
 
         System.out.println("\nPartie terminée !");

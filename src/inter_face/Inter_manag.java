@@ -32,7 +32,11 @@ public class Inter_manag {
 
         barreHaut.Affichage(joueur1, 1, participants,2);
 
-        map.Affichage(participants);
+        map.addObstacle(15,12);
+        map.addObstacle(15,14);
+        map.addEquipment(14,12);
+
+        map.Print(participants);
 
 
     }
