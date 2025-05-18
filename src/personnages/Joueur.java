@@ -3,6 +3,7 @@ package personnages;
 import classes.Classe;
 import equipements.Equipement;
 import equipements.GestionEquipements;
+import inter_face.map_milieu;
 import monstres.*;
 import races.Races;
 import equipements.Armes.Armes;
@@ -16,6 +17,8 @@ public class Joueur extends Personnage {
     private Classe m_classe;
     private Races m_race;
     private ArrayList<Equipement> m_inventaire;
+    private int posX;
+    private int posY;
 
 
     public Joueur(String nom, Classe classe, Races race) {
@@ -182,5 +185,60 @@ public class Joueur extends Personnage {
     public ArrayList<Equipement> getEquipements() {
         return m_inventaire;
     }
+
+    public void setPosition(int x, int y) {
+        this.posX = x;
+        this.posY = y;
+    }
+
+    public void seDeplacer(String direction, map_milieu map) {
+        int newX = posX;
+        int newY = posY;
+
+        switch (direction.toLowerCase()) {
+            case "haut":
+                newX--;
+                break;
+            case "bas":
+                newX++;
+                break;
+            case "gauche":
+                newY--;
+                break;
+            case "droite":
+                newY++;
+                break;
+            default:
+                System.out.println("Direction invalide.");
+                return;
+        }
+
+        if (map.isValidPositionAndFree(newX, newY)) {
+            // Vider l'ancienne case
+            map.videCase(posX, posY);
+            // Mettre à jour la position
+            posX = newX;
+            posY = newY;
+            // Mettre le joueur à la nouvelle case
+            map.UpdateCae(posX, posY, getNom().substring(0, Math.min(3, getNom().length())));
+            System.out.println(getNom() + " se déplace vers " + direction + ".");
+        } else {
+            System.out.println("Déplacement impossible vers " + direction + ".");
+        }
+    }
+
+    public void ramasserEquipement(map_milieu map) {
+        Equipement equip = map.recupererEquipement(posX, posY);
+        if (equip != null) {
+            ajouterEquipement(equip);
+            System.out.println(getNom() + " a ramassé : " + equip.getNom() + " en (" + posX + ", " + posY + ").");
+        } else {
+            System.out.println("Pas d'équipement à récupérer à cette position.");
+        }
+    }
+
+
+
+
 
 }
