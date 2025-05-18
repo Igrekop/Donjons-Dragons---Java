@@ -29,7 +29,6 @@ public class Barre_haut {
                 Monstre monstre = (Monstre) obj;
                 System.out.println("Monstre: " + monstre.getEspece() + ", " + monstre.getPointDeVie());
             }
-            // Tu peux ajouter d'autres vérifications si tu as plus de types d'objets à afficher
         }
 
 
