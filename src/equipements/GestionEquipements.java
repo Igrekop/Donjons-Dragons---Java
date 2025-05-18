@@ -1,4 +1,5 @@
 package equipements;
+
 import equipements.Armes.*;
 import equipements.Armures.*;
 import personnages.Personnage;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestionEquipements {
+
     public static List<Equipement> initialiserEquipements() {
         List<Equipement> equipements = new ArrayList<>();
 
@@ -34,32 +36,28 @@ public class GestionEquipements {
         return equipements;
     }
 
-    public static void afficherEquipements(List<Equipement> equipements) {
-        System.out.println("Liste des équipements disponibles :\n");
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Liste des équipements disponibles :\n");
+        List<Equipement> equipements = initialiserEquipements();
         for (Equipement equipement : equipements) {
-            System.out.println(equipement);
+            sb.append(equipement.getNom()).append(" - ").append(equipement.getType()).append("\n");
         }
-
+        return sb.toString();
     }
 
     public static void equiperPremiereArmeEtArmure(Personnage personnage, List<Equipement> equipements) {
-        boolean armeEquipee = false;
-        boolean armureEquipee = false;
+        Equipement arme = null;
+        Equipement armure = null;
 
         for (Equipement eq : equipements) {
-            if (!armeEquipee && eq instanceof Armes) {
-                personnage.equiper(eq, null);  // Utiliser la méthode equiper du joueur
-                armeEquipee = true;
-            } else if (!armureEquipee && eq instanceof Armure) {
-                personnage.equiper(eq, null);  // Utiliser la méthode equiper du joueur
-                armureEquipee = true;
+            if (arme == null && eq.getType().contains("Arme")) {
+                arme = eq;
+            } else if (armure == null && eq.getType().contains("Armure")) {
+                armure = eq;
             }
-
-            if (armeEquipee && armureEquipee) break;
+            if (arme != null && armure != null) break;
         }
+        if (arme != null) personnage.equiper(arme, null);
+        if (armure != null) personnage.equiper(armure, null);
     }
-
-
-
-
 }

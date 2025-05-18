@@ -1,6 +1,7 @@
 package equipements.Armures;
 
 public class ArmureLourde extends Armure {
+
     public ArmureLourde(String nom, int classeArmure) {
         super(nom, classeArmure, "Armure lourde");
     }
@@ -17,17 +18,16 @@ public class ArmureLourde extends Armure {
 
     @Override
     public String getDegats() {
-        return "";
+        return "Aucun";
     }
 
     @Override
     public String toString() {
-        return "Armure lourde : " + nom + " [Classe d'armure : " + classeArmure + "]";
+        return "Armure lourde : " + getNom() + " [Classe d'armure : " + getClasseArmure() + "]";
     }
 
     @Override
     public int getClasseArmure() {
-        return classeArmure;
+        return super.getClasseArmure();
     }
-
 }
