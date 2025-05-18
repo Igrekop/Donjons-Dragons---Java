@@ -237,7 +237,6 @@ package inter_face {
 
 
     class map_milieu {
-            - static  String letters
             - String[][] map
             - letters: String
             - rows: int
