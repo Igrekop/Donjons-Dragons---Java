@@ -80,7 +80,7 @@ public class Main {
             map_milieu map = new map_milieu(20, 20);
             System.out.println("\n=== Début du donjon ===");
             barre.Affichage(joueurs.get(0), 1, participants, 1);
-            map.Affichage(participants);
+            map.Print(participants);
 
             int index = 0;
             while (true) {

@@ -195,10 +195,6 @@ package equipements {
 
     }
 
-    interface EquipementDeBase {
-        + genererEquipementDeBase() : void
-    }
-
     class GestionEquipements {
         + initialiserEquipements(): List<Equipement>
         + afficherEquipements(List<Equipement>): void
@@ -207,7 +203,6 @@ package equipements {
 
 
 
-    EquipementDeBase <|-- GestionEquipements
 
 
 package Armes {
