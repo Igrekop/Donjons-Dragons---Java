@@ -1,4 +1,5 @@
 package personnages;
+
 import classes.Classe;
 import equipements.Equipement;
 import equipements.GestionEquipements;
@@ -10,10 +11,9 @@ import Des.*;
 
 import java.util.List;
 
-public class Joueur extends Personnage{
+public class Joueur extends Personnage {
     private Classe classe;
     private Races race;
-
 
     public Joueur(String nom, Classe classe, Races race) {
         super(nom, classe.getPvDeBase(), 0, 0, 0, 0);
@@ -26,13 +26,12 @@ public class Joueur extends Personnage{
     }
 
     public void attaquer(Monstre cible) {
-        System.out.println(getNom() + " attaque " + cible.getEspece() + " avec " + getEquiper().getFirst().getNom() + " !");
+        afficherAttaque(getNom(), cible.getEspece(), getEquiper().getFirst().getNom());
 
         int jetAttaque = Des.lancerDes("1d20");
         int modificateur = 0;
         int degats = 0;
 
-        // Vérification du type d'arme
         Equipement arme = equipementEquipe[0];
         if (arme != null) {
             if (arme.getType().contains("Arme à distance")) {
@@ -43,40 +42,38 @@ public class Joueur extends Personnage{
         }
 
         jetAttaque += modificateur;
-        System.out.println("Jet d'attaque : " + jetAttaque);
+        afficherJetAttaque(jetAttaque);
 
-        // Vérification de la portée
         if (arme != null && arme.getPortee() < 2) {
-            System.out.println("L'arme est de corps-à-corps, portée : 1 case");
+            afficherPortee(1);
         }
 
         if (jetAttaque > cible.getClasseArmure()) {
-            System.out.println("Attaque réussie!");
+            afficherAttaqueReussie();
             if (arme != null) {
                 degats = Des.lancerDes(arme.getDegats());
             }
-            System.out.println("Dégâts infligés : " + degats);
-            cible.setPointdeVie(degats);
-            System.out.println(cible.getEspece() + " PV restants : " + cible.getPointdeVie());
+            afficherDegats(degats);
+            cible.subirDegats(degats);
+            afficherPvRestants(cible.getEspece(), cible.getPointDeVie());
         } else {
-            System.out.println("Attaque échouée!");
+            afficherAttaqueEchouee();
         }
     }
-
 
     public void equiper(Equipement equipement, Object equipe) {
         int forceAvant = getForce();
         int vitesseAvant = getVitesse();
 
         // Vérifier si l'équipement est déjà équipé et le retirer si nécessaire
-        if (equipement instanceof Armes) {
+        if (equipement.estArme()) {
             if (equipementEquipe[0] != null) {
                 setForce(getForce() - equipementEquipe[0].getModificateurForce());
                 setVitesse(getVitesse() - equipementEquipe[0].getModificateurVitesse());
                 classe.getEquipements().add(equipementEquipe[0]);
             }
             equipementEquipe[0] = equipement;
-        } else if (equipement instanceof Armure) {
+        } else if (equipement.estArmure()) {
             if (equipementEquipe[1] != null) {
                 setVitesse(getVitesse() - equipementEquipe[1].getModificateurVitesse());
                 classe.getEquipements().add(equipementEquipe[1]);
@@ -84,13 +81,10 @@ public class Joueur extends Personnage{
             equipementEquipe[1] = equipement;
         }
 
-        // Appliquer les bonus/malus de l'équipement équipé
         setForce(getForce() + equipement.getModificateurForce());
         setVitesse(getVitesse() + equipement.getModificateurVitesse());
 
-        System.out.println("[ÉQUIPEMENT] " + getNom() + " équipe : " + equipement.getNom());
-        System.out.println("Force avant : " + forceAvant + ", Force après : " + getForce());
-        System.out.println("Vitesse avant : " + vitesseAvant + ", Vitesse après : " + getVitesse());
+        afficherEquipement(getNom(), equipement.getNom(), forceAvant, getForce(), vitesseAvant, getVitesse());
     }
 
 
@@ -120,5 +114,48 @@ public class Joueur extends Personnage{
 
     public Races getRace() {
         return race;
+    }
+
+    private Equipement getDernierEquipement() {
+        return getEquiper().getLast();
+    }
+
+    public int getClasseArmureActuelle() {
+        Equipement equipement = getDernierEquipement();
+        return equipement != null ? equipement.getClasseArmure() : 0;
+    }
+
+    private void afficherAttaque(String nomAttaquant, String especeCible, String nomArme) {
+        System.out.println(nomAttaquant + " attaque " + especeCible + " avec " + nomArme + " !");
+    }
+
+    private void afficherJetAttaque(int jet) {
+        System.out.println("Jet d'attaque : " + jet);
+    }
+
+    private void afficherAttaqueReussie() {
+        System.out.println("Attaque réussie!");
+    }
+
+    private void afficherDegats(int degats) {
+        System.out.println("Dégâts infligés : " + degats);
+    }
+
+    private void afficherPortee(int portee) {
+        System.out.println("Portée de : " + portee);
+    }
+
+    private void afficherPvRestants(String cible, int pv) {
+        System.out.println(cible + " PV restants : " + pv);
+    }
+
+    private void afficherAttaqueEchouee() {
+        System.out.println("Attaque échouée!");
+    }
+
+    private void afficherEquipement(String nom, String equipement, int forceAvant, int forceApres, int vitesseAvant, int vitesseApres) {
+        System.out.println("[ÉQUIPEMENT] " + nom + " équipe : " + equipement);
+        System.out.println("Force avant : " + forceAvant + ", Force après : " + forceApres);
+        System.out.println("Vitesse avant : " + vitesseAvant + ", Vitesse après : " + vitesseApres);
     }
 }
