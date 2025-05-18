@@ -22,4 +22,9 @@ public class Clerc extends Classe {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "Classe Clerc: " + super.toString();
+    }
 }

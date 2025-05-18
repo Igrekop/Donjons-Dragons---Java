@@ -20,6 +20,9 @@ public class Magicien extends Classe {
                 getEquipements().add(equipement);
             }
         }
-
+    }
+    @Override
+    public String toString() {
+        return "Classe Magicien: " + super.toString();
     }
 }

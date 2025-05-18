@@ -20,6 +20,9 @@ public class Guerrier extends Classe {
                 getEquipements().add(equipement);
             }
         }
-
+    }
+    @Override
+    public String toString() {
+        return "Classe Guerrier: " + super.toString();
     }
 }
