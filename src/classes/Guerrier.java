@@ -2,6 +2,8 @@ package classes;
 
 import equipements.Equipement;
 import equipements.GestionEquipements;
+import personnages.Joueur;
+
 import java.util.List;
 
 public class Guerrier extends Classe {
@@ -10,14 +12,13 @@ public class Guerrier extends Classe {
     }
 
     @Override
-    public void genererEquipementDeBase() {
-        getEquipements().clear();
+    public void genererEquipementDeBase(Joueur joueur) {
         List<Equipement> equipementsDisponibles = GestionEquipements.initialiserEquipements();
         for (Equipement equipement : equipementsDisponibles) {
             if (equipement.getNom().equals("Cotte de mailles") ||
                     equipement.getNom().equals("Épée longue") ||
                     equipement.getNom().equals("Arbalète légère")) {
-                getEquipements().add(equipement);
+                joueur.ajouterEquipement(equipement);
             }
         }
     }
