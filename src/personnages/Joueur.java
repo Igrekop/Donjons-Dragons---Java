@@ -9,20 +9,24 @@ import equipements.Armes.Armes;
 import equipements.Armures.Armure;
 import Des.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Joueur extends Personnage {
-    private Classe classe;
-    private Races race;
+    private Classe m_classe;
+    private Races m_race;
+    private ArrayList<Equipement> m_inventaire;
+
 
     public Joueur(String nom, Classe classe, Races race) {
         super(nom, classe.getPvDeBase(), 0, 0, 0, 0);
-        this.classe = classe;
-        this.race = race;
+        this.m_classe = classe;
+        this.m_race = race;
+        this.m_inventaire = new ArrayList<>();
 
         race.appliquerBonus(this);
-
-        GestionEquipements.equiperPremiereArmeEtArmure(this, classe.getEquipements());
+        classe.genererEquipementDeBase(this);
+        GestionEquipements.equiperPremiereArmeEtArmure(this, getEquipements());
     }
 
     public void attaquer(Monstre cible) {
@@ -70,13 +74,13 @@ public class Joueur extends Personnage {
             if (equipementEquipe[0] != null) {
                 setForce(getForce() - equipementEquipe[0].getModificateurForce());
                 setVitesse(getVitesse() - equipementEquipe[0].getModificateurVitesse());
-                classe.getEquipements().add(equipementEquipe[0]);
+                getEquipements().add(equipementEquipe[0]);
             }
             equipementEquipe[0] = equipement;
         } else if (equipement.estArmure()) {
             if (equipementEquipe[1] != null) {
                 setVitesse(getVitesse() - equipementEquipe[1].getModificateurVitesse());
-                classe.getEquipements().add(equipementEquipe[1]);
+                getEquipements().add(equipementEquipe[1]);
             }
             equipementEquipe[1] = equipement;
         }
@@ -92,8 +96,8 @@ public class Joueur extends Personnage {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Nom : ").append(getNom()).append("\n")
-                .append("Race : ").append(race.getNom()).append("\n")
-                .append("Classe : ").append(classe.getNom()).append("\n")
+                .append("Race : ").append(getRace().getNom()).append("\n")
+                .append("Classe : ").append(getClasse().getNom()).append("\n")
                 .append("PV : ").append(getPointDeVie()).append("\n")
                 .append("Force : ").append(getForce()).append("\n")
                 .append("Dextérité : ").append(getDexterite()).append("\n")
@@ -101,7 +105,7 @@ public class Joueur extends Personnage {
                 .append("Initiative : ").append(getInitiative()).append("\n")
                 .append("Équipements : \n");
 
-        for (Equipement equipement : classe.getEquipements()) {
+        for (Equipement equipement : getEquipements()) {
             sb.append(" - ").append(equipement).append("\n");
         }
 
@@ -109,11 +113,11 @@ public class Joueur extends Personnage {
     }
 
     public Classe getClasse() {
-        return classe;
+        return m_classe;
     }
 
     public Races getRace() {
-        return race;
+        return m_race;
     }
 
     private Equipement getDernierEquipement() {
@@ -158,4 +162,25 @@ public class Joueur extends Personnage {
         System.out.println("Force avant : " + forceAvant + ", Force après : " + forceApres);
         System.out.println("Vitesse avant : " + vitesseAvant + ", Vitesse après : " + vitesseApres);
     }
+
+    public void ajouterEquipement(Equipement equipement) {
+        if (equipement != null) {
+            m_inventaire.add(equipement);
+            System.out.println(getNom() + " a ajouté : " + equipement.getNom() + " à son inventaire.");
+        } else {
+            System.out.println("Équipement invalide.");
+        }
+    }
+
+    public void afficherInventaire() {
+        System.out.println("Inventaire de " + getNom() + " :");
+        for (Equipement equipement : m_inventaire) {
+            System.out.println(" - " + equipement.getNom());
+        }
+    }
+
+    public ArrayList<Equipement> getEquipements() {
+        return m_inventaire;
+    }
+
 }

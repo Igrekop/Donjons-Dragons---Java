@@ -2,6 +2,7 @@ package classes;
 
 import equipements.Equipement;
 import equipements.GestionEquipements;
+import personnages.Joueur;
 
 import java.util.List;
 
@@ -11,14 +12,12 @@ public class Roublard extends Classe {
     }
 
     @Override
-    public void genererEquipementDeBase() {
-        getEquipements().clear();
+    public void genererEquipementDeBase(Joueur joueur) {
         List<Equipement> equipementsDisponibles = GestionEquipements.initialiserEquipements();
         for (Equipement equipement : equipementsDisponibles) {
             if (equipement.getNom().equals("Rapière") ||
                     equipement.getNom().equals("Arc court")) {
-                getEquipements().add(equipement);
-            }
+                joueur.ajouterEquipement(equipement);            }
         }
     }
     @Override
