@@ -101,6 +101,13 @@ public abstract class Personnage {
     public void setInitiative(int initiative_change) {
         initiative = initiative_change;
     }
+
+    public boolean estMort() {
+        if (this.pointDeVie <= 0) {
+            return true;
+        }
+        else {return false;}
+    }
 }
 
 
