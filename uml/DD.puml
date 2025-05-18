@@ -179,6 +179,9 @@ package equipements {
         + getPortee(): int
         + getDegats(): String
         + getClasseArmure(): int
+        + estArme(): boolean
+        + estArmure(): boolean
+
     }
 
     interface EquipementDeBase {
