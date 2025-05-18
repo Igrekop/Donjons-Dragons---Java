@@ -25,4 +25,14 @@ public class ArmureLegere extends Armure {
     public int getClasseArmure() {
         return super.getClasseArmure();
     }
+
+    @Override
+    public boolean estArmure() {
+        return true;
+    }
+
+    @Override
+    public boolean estArme() {
+        return false;
+    }
 }

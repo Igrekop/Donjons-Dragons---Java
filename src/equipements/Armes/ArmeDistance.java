@@ -15,4 +15,14 @@ public class ArmeDistance extends Armes {
     public int getClasseArmure() {
         return 0;
     }
+
+    @Override
+    public boolean estArme() {
+        return true;
+    }
+
+    @Override
+    public boolean estArmure() {
+        return false;
+    }
 }

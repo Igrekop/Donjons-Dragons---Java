@@ -51,4 +51,5 @@ public abstract class Armure implements Equipement {
     public String toString() {
         return "Armure : " + m_nom + " (Classe d'armure : " + m_classeArmure + ")";
     }
+
 }

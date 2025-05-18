@@ -25,12 +25,6 @@ public abstract class Personnage {
 
     public abstract void attaquer(Monstre cible);
 
-    public void equiper(int slot, Equipement equipement) {
-        if (slot >= 0 && slot < equipementEquipe.length) {
-            equipementEquipe[slot] = equipement;
-        }
-    }
-
     public List<Equipement> getEquiper() {
         List<Equipement> equipe = new ArrayList<>();
         for (Equipement e : equipementEquipe) {

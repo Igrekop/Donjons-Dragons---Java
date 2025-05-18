@@ -1,35 +1,43 @@
 package races;
 
-import personnages.*;
-import Des.*;
+import personnages.Personnage;
+import Des.Des;
 
 public abstract class Races {
-    public String nom;
-    protected int bonusForce;
-    protected int bonusDexterite;
-    protected int bonusVitesse;
-    protected int bonusPV;
-    protected int bonusInitiative;
+    protected String m_nom;
+    protected int m_bonusForce;
+    protected int m_bonusDexterite;
+    protected int m_bonusVitesse;
+    protected int m_bonusPV;
+    protected int m_bonusInitiative;
 
     public Races(String nom, int bonusForce, int bonusDexterite, int bonusVitesse, int bonusInitiative, int bonusPV) {
-        this.nom = nom;
-        this.bonusForce = bonusForce;
-        this.bonusDexterite = bonusDexterite;
-        this.bonusVitesse = bonusVitesse;
-        this.bonusInitiative = bonusInitiative;
-        this.bonusPV = bonusPV;
+        this.m_nom = nom;
+        this.m_bonusForce = bonusForce;
+        this.m_bonusDexterite = bonusDexterite;
+        this.m_bonusVitesse = bonusVitesse;
+        this.m_bonusInitiative = bonusInitiative;
+        this.m_bonusPV = bonusPV;
     }
 
     public void appliquerBonus(Personnage personnage) {
-        personnage.addPdV(bonusPV);
-        personnage.setInitiative(Des.lancerDes("4d4") + 3 + bonusInitiative);
-        personnage.setForce(Des.lancerDes("4d4") + 3 + bonusForce);
-        personnage.setDexterite(Des.lancerDes("4d4") + 3 + bonusDexterite);
-        personnage.setVitesse(Des.lancerDes("4d4") + 3 + bonusVitesse);
+        personnage.addPdV(m_bonusPV);
+        personnage.setInitiative(calculerStat(m_bonusInitiative));
+        personnage.setForce(calculerStat(m_bonusForce));
+        personnage.setDexterite(calculerStat(m_bonusDexterite));
+        personnage.setVitesse(calculerStat(m_bonusVitesse));
+    }
+
+    private int calculerStat(int bonus) {
+        return Des.lancerDes("4d4") + 3 + bonus;
     }
 
     public String getNom() {
-        return nom;
+        return m_nom;
     }
 
+    @Override
+    public String toString() {
+        return "Race: " + m_nom + ", Bonus Force: " + m_bonusForce + ", Bonus Dextérité: " + m_bonusDexterite + ", Bonus Vitesse: " + m_bonusVitesse + ", Bonus PV: " + m_bonusPV + ", Bonus Initiative: " + m_bonusInitiative;
+    }
 }
