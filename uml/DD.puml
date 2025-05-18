@@ -237,9 +237,18 @@ package inter_face {
 
 
     class map_milieu {
-            - static final String letters
+            - static  String letters
             - String[][] map
-            + void Affichage(List<Object> participants)
+            - letters: String
+            - rows: int
+            - cols: int
+            + initializeMap(): void
+            + generateLetters(int cols): String
+            + isValidPosition(int row, int col): boolean
+            + map_milieu(int rows, int cols)
+            + addObstacle(int row, int col): void
+            + addEquipment(int row, int col): void
+            + Affichage(List<Object> participants): void
         }
 
     class Inter_manag {
