@@ -71,32 +71,38 @@ package classes {
         + getPvDeBase(): int
         + getEquipements(): List<Equipement>
         # genererEquipementDeBase()
+        + toString(): String Override
     }
 
-    class Clerc {
+    class Clerc extends Classe {
         + Clerc()
         + genererEquipementDeBase() : void
+        toString(): String Override
     }
 
-    class Guerrier {
+    class Guerrier extends Classe {
         + Guerrier()
         + genererEquipementDeBase() : void
+        toString(): String Override
     }
 
-    class Magicien {
+    class Magicien extends Classe {
         + Magicien()
         + genererEquipementDeBase() : void
+        toString(): String Override
     }
 
-    class Roublard {
+    class Roublard extends Classe {
         + Roublard()
         + genererEquipementDeBase() : void
+        toString(): String Override
     }
 
     Classe <|-- Clerc
     Classe <|-- Guerrier
     Classe <|-- Magicien
     Classe <|-- Roublard
+
     
 }
 
@@ -271,7 +277,6 @@ map_milieu --> Joueur
 Joueur --> equipements.Equipement
 Joueur --> classes.Classe
 Joueur --> races.Races
-classes.Classe --> equipements.EquipementDeBase
 Races --> Personnage
 Classe --> "0..*" equipements.Equipement : "utilise"
 Classe --> equipements.GestionEquipements : "gère"
