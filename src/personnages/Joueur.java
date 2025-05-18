@@ -183,4 +183,7 @@ public class Joueur extends Personnage {
         return m_inventaire;
     }
 
+    public void soignerComplet() {
+        this.addPdV((this.getPointDeVie() - this.getPointDeVie()) + getClasse().getPvDeBase());
+    }
 }
