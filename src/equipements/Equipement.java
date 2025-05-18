@@ -8,4 +8,7 @@ public interface Equipement {
     int getPortee();
     String getDegats();
     int getClasseArmure();
+    boolean estArme();
+    boolean estArmure();
+
 }

@@ -2,28 +2,29 @@ package equipements.Armures;
 import equipements.*;
 
 public abstract class Armure implements Equipement {
-    protected String nom;
-    protected int classeArmure;
-    protected String type;
+    private String m_nom;
+    private int m_classeArmure;
+    private String m_type;
 
     public Armure(String nom, int classeArmure, String type) {
-        this.nom = nom;
-        this.classeArmure = classeArmure;
-        this.type = type;
+        this.m_nom = nom;
+        this.m_classeArmure = classeArmure;
+        this.m_type = type;
     }
 
+    @Override
     public int getClasseArmure() {
-        return classeArmure;
+        return m_classeArmure;
     }
 
     @Override
     public String getNom() {
-        return nom;
+        return m_nom;
     }
 
     @Override
     public String getType() {
-        return type;
+        return m_type;
     }
 
     @Override
@@ -35,4 +36,20 @@ public abstract class Armure implements Equipement {
     public int getModificateurForce() {
         return 0;
     }
+
+    @Override
+    public int getPortee() {
+        return 0;
+    }
+
+    @Override
+    public String getDegats() {
+        return "Aucun";
+    }
+
+    @Override
+    public String toString() {
+        return "Armure : " + m_nom + " (Classe d'armure : " + m_classeArmure + ")";
+    }
+
 }

@@ -1,13 +1,14 @@
 package equipements.Armures;
 
 public class ArmureLegere extends Armure {
+
     public ArmureLegere(String nom, int classeArmure) {
         super(nom, classeArmure, "Armure légère");
     }
 
     @Override
     public String toString() {
-        return "Armure légère : " + nom + " [Classe d'armure : " + classeArmure + "]";
+        return "Armure légère : " + getNom() + " [Classe d'armure : " + getClasseArmure() + "]";
     }
 
     @Override
@@ -17,11 +18,21 @@ public class ArmureLegere extends Armure {
 
     @Override
     public String getDegats() {
-        return "";
+        return "Aucun";
     }
 
     @Override
     public int getClasseArmure() {
-        return classeArmure;
+        return super.getClasseArmure();
+    }
+
+    @Override
+    public boolean estArmure() {
+        return true;
+    }
+
+    @Override
+    public boolean estArme() {
+        return false;
     }
 }
