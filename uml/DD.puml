@@ -35,26 +35,46 @@ package races {
 }
 
 package personnages {
-    abstract class Personnage {
-        - String nom
-        - int pointDeVie
-        - int force
-        - int dexterite
-        - int vitesse
-        - int initiative
-        + attaquer(Personnage cible)
-        + toString(): String
-    }
+   abstract class Personnage {
+            - nom : String
+            - pointDeVie : int
+            - force : int
+            - dexterite : int
+            - vitesse : int
+            - initiative : int
+            - equipementEquipe : Equipement[]
+            + Personnage(nom: String, pointDeVie: int, force: int, dexterite: int, vitesse: int, initiative: int)
+            + attaquer(cible: Monstre) : void
+            + equiper(slot: int, equipement: Equipement) : void
+            + equiper(equipement: Equipement, equipe: Object) : void
+            + getEquiper() : List<Equipement>
+            + toString() : String
+            + getNom() : String
+            + getPointDeVie() : int
+            + getForce() : int
+            + getDexterite() : int
+            + getVitesse() : int
+            + getInitiative() : int
+            + setNom(nom : String) : void
+            + setPointDeVie(pv : int) : void
+            + addPdV(pv : int) : void
+            + setForce(force : int) : void
+            + setVitesse_change(vitesse : int) : void
+            + setDexterite(dex : int) : void
+            + setVitesse(vitesse : int) : void
+            + setInitiative(initiative : int) : void
+        }
 
     class Joueur {
-        - Classe classe
-        - Races race
-        + Joueur(String nom, Classe classe, Races race)
-        + attaquer(Personnage cible)
-        + toString(): String
-        + getClasse(): Classe
-        + getRace(): Races
-    }
+            - classe : Classe
+            - race : Races
+            + Joueur(nom: String, classe: Classe, race: Races)
+            + attaquer(cible: Monstre) : void
+            + equiper(equipement: Equipement, equipe: Object) : void
+            + toString() : String
+            + getClasse() : Classe
+            + getRace() : Races
+        }
 
     Personnage <|-- Joueur
     
@@ -71,32 +91,38 @@ package classes {
         + getPvDeBase(): int
         + getEquipements(): List<Equipement>
         # genererEquipementDeBase()
+        + toString(): String Override
     }
 
-    class Clerc {
+    class Clerc extends Classe {
         + Clerc()
         + genererEquipementDeBase() : void
+        toString(): String Override
     }
 
-    class Guerrier {
+    class Guerrier extends Classe {
         + Guerrier()
         + genererEquipementDeBase() : void
+        toString(): String Override
     }
 
-    class Magicien {
+    class Magicien extends Classe {
         + Magicien()
         + genererEquipementDeBase() : void
+        toString(): String Override
     }
 
-    class Roublard {
+    class Roublard extends Classe {
         + Roublard()
         + genererEquipementDeBase() : void
+        toString(): String Override
     }
 
     Classe <|-- Clerc
     Classe <|-- Guerrier
     Classe <|-- Magicien
     Classe <|-- Roublard
+
     
 }
 
@@ -113,28 +139,35 @@ package monstres {
         - int portee
         - String degats
         + Monstre(...)
-        + attaquer()
+        + attaquer(cible: Personnage)
         + toString(): String
     }
 
-    class Squelette {
+    class Squelette extends Monstre {
         + Squelette(numero: int)
-        + attaquer(): void
+        + attaquer(cible: Personnage): void
     }
 
-    class Dragon {
+    class Dragon extends Monstre {
         + Dragon(numero: int)
-        + attaquer(): void
+        + attaquer(cible: Personnage): void
     }
 
-    class Gobelin {
+    class Gobelin extends Monstre {
         + Gobelin(numero: int)
-        + attaquer(): void
+        + attaquer(cible: Personnage): void
+    }
+
+    class Monstreperso extends Monstre {
+        + Monstreperso(espece: int,numero: int,pointDeVie: int,force: int,dexterite: int,initiative: int,
+                                classeArmure: int,typeAttaque: String,portee:int ,degats: int)
+        + attaquer(cible: Personnage)
     }
 
     Monstre <|-- Squelette
     Monstre <|-- Dragon
     Monstre <|-- Gobelin
+    Monstre <|-- Monstreperso
 }
 
 package equipements {
@@ -143,6 +176,12 @@ package equipements {
         + getType(): String
         + getModificateurVitesse(): int
         + getModificateurForce(): int
+        + getPortee(): int
+        + getDegats(): String
+        + getClasseArmure(): int
+        + estArme(): boolean
+        + estArmure(): boolean
+
     }
 
     interface EquipementDeBase {
@@ -152,7 +191,10 @@ package equipements {
     class GestionEquipements {
         + initialiserEquipements(): List<Equipement>
         + afficherEquipements(List<Equipement>): void
+        + equiperPremiereArmeEtArmure(personnage: Personnage, equipements: List<Equipement>)
     }
+
+
 
     EquipementDeBase <|-- GestionEquipements
 
@@ -175,17 +217,20 @@ package Armes {
     class ArmeCourante {
         + ArmeCourante(nom: String, degats: String)
         + toString(): String
+        + getClasseArmure(): int Override
     }
 
     class ArmeDistance {
         + ArmeDistance(nom: String, degats: String, portee: int)
         + toString(): String
+        + getClasseArmure(): int Override
     }
 
     class ArmeDeGuerre {
         + ArmeDeGuerre(nom: String, degats: String)
-        + getModificateurVitesse(): int
-        + getModificateurForce(): int
+        + getModificateurVitesse(): int Override
+        + getModificateurForce(): int Override
+        + getClasseArmure(): int Override
         + toString(): String
     }
 
@@ -203,26 +248,60 @@ package Armures {
         + Armure(String nom, int classeArmure, String type)
         + getNom(): String
         + getType(): String
-        + getClasseArmure(): int
-        + getModificateurVitesse(): int
-        + getModificateurForce(): int
+        + getClasseArmure(): int Override
+        + getModificateurVitesse(): int Override
+        + getModificateurForce(): int Override
     }
 
     class ArmureLegere {
         + ArmureLegere(nom: String, classeArmure: int)
-        + toString(): String
+        + toString(): String Override
+        + getPortee(): int Override
+        + getDegats(): String Override
+        + getClasseArmure(): int Override
     }
 
     class ArmureLourde {
         + ArmureLourde(nom: String, classeArmure: int)
-        + getModificateurVitesse(): int
-        + toString(): String
+        + getModificateurVitesse(): int «override»
+        + getPortee(): int Override
+        + getDegats(): String Override
+        + toString(): String Override
+        + getClasseArmure(): int Override
     }
 
     Armure <|-- ArmureLegere
     Armure <|-- ArmureLourde
     Armure --> equipements.Equipement
 }
+}
+
+package Des {
+class Des {
+    - random : Random
+    - DICE_FACES : String[]
+    - lancerDes(nombreFaces: int, nombreDes: int): int
+    - printDiceFace(num: int, faces: int): void
+    + lancerDes(notation: String): int
+    + lancerDesAvecAnimation(notation: String): void
+    + main(args: String[]): void
+}
+}
+
+package maitredujeux {
+    class Maitredujeux {
+        - lignes : ArrayList<String>
+        - compteurMonstres : Map<String, Integer>
+        - especesPerso : ArrayList<String>
+        + Maitredujeux()
+        + ajouterLignes(ligne: String) : void
+        + afficherligne() : void
+        + creemonstre() : Monstre
+        + creemonstreperso() : Monstreperso
+        - creerMonstreEspece(espece: String) : Monstre
+        - saisirEntierPositif(message: String) : int
+        - saisirEntierMin(message: String, min: int) : int
+    }
 }
 
 package inter_face {
@@ -237,7 +316,6 @@ package inter_face {
 
 
     class map_milieu {
-            - static  String letters
             - String[][] map
             - letters: String
             - rows: int
@@ -272,9 +350,13 @@ map_milieu --> Joueur
 Joueur --> equipements.Equipement
 Joueur --> classes.Classe
 Joueur --> races.Races
-classes.Classe --> equipements.EquipementDeBase
 Races --> Personnage
 Classe --> "0..*" equipements.Equipement : "utilise"
 Classe --> equipements.GestionEquipements : "gère"
+Maitredujeux --> Monstre : utilise
+Maitredujeux --> Monstreperso : crée
+Maitredujeux --> Gobelin : crée
+Maitredujeux --> Dragon : crée
+Maitredujeux --> Squelette : crée
 
 @enduml
