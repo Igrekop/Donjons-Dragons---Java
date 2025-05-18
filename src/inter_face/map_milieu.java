@@ -7,12 +7,12 @@ import java.util.List;
 
 public class map_milieu {
     private static final String letters = "      A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W";
-    private final String[][] map = new String[18][23]; // map[row][col]
+    private final String[][] map = new String[20][20]; // map[row][col]
 
     public void Affichage( List<Object> participants) {
         // Initialisation de la carte
-        for (int i = 0; i < 18; i++) {
-            for (int j = 0; j < 23; j++) {
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
                 map[i][j] = ".";
             }
         }
