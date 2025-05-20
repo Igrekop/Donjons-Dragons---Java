@@ -85,7 +85,7 @@ public class Main {
             System.out.println("\n=== Début du donjon ===");
             barre.Affichage(joueurs.get(0), 1, participants, 1);
             map.Print(participants);
-
+            int tour = 0;
             int index = 0;
             while (true) {
                 Object p = participants.get(index);
@@ -128,7 +128,7 @@ public class Main {
 
                                 }
                                 int choix = Integer.parseInt(scanner.nextLine()) - 1;
-                                if (choix >= 0 && choix < cibles.size()) {
+                                if (choix >= 0 && choix < cibles.size())  {
                                     joueur.attaquer(cibles.get(choix));
                                     System.out.println("Commentaire ? ");
                                     System.out.println(scanner.nextLine());
@@ -159,14 +159,63 @@ public class Main {
                         System.out.println(scanner.nextLine());
                     }
                 }
+                // Affichage mis à jour à la fin du tour
+                barre.Affichage(joueurs.get(index), numeroDonjon, participants, tour + 1);
+                map.Print(participants);
             }
 
-            // Affichage mis à jour à la fin du tour
-            barre.Affichage(joueurs.get(0), numeroDonjon, participants, tour + 1);
-            map.Print(participants);
+
         }
 
         System.out.println("\nPartie terminée !");
 
     }
+
+    public static Joueur creerPersonnage(Scanner scanner, int numeroJoueur) {
+        System.out.println("\n--- Joueur " + numeroJoueur + " ---");
+
+        System.out.print("Entrez le nom du personnage : ");
+        String nom = scanner.nextLine();
+
+        Races race = null;
+        while (race == null) {
+            System.out.println("Choisissez une race :");
+            System.out.println("1 - Humain\n2 - Elfe\n3 - Nain\n4 - Halfelin");
+            String choix = scanner.nextLine();
+            race = switch (choix) {
+                case "1" -> new Humain();
+                case "2" -> new Elfe();
+                case "3" -> new Nain();
+                case "4" -> new Halfelin();
+                default -> {
+                    System.out.println("Choix invalide.");
+                    yield null;
+                }
+            };
+        }
+
+        System.out.println("\nPartie terminée !");
+        Classe classe = null;
+        while (classe == null) {
+            System.out.println("Choisissez une classe :");
+            System.out.println("1 - Guerrier\n2 - Roublard\n3 - Clerc\n4 - Magicien");
+            String choix = scanner.nextLine();
+            classe = switch (choix) {
+                case "1" -> new Guerrier();
+                case "2" -> new Roublard();
+                case "3" -> new Clerc();
+                case "4" -> new Magicien();
+                default -> {
+                    System.out.println("Choix invalide.");
+                    yield null;
+                }
+            };
+        }
+
+        Joueur joueur = new Joueur(nom, classe, race,14,7);
+        System.out.println("Personnage créé : " + joueur.getNom() +
+                " (" + classe.getNom() + " " + race.getNom() + ")");
+        return joueur;
+    }
+
 }

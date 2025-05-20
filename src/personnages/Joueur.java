@@ -27,6 +27,7 @@ public class Joueur extends Personnage {
         this.m_race = race;
         this.m_inventaire = new ArrayList<>();
 
+
         race.appliquerBonus(this);
         classe.genererEquipementDeBase(this);
         GestionEquipements.equiperPremiereArmeEtArmure(this, getEquipements());
@@ -182,6 +183,11 @@ public class Joueur extends Personnage {
         }
     }
 
+    public void soignerComplet() {
+        this.addPdV((this.getPointDeVie() - this.getPointDeVie()) + getClasse().getPvDeBase());
+    }
+
+
     public ArrayList<Equipement> getEquipements() {
         return m_inventaire;
     }
@@ -238,7 +244,9 @@ public class Joueur extends Personnage {
     }
 
 
+    public int getPosX() {return this.posX;
+    }
 
-
-
+    public int getPosY() {return this.posY;
+    }
 }

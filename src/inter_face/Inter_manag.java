@@ -4,6 +4,9 @@ import java.util.List;
 import classes.Classe;
 import classes.Guerrier;
 import classes.Roublard;
+import equipements.Armes.ArmeCourante;
+import equipements.Armes.Armes;
+import equipements.Equipement;
 import maitredujeux.Maitredujeux;
 import personnages.Joueur;
 import races.Elfe;
@@ -21,20 +24,23 @@ public class Inter_manag {
         map_milieu map = new map_milieu(20,20); // création d'une instance
 
         // Création des joueurs
-        Joueur joueur1 = new Joueur("Arthur", guerrier, humain);
-        Joueur joueur2 = new Joueur("Luna", guerrier, elfe);
-        Joueur joueur3 = new Joueur("Sonic", roublard, humain);
+        Joueur joueur1 = new Joueur("Arthur", guerrier, humain,14,3);
+        Joueur joueur2 = new Joueur("Luna", guerrier, elfe,14,4);
+        Joueur joueur3 = new Joueur("Sonic", roublard, humain,14,5);
 
         List<Object> participants = new ArrayList<>();
         participants.add(joueur1);
         participants.add(joueur2);
         participants.add(joueur3);
 
+        ArmeCourante d = new ArmeCourante("Bâton", "1d6");
+
         barreHaut.Affichage(joueur1, 1, participants,2);
 
         map.addObstacle(15,12);
         map.addObstacle(15,14);
-        map.addEquipment(14,12);
+        map.addEquipment(14,12,d);
+
 
         map.Print(participants);
 
