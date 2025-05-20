@@ -98,10 +98,11 @@ public class Maitredujeux {
                             modele.getClasseArmure(),
                             modele.getTypeAttaque(),
                             modele.getPortee(),
-                            modele.getDegats()
+                            modele.getDegats(),
+                            modele.getIcone()
                     );
                 }
-                return new Monstreperso(espece, numero, 50, 10, 10, 10, 10, "attaque basique", 1, "1d6");
+                return new Monstreperso(espece, numero, 50, 10, 10, 10, 10, "attaque basique", 1, "1d6","X&" );
         }
     }
 
@@ -140,11 +141,17 @@ public class Maitredujeux {
 
         System.out.print("Dégâts (ex: 1d6) : ");
         String degats = m_scanner.nextLine();
+        System.out.print("Icône du monstre (ex: X^, X(, etc.) : ");
+        String icone = m_scanner.nextLine();
+        if (icone.isEmpty()) {
+            icone = "X&";
+        }
 
-        Monstreperso m = new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
+
+        Monstreperso m = new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats,icone);
         m_monstresPersonnalises.put(espece, m);
 
-        return new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
+        return new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats,icone);
     }
 
     private int saisirEntierPositif(String message) {

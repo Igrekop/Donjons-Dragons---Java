@@ -72,4 +72,9 @@ public class Gobelin extends Monstre {
             this.classeArmureCible = classeArmureCible;
         }
     }
+
+    @Override
+    public String afficher() {
+        return "X!";
+    }
 }
