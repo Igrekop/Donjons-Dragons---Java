@@ -15,6 +15,7 @@ public abstract class Monstre {
     private int m_portee;
     private String m_degats;
 
+
     public Monstre(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
                    int classeArmure, String typeAttaque, int portee, String degats) {
         m_espece = espece;
@@ -99,4 +100,7 @@ public abstract class Monstre {
         }
         else {return false;}
     }
+
+
+
 }
