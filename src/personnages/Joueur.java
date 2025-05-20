@@ -192,10 +192,7 @@ public class Joueur extends Personnage {
         return m_inventaire;
     }
 
-    public void setPosition(int x, int y) {
-        this.posX = x;
-        this.posY = y;
-    }
+
 
     public void seDeplacer(String direction, map_milieu map) {
         int newX = posX;
