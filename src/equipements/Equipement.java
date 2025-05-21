@@ -3,6 +3,8 @@ package equipements;
 import inter_face.ContenuCase;
 
 public interface Equipement  extends ContenuCase {
+    int getEnchante();
+    void setEnchante(int enchante);
     String getNom();
     String getType();
     int getModificateurVitesse();
