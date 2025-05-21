@@ -1,4 +1,4 @@
-package inter_face;
+package interfacejeu;
 
 public class Case {
     private ContenuCase contenu;

@@ -1,10 +1,10 @@
 package monstres;
 
-import inter_face.ContenuCase;
+import interfacejeu.ContenuCase;
+import personnages.Affichable.affichable;
 import personnages.Joueur;
-import Des.*;
 
-public abstract class Monstre implements ContenuCase {
+public abstract class Monstre implements ContenuCase, affichable {
     private String m_espece;
     private int m_numero;
     private int m_pointDeVie;
@@ -123,6 +123,22 @@ public abstract class Monstre implements ContenuCase {
     public String getTypeContenu() {
         return "Monstre";
     }
+
+    @Override
+    public String affichageClass(){
+        return getClass().toString();
+    }
+
+    @Override
+    public String getAffichageCourt() {
+        return afficher();
+    }
+
+    @Override
+    public String getAffichageLong() {
+        return getEspece() + " (" + getPointDeVie() + "/" + getPvDeBase() + " HP)";
+    }
+
 
 
 

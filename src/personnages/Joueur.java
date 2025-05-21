@@ -3,17 +3,16 @@ package personnages;
 import classes.Classe;
 import equipements.Equipement;
 import equipements.GestionEquipements;
-import inter_face.ContenuCase;
-import inter_face.map_milieu;
+import interfacejeu.ContenuCase;
+import interfacejeu.map_milieu;
 import monstres.*;
+import personnages.Affichable.affichable;
 import races.Races;
 
-import equipements.Armures.Armure;
 import Des.*;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Joueur extends Personnage implements ContenuCase {
+public class Joueur extends Personnage implements ContenuCase, affichable {
     private Classe m_classe;
     private Races m_race;
     private ArrayList<Equipement> m_inventaire;
@@ -274,4 +273,20 @@ public class Joueur extends Personnage implements ContenuCase {
     public String afficher() {
         return this.getNom().length() > 3 ? this.getNom().substring(0, 3) : String.format("%-3s", this.getNom());
     }
+
+    @Override
+    public String affichageClass(){
+        return getClasse().toString();
+    }
+
+    @Override
+    public String getAffichageCourt() {
+        return getNom().substring(0, 3);
+    }
+
+    @Override
+    public String getAffichageLong() {
+        return getNom() + " (" + getClasse().getNom() + " " + getRace().getNom() + ", " + getPointDeVie() + "/" + getPVdebase() + " HP)";
+    }
+
 }

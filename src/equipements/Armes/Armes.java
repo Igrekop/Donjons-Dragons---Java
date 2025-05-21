@@ -1,7 +1,8 @@
 package equipements.Armes;
 import equipements.*;
+import personnages.Affichable.affichable;
 
-public abstract class Armes implements Equipement {
+public abstract class Armes implements Equipement{
     private String m_nom;
     private String m_degats;
     private int m_portee;
@@ -70,5 +71,7 @@ public abstract class Armes implements Equipement {
     public  String afficher(){
         return " * ";
     }
+
+
 
 }
