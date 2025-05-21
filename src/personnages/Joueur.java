@@ -195,33 +195,52 @@ public class Joueur extends Personnage implements ContenuCase {
 
 
 
-    public void seDeplacer(String direction, map_milieu map) {
+    public void seDeplacer(String direction, map_milieu map, int nbCase) {
         int newX = posX;
         int newY = posY;
 
-        switch (direction.toLowerCase()) {
-            case "haut": newX--; break;
-            case "bas": newX++; break;
-            case "gauche": newY--; break;
-            case "droite": newY++; break;
-            default:
-                System.out.println("Direction invalide.");
-                return;
-        }
+        if (nbCase <= (this.getVitesse() / 3)) {
 
-        if (map.isValidPositionAndFree(newX , newY )) {
-            System.out.println("Déplacement valide vers : " + newX + "," + newY);
+            switch (direction.toLowerCase()) {
+                case "haut":
+                    newX -= nbCase;
+                    break;
+                case "bas":
+                    newX += nbCase;
+                    break;
+                case "gauche":
+                    newY -= nbCase;
+                    break;
+                case "droite":
+                    newY += nbCase;
+                    break;
+                default:
+                    System.out.println("Direction invalide.");
+                    return;
+            }
 
-            map.videCase(posX - 1, posY - 1);
-            posX = newX;
-            posY = newY;
-            map.UpdateCase(posX - 1, posY - 1, this);
+            if (map.isValidPositionAndFree(newX, newY)) {
+                System.out.println("Déplacement valide vers : " + newX + "," + newY);
 
-            System.out.println(getNom() + " se déplace vers " + direction + ".");
+                int oldX = posX;
+                int oldY = posY;
+
+                posX = newX;
+                posY = newY;
+
+                map.videCase(oldX, oldY);
+                map.UpdateCase(posX, posY, this);
+
+                System.out.println(getNom() + " se déplace vers " + direction + ".");
+            } else {
+                System.out.println("Déplacement impossible vers " + direction + ".");
+            }
+
         } else {
-            System.out.println("Déplacement impossible vers " + direction + ".");
+            System.out.println("Nb Case Trop Grand");
         }
     }
+
 
 
 
