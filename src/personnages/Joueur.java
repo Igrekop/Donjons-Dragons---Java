@@ -49,7 +49,7 @@ public class Joueur extends Personnage implements ContenuCase {
             }
         }
 
-        jetAttaque += modificateur;
+        jetAttaque += modificateur + (1 * arme.getEnchante());
         afficherJetAttaque(jetAttaque);
 
         if (arme != null && arme.getPortee() < 2) {
@@ -59,7 +59,7 @@ public class Joueur extends Personnage implements ContenuCase {
         if (jetAttaque > cible.getClasseArmure()) {
             afficherAttaqueReussie();
             if (arme != null) {
-                degats = Des.lancerDes(arme.getDegats());
+                degats = Des.lancerDes(arme.getDegats()) + (1 * arme.getEnchante());
             }
             afficherDegats(degats);
             cible.subirDegats(degats);

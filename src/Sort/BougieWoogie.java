@@ -14,22 +14,26 @@ public class BougieWoogie extends Sort{
         int cible1PosX = cible1.getPosX();
         int cible1PosY = cible1.getPosY();
 
-        cible1.SetPosX(cible2.getPosX());
-        cible1.SetPosY(cible2.getPosY());
-
-        cible2.SetPosX(cible1PosX);
-        cible2.SetPosY(cible1PosY);
+        cible1.setPosXY(cible2.getPosX(), cible2.getPosY());
+        cible2.setPosXY(cible1PosX, cible1PosY);
     }
 
     @Override
     public void utiliser(Joueur cible1, Monstre cible2) {
-        int lanceurPosX = cible1.getPosX();
-        int lanceurPosY = cible1.getPosY();
+        int cible1PosX = cible1.getPosX();
+        int cible1PosY = cible1.getPosY();
+
+        cible1.setPosXY(cible2.getPosX(), cible2.getPosY());
+        cible2.setPosXY(cible1PosX, cible1PosY);
 
     }
 
     @Override
     public void utiliser(Monstre cible1, Monstre cible2) {
+        int cible1PosX = cible1.getPosX();
+        int cible1PosY = cible1.getPosY();
 
+        cible1.setPosXY(cible2.getPosX(), cible2.getPosY());
+        cible2.setPosXY(cible1PosX, cible1PosY);
     }
 }
