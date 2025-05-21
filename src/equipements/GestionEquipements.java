@@ -27,6 +27,7 @@ public class GestionEquipements {
         // Armes de guerre
         equipements.add(new ArmeDeGuerre("Épée longue", "1d8"));
         equipements.add(new ArmeDeGuerre("Rapière", "1d8"));
+        equipements.add(new ArmeDeGuerre("Epée à deux mains", "2d6"));
 
         // Armes à distance
         equipements.add(new ArmeDistance("Arbalète légère", "1d8", 16));

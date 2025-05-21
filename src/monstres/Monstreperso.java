@@ -31,7 +31,6 @@ public class Monstreperso extends Monstre {
 
         boolean succes = jetAttaque > classeArmureCible;
         int degatsInfliges = 0;
-
         if (succes) {
             degatsInfliges = Des.lancerDes(getDegats());
             cible.addPdV(-degatsInfliges);
