@@ -24,9 +24,9 @@ public class Inter_manag {
         map_milieu map = new map_milieu(20,20); // création d'une instance
 
         // Création des joueurs
-        Joueur joueur1 = new Joueur("Arthur", guerrier, humain,14,3);
-        Joueur joueur2 = new Joueur("Luna", guerrier, elfe,14,4);
-        Joueur joueur3 = new Joueur("Sonic", roublard, humain,14,5);
+        Joueur joueur1 = new Joueur("Arthur", guerrier, humain);
+        Joueur joueur2 = new Joueur("Luna", guerrier, elfe);
+        Joueur joueur3 = new Joueur("Sonic", roublard, humain);
 
         List<Object> participants = new ArrayList<>();
         participants.add(joueur1);

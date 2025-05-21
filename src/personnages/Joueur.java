@@ -246,4 +246,15 @@ public class Joueur extends Personnage {
 
     public int getPosY() {return this.posY;
     }
+
+    public void SetPosX(int newposX) {this.posX = newposX;
+    }
+
+    public void SetPosY(int newposY) {this.posY = newposY;
+    }
+
+    public int getPVdebase()
+    {
+        return this.m_classe.getPvDeBase();
+    }
 }
