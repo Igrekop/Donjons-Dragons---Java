@@ -7,10 +7,9 @@ import inter_face.ContenuCase;
 import inter_face.map_milieu;
 import monstres.*;
 import races.Races;
-import equipements.Armes.Armes;
+
 import equipements.Armures.Armure;
 import Des.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class Joueur extends Personnage implements ContenuCase {
             }
         }
 
-        jetAttaque += modificateur;
+        jetAttaque += modificateur + (1 * arme.getEnchante());
         afficherJetAttaque(jetAttaque);
 
         if (arme != null && arme.getPortee() < 2) {
@@ -60,7 +59,7 @@ public class Joueur extends Personnage implements ContenuCase {
         if (jetAttaque > cible.getClasseArmure()) {
             afficherAttaqueReussie();
             if (arme != null) {
-                degats = Des.lancerDes(arme.getDegats());
+                degats = Des.lancerDes(arme.getDegats()) + (1 * arme.getEnchante());
             }
             afficherDegats(degats);
             cible.subirDegats(degats);
@@ -266,6 +265,11 @@ public class Joueur extends Personnage implements ContenuCase {
         this.posY = y;
     }
 
+    public int getPVdebase()
+    {
+        return this.m_classe.getPvDeBase();
+    }
+
     @Override
     public String getTypeContenu() {
         return "Joueur";
@@ -275,6 +279,4 @@ public class Joueur extends Personnage implements ContenuCase {
     public String afficher() {
         return this.getNom().length() > 3 ? this.getNom().substring(0, 3) : String.format("%-3s", this.getNom());
     }
-
-
 }

@@ -11,13 +11,12 @@ public abstract class Races {
     protected int m_bonusPV;
     protected int m_bonusInitiative;
 
-    public Races(String nom, int bonusForce, int bonusDexterite, int bonusVitesse, int bonusInitiative, int bonusPV) {
+    public Races(String nom, int bonusForce, int bonusDexterite, int bonusVitesse, int bonusInitiative) {
         this.m_nom = nom;
         this.m_bonusForce = bonusForce;
         this.m_bonusDexterite = bonusDexterite;
         this.m_bonusVitesse = bonusVitesse;
         this.m_bonusInitiative = bonusInitiative;
-        this.m_bonusPV = bonusPV;
     }
 
     public void appliquerBonus(Personnage personnage) {

@@ -72,8 +72,12 @@ public class Squelette extends Monstre {
         }
     }
 
+    public int getPvDeBase() {
+        return 15;
+    }
+
     @Override
     public String afficher() {
-        return "X(";
+        return "\uD83D\uDC80";
     }
 }

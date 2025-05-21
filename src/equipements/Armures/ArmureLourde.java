@@ -7,6 +7,16 @@ public class ArmureLourde extends Armure {
     }
 
     @Override
+    public int getEnchante() {
+        return 0;
+    }
+
+    @Override
+    public void setEnchante(int enchante) {
+
+    }
+
+    @Override
     public int getModificateurVitesse() {
         return -4;  // Réduction de la vitesse
     }

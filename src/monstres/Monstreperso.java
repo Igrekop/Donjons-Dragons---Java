@@ -7,12 +7,14 @@ import javax.swing.*;
 
 public class Monstreperso extends Monstre {
 
-    public String icone;
+    private String icone;
+    private final int m_PvDeBase;
 
     public Monstreperso(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
                         int classeArmure, String typeAttaque, int portee, String degats, String icone) {
         super(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
         this.icone = icone;
+        this.m_PvDeBase = pointDeVie;
     }
 
     @Override
@@ -36,7 +38,6 @@ public class Monstreperso extends Monstre {
 
         boolean succes = jetAttaque > classeArmureCible;
         int degatsInfliges = 0;
-
         if (succes) {
             degatsInfliges = Des.lancerDes(getDegats());
             cible.addPdV(-degatsInfliges);
@@ -78,6 +79,10 @@ public class Monstreperso extends Monstre {
         }
     }
 
+    public void setIcone(String ico) {
+        icone = ico;
+    }
+
     public String getIcone() {
         return icone;
     }
@@ -87,5 +92,9 @@ public class Monstreperso extends Monstre {
     @Override
     public String afficher() {
         return getIcone();
+    }
+
+    public int getPvDeBase() {
+        return m_PvDeBase;
     }
 }

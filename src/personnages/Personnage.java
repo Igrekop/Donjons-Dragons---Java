@@ -1,4 +1,5 @@
 package personnages;
+
 import equipements.Equipement;
 import monstres.Monstre;
 import java.util.ArrayList;

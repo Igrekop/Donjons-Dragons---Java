@@ -74,8 +74,12 @@ public class Dragon extends Monstre {
         }
     }
 
+    public int getPvDeBase() {
+        return 100;
+    }
+
     @Override
     public String afficher() {
-        return "X^";
+        return "\uD83D\uDC09";
     }
 }
