@@ -246,6 +246,11 @@ public class Joueur extends Personnage implements ContenuCase {
         this.posY = y;
     }
 
+    public int getPVdebase()
+    {
+        return this.m_classe.getPvDeBase();
+    }
+
     @Override
     public String getTypeContenu() {
         return "Joueur";
@@ -255,6 +260,4 @@ public class Joueur extends Personnage implements ContenuCase {
     public String afficher() {
         return this.getNom().length() > 3 ? this.getNom().substring(0, 3) : String.format("%-3s", this.getNom());
     }
-
-
 }
