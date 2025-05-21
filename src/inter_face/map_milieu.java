@@ -4,7 +4,9 @@ import equipements.Equipement;
 import monstres.Monstre;
 import personnages.Joueur;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class map_milieu {
     private Case[][] map;
@@ -37,18 +39,16 @@ public class map_milieu {
     }
 
     public boolean isValidPositionAndFree(int row, int col) {
-        if( row >= 0 && row < rows && col >= 0 && col < cols
-                && map[row][col].accessibleParJoueur()) {
-            System.out.print("Au suivant");
-            return true;
-        }
-        else {return false;}
+        if(row < 0 || row >= rows || col < 0 || col >= cols) {
+            return false;
         }
 
+        return map[row][col].estVide();
+    }
 
     public void addObstacle(int row, int col) {
-        if (isValidPositionAndFree(row - 1, col - 1)) {
-            map[row -1][col-1].setContenu(new Obstacle());
+        if(row >= 0 && row < rows && col >= 0 && col < cols) {
+            map[row][col].setContenu(new Obstacle());
         }
     }
 
@@ -70,17 +70,56 @@ public class map_milieu {
         }
     }
 
-    public Equipement recupererEquipement(int row, int col) {
-        if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            Object contenu = map[row][col].getContenu();
-            if (contenu instanceof ContenuCase contenuCase &&
-                    contenuCase.getTypeContenu().equals("Equipement")) {
+    public List<Equipement> recupererEquipementsAdjacents(int row, int col) {
+        List<Equipement> equipementsTrouves = new ArrayList<>();
 
-                Equipement equipement = (Equipement) contenu;
-                map[row][col].setContenu(null);
-                return equipement;
+
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for (int[] dir : directions) {
+            int newRow = row + dir[0];
+            int newCol = col + dir[1];
+
+            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
+                ContenuCase contenu = map[newRow][newCol].getContenu();
+                if (contenu != null && "Equipement".equals(map[newRow][newCol].getContenu().getTypeContenu())) {
+                    equipementsTrouves.add((Equipement) contenu);
+                }
             }
         }
+
+        return equipementsTrouves;
+    }
+
+    public Equipement recupererEquipement(int row, int col) {
+        List<Equipement> equipements = recupererEquipementsAdjacents(row, col);
+
+        if (equipements.isEmpty()) {
+            System.out.println("Aucun équipement à proximité.");
+            return null;
+        }
+
+        System.out.println("\nÉquipements disponibles autour de vous:");
+        for (int i = 0; i < equipements.size(); i++) {
+            System.out.println((i + 1) + ". " + equipements.get(i).getNom());
+        }
+
+        System.out.print("Choisissez un équipement à ramasser (0 pour annuler): ");
+        int choix = new Scanner(System.in).nextInt();
+
+        if (choix > 0 && choix <= equipements.size()) {
+            Equipement equipementChoisi = equipements.get(choix - 1);
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    ContenuCase contenu = map[i][j].getContenu();
+                    if (contenu == equipementChoisi) {
+                        map[i][j].setContenu(null);
+                        return equipementChoisi;
+                    }
+                }
+            }
+        }
+
         return null;
     }
 
@@ -101,18 +140,17 @@ public class map_milieu {
         nettoyerParticipants();
         for (Object obj : participants) {
             if (obj instanceof Joueur joueur) {
-                int x = joueur.getPosX()-1;
-                int y = joueur.getPosY()-1;
+                int x = joueur.getPosX();
+                int y = joueur.getPosY();
 
-                if (isValidPositionAndFree(x, y)) {
+                if(x >= 0 && x < rows && y >= 0 && y < cols) {
                     map[x][y].setContenu(joueur);
                 }
-                else {System.out.print("Coordonnées invalide");};
             } else if (obj instanceof Monstre monstre) {
                 int x = monstre.getPosX();
                 int y = monstre.getPosY();
 
-               if (isValidPositionAndFree(x, y)) {
+                if(x >= 0 && x < rows && y >= 0 && y < cols) {
                     map[x][y].setContenu(monstre);
                 }
             }

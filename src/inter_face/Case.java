@@ -23,19 +23,15 @@ public class Case {
         return "Equipement".equals(contenu.getTypeContenu());
     }
 
-    public boolean accessibleParJoueur() {
-        return estVide() || estEquipement();
-    }
-
-
-
     public boolean passable() {
-        if (contenu == null || "Equipement".equals(contenu.getTypeContenu())) {
-            System.out.print("Passer");
+        if (contenu == null) {
             return true;
         }
-        String type = contenu.getTypeContenu();
-        return !"Obstacle".equals(type) && !"Joueur".equals(type) && !"Monstre".equals(type);
+        return false;
+    }
+
+    public boolean accessibleParJoueur() {
+        return passable();
     }
 
 
