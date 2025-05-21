@@ -75,6 +75,6 @@ public class Gobelin extends Monstre {
 
     @Override
     public String afficher() {
-        return "X!";
+        return "\uD83D\uDC7A";
     }
 }
