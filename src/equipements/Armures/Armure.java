@@ -52,4 +52,13 @@ public abstract class Armure implements Equipement {
         return "Armure : " + m_nom + " (Classe d'armure : " + m_classeArmure + ")";
     }
 
+    @Override
+    public String getTypeContenu() {
+        return "Equipement";
+    }
+
+    @Override
+    public  String afficher(){
+        return " * ";
+    }
 }

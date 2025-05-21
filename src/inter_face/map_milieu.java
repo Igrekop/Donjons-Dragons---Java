@@ -7,10 +7,10 @@ import personnages.Joueur;
 import java.util.List;
 
 public class map_milieu {
-    private String letters;
     private Case[][] map;
     private int rows;
     private int cols;
+    private String letters;
 
     public map_milieu(int rows, int cols) {
         this.rows = rows;
@@ -23,18 +23,22 @@ public class map_milieu {
     private void initializeMap() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                map[i][j] = new Case();  // Chaque case est une instance Case vide
+                map[i][j] = new Case();
             }
         }
     }
 
-
     private String generateLetters(int cols) {
-        StringBuilder sb = new StringBuilder("      ");
+        StringBuilder sb = new StringBuilder("    ");
         for (char c = 'A'; c < 'A' + cols; c++) {
             sb.append(" ").append(c).append(" ");
         }
         return sb.toString();
+    }
+
+    public boolean isValidPositionAndFree(int row, int col) {
+        return row >= 0 && row < rows && col >= 0 && col < cols
+                && map[row][col].accessibleParJoueur();
     }
 
     public void addObstacle(int row, int col) {
@@ -43,19 +47,13 @@ public class map_milieu {
         }
     }
 
-    public void addEquipment(int row, int col) {
-        if (isValidPositionAndFree(row, col)) {
-            map[row-1][col-1].setContenu("*");
+    public void addEquipment(int row, int col, Equipement equipement) {
+        if (isValidPositionAndFree(row - 1, col - 1)) {
+            map[row - 1][col - 1].setContenu(equipement);
         }
     }
 
-    public boolean isValidPositionAndFree(int row, int col) {
-        return row >= 0 && row < rows && col >= 0 && col < cols && map[row][col].estVide();
-    }
-
-
-
-    public void UpdateCae(int row, int col, String contenu) {
+    public void UpdateCase(int row, int col, ContenuCase contenu) {
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
             map[row][col].setContenu(contenu);
         }
@@ -63,51 +61,54 @@ public class map_milieu {
 
     public void videCase(int row, int col) {
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            map[row][col].setContenu(".");
+            map[row][col].setContenu(null);
         }
     }
 
     public Equipement recupererEquipement(int row, int col) {
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
             Object contenu = map[row][col].getContenu();
-            if (contenu instanceof Equipement equipement) {
-                map[row][col].setContenu(null); // Vide la case
-                return equipement;  // Retourne l'objet Equipement récupéré
+            if (contenu instanceof ContenuCase contenuCase &&
+                    contenuCase.getTypeContenu().equals("Equipement")) {
+
+                Equipement equipement = (Equipement) contenu;
+                map[row][col].setContenu(null);
+                return equipement;
             }
         }
-        return null; // Pas d'équipement ou position invalide
+        return null;
     }
 
 
-
+    public void nettoyerParticipants() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                Object contenu = map[i][j].getContenu();
+                if (contenu instanceof Joueur || contenu instanceof Monstre) {
+                    map[i][j].setContenu(null);
+                }
+            }
+        }
+    }
 
 
     public void Print(List<Object> participants) {
-        // Placement dynamique des participants
-        int startRow = 13;
-        int col = 12;
+        nettoyerParticipants();
         for (Object obj : participants) {
-            if (startRow >= rows) break;
-
-            String pseudo = "";
-            int offset = 0;
-
             if (obj instanceof Joueur joueur) {
-                pseudo = joueur.getNom();
-                offset = 0;
+                int x = joueur.getPosX()-1;
+                int y = joueur.getPosY()-1;
+
+                if (isValidPositionAndFree(x, y)) {
+                    map[x][y].setContenu(joueur);
+                }
             } else if (obj instanceof Monstre monstre) {
-                pseudo = monstre.getEspece();
-                offset = 2;
-            }
+                //int x = monstre.getPosX();
+               // int y = monstre.getPosY();
 
-            if (pseudo.length() > 3) {
-                pseudo = pseudo.substring(0, 3);
-            }
-
-            int targetCol = col + offset;
-            if (targetCol < cols && map[startRow][targetCol].estVide()) {
-                map[startRow][targetCol].setContenu(pseudo);
-                startRow++;
+               /* if (isValidPositionAndFree(x, y)) {
+                    map[x][y].setContenu(monstre);
+                }*/
             }
         }
 
@@ -121,10 +122,9 @@ public class map_milieu {
         }
         System.out.println("*");
 
-        // Corps de la carte
+        // Affichage du corps de la carte
         for (int i = 0; i < rows; i++) {
             System.out.print((i + 1 < 10 ? " " : "") + (i + 1) + " |");
-
             for (int j = 0; j < cols; j++) {
                 System.out.print(map[i][j].afficher());
             }
@@ -139,6 +139,6 @@ public class map_milieu {
         System.out.println("*");
 
         // Légende
-        System.out.println("    * Equipement   |   [ ] Obstacle  |");
+        System.out.println("    * Equipement   |   [ ] Obstacle");
     }
 }

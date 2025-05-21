@@ -3,6 +3,7 @@ package personnages;
 import classes.Classe;
 import equipements.Equipement;
 import equipements.GestionEquipements;
+import inter_face.ContenuCase;
 import inter_face.map_milieu;
 import monstres.*;
 import races.Races;
@@ -12,7 +13,7 @@ import Des.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Joueur extends Personnage {
+public class Joueur extends Personnage implements ContenuCase {
     private Classe m_classe;
     private Races m_race;
     private ArrayList<Equipement> m_inventaire;
@@ -25,6 +26,7 @@ public class Joueur extends Personnage {
         this.m_classe = classe;
         this.m_race = race;
         this.m_inventaire = new ArrayList<>();
+
 
         race.appliquerBonus(this);
         classe.genererEquipementDeBase(this);
@@ -181,11 +183,78 @@ public class Joueur extends Personnage {
         }
     }
 
+    public void soignerComplet() {
+        this.addPdV((this.getPointDeVie() - this.getPointDeVie()) + getClasse().getPvDeBase());
+    }
+
+
     public ArrayList<Equipement> getEquipements() {
         return m_inventaire;
     }
 
-    public void soignerComplet() {
-        this.addPdV((this.getPointDeVie() - this.getPointDeVie()) + getClasse().getPvDeBase());
+
+
+    public void seDeplacer(String direction, map_milieu map) {
+        int newX = posX;
+        int newY = posY;
+
+        switch (direction.toLowerCase()) {
+            case "haut": newX--; break;
+            case "bas": newX++; break;
+            case "gauche": newY--; break;
+            case "droite": newY++; break;
+            default:
+                System.out.println("Direction invalide.");
+                return;
+        }
+
+        if (map.isValidPositionAndFree(newX , newY )) {
+            System.out.println("Déplacement valide vers : " + newX + "," + newY);
+
+            map.videCase(posX - 1, posY - 1);
+            posX = newX;
+            posY = newY;
+            map.UpdateCase(posX - 1, posY - 1, this);
+
+            System.out.println(getNom() + " se déplace vers " + direction + ".");
+        } else {
+            System.out.println("Déplacement impossible vers " + direction + ".");
+        }
     }
+
+
+
+    public void ramasserEquipement(map_milieu map) {
+        Equipement equip = map.recupererEquipement(posX, posY);
+        if (equip != null) {
+            ajouterEquipement(equip);
+            System.out.println(getNom() + " a ramassé : " + equip.getNom() + " en (" + posX + ", " + posY + ").");
+        } else {
+            System.out.println("Pas d'équipement à récupérer à cette position.");
+        }
+    }
+
+
+    public int getPosX() {return this.posX;
+    }
+
+    public int getPosY() {return this.posY;
+    }
+
+    public void setPosXY(int x, int y) {
+        this.posX = x;
+        this.posY = y;
+    }
+
+    @Override
+    public String getTypeContenu() {
+        return "Joueur";
+    }
+
+    @Override
+    public String afficher() {
+        return this.getNom().length() > 3 ? this.getNom().substring(0, 3) : String.format("%-3s", this.getNom());
+    }
+
+
 }

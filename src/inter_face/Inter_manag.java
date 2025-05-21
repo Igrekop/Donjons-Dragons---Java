@@ -4,6 +4,9 @@ import java.util.List;
 import classes.Classe;
 import classes.Guerrier;
 import classes.Roublard;
+import equipements.Armes.ArmeCourante;
+import equipements.Armes.Armes;
+import equipements.Equipement;
 import maitredujeux.Maitredujeux;
 import personnages.Joueur;
 import races.Elfe;
@@ -30,11 +33,22 @@ public class Inter_manag {
         participants.add(joueur2);
         participants.add(joueur3);
 
+        ArmeCourante d = new ArmeCourante("Bâton", "1d6");
+
         barreHaut.Affichage(joueur1, 1, participants,2);
+
+        joueur1.setPosXY(14,10);
+        joueur2.setPosXY(15,11);
+        joueur3.setPosXY(13,7);
+
+        //joueur1.seDeplacer("droite",map);
+        joueur2.seDeplacer("droite",map);
+        joueur3.seDeplacer("haut",map);
 
         map.addObstacle(15,12);
         map.addObstacle(15,14);
-        map.addEquipment(14,12);
+        map.addEquipment(14,11,d);
+
 
         map.Print(participants);
 
