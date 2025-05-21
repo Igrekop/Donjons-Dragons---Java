@@ -37,13 +37,18 @@ public class map_milieu {
     }
 
     public boolean isValidPositionAndFree(int row, int col) {
-        return row >= 0 && row < rows && col >= 0 && col < cols
-                && map[row][col].accessibleParJoueur();
-    }
+        if( row >= 0 && row < rows && col >= 0 && col < cols
+                && map[row][col].accessibleParJoueur()) {
+            System.out.print("Au suivant");
+            return true;
+        }
+        else {return false;}
+        }
+
 
     public void addObstacle(int row, int col) {
         if (isValidPositionAndFree(row - 1, col - 1)) {
-            map[row - 1][col - 1].setContenu(new Obstacle());
+            map[row -1][col-1].setContenu(new Obstacle());
         }
     }
 
@@ -102,6 +107,7 @@ public class map_milieu {
                 if (isValidPositionAndFree(x, y)) {
                     map[x][y].setContenu(joueur);
                 }
+                else {System.out.print("Coordonnées invalide");};
             } else if (obj instanceof Monstre monstre) {
                 //int x = monstre.getPosX();
                // int y = monstre.getPosY();
