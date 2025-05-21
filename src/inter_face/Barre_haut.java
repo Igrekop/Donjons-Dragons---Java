@@ -30,10 +30,10 @@ public class Barre_haut {
             if (obj instanceof Joueur ) {
                 Joueur joueur = (Joueur) obj;
                 String pseudo = joueur.getNom().substring(0, 3);
-                System.out.println(prefixe  + pseudo + "   " +joueur.getNom() + " (" + joueur.getClasse().getNom() +" "+ joueur.getRace().getNom()  +", " + joueur.getPointDeVie() + ")");
+                System.out.println(prefixe  + pseudo + "   " +joueur.getNom() + " (" + joueur.getClasse().getNom() +" "+ joueur.getRace().getNom()  +", " + joueur.getPointDeVie() + "/" + joueur.getPVdebase() + " HP)");
             } else if (obj instanceof Monstre) {
                 Monstre monstre = (Monstre) obj;
-                System.out.println(prefixe + monstre.afficher() + "   " + monstre.getEspece() + ", " + monstre.getPointDeVie());
+                System.out.println(prefixe + monstre.afficher() + "    " + monstre.getEspece() + " (" + monstre.getPointDeVie() + "/" + monstre.getPvDeBase() + " HP)");
             }
         }
 
