@@ -103,12 +103,12 @@ public class map_milieu {
                     map[x][y].setContenu(joueur);
                 }
             } else if (obj instanceof Monstre monstre) {
-                //int x = monstre.getPosX();
-               // int y = monstre.getPosY();
+                int x = monstre.getPosX();
+                int y = monstre.getPosY();
 
-               /* if (isValidPositionAndFree(x, y)) {
+               if (isValidPositionAndFree(x, y)) {
                     map[x][y].setContenu(monstre);
-                }*/
+                }
             }
         }
 
