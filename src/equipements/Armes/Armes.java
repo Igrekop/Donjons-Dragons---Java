@@ -6,12 +6,24 @@ public abstract class Armes implements Equipement {
     private String m_degats;
     private int m_portee;
     private String m_type;
+    private int enchante;
 
     public Armes(String nom, String degats, int portee, String type) {
         this.m_nom = nom;
         this.m_degats = degats;
         this.m_portee = portee;
         this.m_type = type;
+        this.enchante = 0;
+    }
+
+    @Override
+    public int getEnchante() {
+        return this.enchante;
+    }
+
+    @Override
+    public void setEnchante(int enchante) {
+        this.enchante = enchante;
     }
 
     @Override

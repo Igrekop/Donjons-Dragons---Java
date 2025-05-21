@@ -12,6 +12,16 @@ public class ArmureLegere extends Armure {
     }
 
     @Override
+    public int getEnchante() {
+        return 0;
+    }
+
+    @Override
+    public void setEnchante(int enchante) {
+
+    }
+
+    @Override
     public int getPortee() {
         return 0;
     }
