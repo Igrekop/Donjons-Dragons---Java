@@ -1,6 +1,8 @@
 package equipements;
 
-public interface Equipement {
+import inter_face.ContenuCase;
+
+public interface Equipement  extends ContenuCase {
     String getNom();
     String getType();
     int getModificateurVitesse();
@@ -10,5 +12,7 @@ public interface Equipement {
     int getClasseArmure();
     boolean estArme();
     boolean estArmure();
+
+
 
 }
