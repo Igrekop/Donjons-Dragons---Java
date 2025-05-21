@@ -1,9 +1,10 @@
 package monstres;
 
+import inter_face.ContenuCase;
 import personnages.Joueur;
 import Des.*;
 
-public abstract class Monstre {
+public abstract class Monstre implements ContenuCase {
     private String m_espece;
     private int m_numero;
     private int m_pointDeVie;
@@ -14,6 +15,8 @@ public abstract class Monstre {
     private String m_typeAttaque;
     private int m_portee;
     private String m_degats;
+    private int posX;
+    private int posY;
 
 
     public Monstre(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
@@ -100,6 +103,26 @@ public abstract class Monstre {
         }
         else {return false;}
     }
+
+    public int getPosX() {return this.posX;
+    }
+
+    public int getPosY() {return this.posY;
+    }
+
+    public void setPosXY(int x, int y) {
+        this.posX = x;
+        this.posY = y;
+    }
+
+    public abstract String afficher();
+
+    @Override
+    public String getTypeContenu() {
+        return "Monstre";
+    }
+
+
 
 
 

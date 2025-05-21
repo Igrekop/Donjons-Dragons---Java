@@ -29,7 +29,7 @@ public class map_milieu {
     }
 
     private String generateLetters(int cols) {
-        StringBuilder sb = new StringBuilder("      ");
+        StringBuilder sb = new StringBuilder("    ");
         for (char c = 'A'; c < 'A' + cols; c++) {
             sb.append(" ").append(c).append(" ");
         }
@@ -37,7 +37,8 @@ public class map_milieu {
     }
 
     public boolean isValidPositionAndFree(int row, int col) {
-        return row >= 0 && row < rows && col >= 0 && col < cols && map[row][col].estVide();
+        return row >= 0 && row < rows && col >= 0 && col < cols
+                && map[row][col].accessibleParJoueur();
     }
 
     public void addObstacle(int row, int col) {
@@ -52,7 +53,7 @@ public class map_milieu {
         }
     }
 
-    public void UpdateCae(int row, int col, Object contenu) {
+    public void UpdateCase(int row, int col, ContenuCase contenu) {
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
             map[row][col].setContenu(contenu);
         }
@@ -67,7 +68,10 @@ public class map_milieu {
     public Equipement recupererEquipement(int row, int col) {
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
             Object contenu = map[row][col].getContenu();
-            if (contenu instanceof Equipement equipement) {
+            if (contenu instanceof ContenuCase contenuCase &&
+                    contenuCase.getTypeContenu().equals("Equipement")) {
+
+                Equipement equipement = (Equipement) contenu;
                 map[row][col].setContenu(null);
                 return equipement;
             }
@@ -75,22 +79,36 @@ public class map_milieu {
         return null;
     }
 
+
+    public void nettoyerParticipants() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                Object contenu = map[i][j].getContenu();
+                if (contenu instanceof Joueur || contenu instanceof Monstre) {
+                    map[i][j].setContenu(null);
+                }
+            }
+        }
+    }
+
+
     public void Print(List<Object> participants) {
+        nettoyerParticipants();
         for (Object obj : participants) {
             if (obj instanceof Joueur joueur) {
-                int x = joueur.getPosX();
-                int y = joueur.getPosY();
+                int x = joueur.getPosX()-1;
+                int y = joueur.getPosY()-1;
 
                 if (isValidPositionAndFree(x, y)) {
                     map[x][y].setContenu(joueur);
                 }
             } else if (obj instanceof Monstre monstre) {
-                //int x = monstre.getPosX();
-               // int y = monstre.getPosY();
+                int x = monstre.getPosX();
+                int y = monstre.getPosY();
 
-               /* if (isValidPositionAndFree(x, y)) {
+               if (isValidPositionAndFree(x, y)) {
                     map[x][y].setContenu(monstre);
-                }*/
+                }
             }
         }
 

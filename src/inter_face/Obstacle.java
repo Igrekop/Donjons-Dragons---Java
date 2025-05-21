@@ -1,8 +1,14 @@
 package inter_face;
 
-public class Obstacle {
+public class Obstacle implements ContenuCase{
+
     @Override
-    public String toString() {
+    public String getTypeContenu() {
+        return "Obstacle";
+    }
+
+    @Override
+    public String afficher() {
         return "[ ]";
     }
 }

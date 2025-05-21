@@ -8,6 +8,7 @@ import equipements.Armes.ArmeCourante;
 import equipements.Armes.Armes;
 import equipements.Equipement;
 import maitredujeux.Maitredujeux;
+import monstres.Dragon;
 import personnages.Joueur;
 import races.Elfe;
 import races.Humain;
@@ -27,19 +28,31 @@ public class Inter_manag {
         Joueur joueur1 = new Joueur("Arthur", guerrier, humain);
         Joueur joueur2 = new Joueur("Luna", guerrier, elfe);
         Joueur joueur3 = new Joueur("Sonic", roublard, humain);
+        Dragon raciste = new Dragon(1);
+
 
         List<Object> participants = new ArrayList<>();
         participants.add(joueur1);
         participants.add(joueur2);
         participants.add(joueur3);
+        participants.add(raciste);
 
         ArmeCourante d = new ArmeCourante("Bâton", "1d6");
 
         barreHaut.Affichage(joueur1, 1, participants,2);
 
+        joueur1.setPosXY(14,10);
+        joueur2.setPosXY(15,11);
+        joueur3.setPosXY(13,7);
+        raciste.setPosXY(15, 10);
+
+        //joueur1.seDeplacer("droite",map);
+        joueur2.seDeplacer("droite",map);
+        joueur3.seDeplacer("haut",map);
+
         map.addObstacle(15,12);
         map.addObstacle(15,14);
-        map.addEquipment(14,12,d);
+        map.addEquipment(14,11,d);
 
 
         map.Print(participants);
