@@ -17,7 +17,7 @@ public class ArmeMagique extends Sort{
         ArrayList<Equipement> inventaire = cible2.getEquipements();
 
         for (Equipement e : inventaire) {
-            if (e.getType() == )
+           // if (e.getType() == )
             System.out.println(e);
         }
     }

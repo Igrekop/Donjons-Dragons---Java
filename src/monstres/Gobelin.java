@@ -73,6 +73,10 @@ public class Gobelin extends Monstre {
         }
     }
 
+    public int getPvDeBase() {
+        return 10;
+    }
+
     @Override
     public String afficher() {
         return "\uD83D\uDC7A";

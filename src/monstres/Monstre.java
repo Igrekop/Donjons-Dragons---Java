@@ -45,6 +45,8 @@ public abstract class Monstre implements ContenuCase {
         return m_pointDeVie;
     }
 
+    public abstract int getPvDeBase();
+
     public String getDegats() {
         return m_degats;
     }

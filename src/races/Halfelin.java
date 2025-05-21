@@ -2,6 +2,6 @@ package races;
 
 public class Halfelin extends Races{
     public Halfelin() {
-        super("Halfelin", 0, 4, 2, 0, 0);
+        super("Halfelin", 0, 4, 2, 0);
     }
 }

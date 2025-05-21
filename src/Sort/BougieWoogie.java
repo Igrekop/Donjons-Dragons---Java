@@ -1,4 +1,4 @@
-package Sort;
+/*package Sort;
 
 import monstres.Monstre;
 import personnages.Joueur;
@@ -32,4 +32,4 @@ public class BougieWoogie extends Sort{
     public void utiliser(Monstre cible1, Monstre cible2) {
 
     }
-}
+}*/
