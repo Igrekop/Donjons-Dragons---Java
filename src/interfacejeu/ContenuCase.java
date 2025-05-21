@@ -1,4 +1,4 @@
-package inter_face;
+package interfacejeu;
 
 public interface ContenuCase {
     String getTypeContenu();

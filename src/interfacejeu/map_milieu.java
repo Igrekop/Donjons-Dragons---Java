@@ -1,4 +1,4 @@
-package inter_face;
+package interfacejeu;
 
 import equipements.Equipement;
 import monstres.Monstre;

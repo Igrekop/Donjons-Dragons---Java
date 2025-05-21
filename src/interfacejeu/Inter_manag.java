@@ -1,14 +1,13 @@
-package inter_face;
+package interfacejeu;
 import java.util.ArrayList;
 import java.util.List;
 import classes.Classe;
 import classes.Guerrier;
 import classes.Roublard;
 import equipements.Armes.ArmeCourante;
-import equipements.Armes.Armes;
-import equipements.Equipement;
 import maitredujeux.Maitredujeux;
 import monstres.Dragon;
+import personnages.Affichable.affichable;
 import personnages.Joueur;
 import races.Elfe;
 import races.Humain;
@@ -16,7 +15,7 @@ import races.Races;
 
 public class Inter_manag {
     public static void main(String[] args) {
-        Barre_haut barreHaut = new Barre_haut();
+        BarreHaut barreHaut = new BarreHaut();
         Races humain = new Humain();
         Races elfe = new Elfe();
         Classe guerrier = new Guerrier();
@@ -31,11 +30,15 @@ public class Inter_manag {
         Dragon raciste = new Dragon(1);
 
 
-        List<Object> participants = new ArrayList<>();
+        List<affichable> participants = new ArrayList<>();
+        List<Object> p2 = new ArrayList<>();
         participants.add(joueur1);
         participants.add(joueur2);
         participants.add(joueur3);
         participants.add(raciste);
+        p2.add(joueur1);
+        p2.add(joueur2);
+        p2.add(raciste);
 
         ArmeCourante d = new ArmeCourante("Bâton", "1d6");
 
@@ -58,11 +61,11 @@ public class Inter_manag {
 
 
 
-        map.Print(participants);
+        map.Print(p2);
         joueur1.ramasserEquipement(map);
         joueur1.seDeplacer("gauche",map,1);
         joueur1.seDeplacer("gauche",map,1);
-        map.Print(participants);
+        map.Print(p2);
 
     }
 

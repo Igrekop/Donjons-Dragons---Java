@@ -1,18 +1,20 @@
 import classes.*;
-import equipements.*;
 import equipements.Armures.ArmureLegere;
 import maitredujeux.Maitredujeux;
 import monstres.Monstre;
 import personnages.*;
 import races.*;
-import inter_face.*;
+import interfacejeu.*;
 import Des.*;
 import java.util.*;
+import personnages.Affichable.affichable;
+
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Object> participants = new ArrayList<>();
+        List<affichable> participants = new ArrayList<>();
+        List<Object> participants2 = new ArrayList<>();
         List<Joueur> joueurs = new ArrayList<>();
         Maitredujeux mj = new Maitredujeux();
 
@@ -27,6 +29,7 @@ public class Main {
             Joueur joueur = creerPersonnage(scanner, numeroJoueur);
             joueurs.add(joueur);
             participants.add(joueur);
+            participants2.add(joueur);
             numeroJoueur++;
         }
 
@@ -43,6 +46,7 @@ public class Main {
 
             Monstre monstre = mj.creerMonstre();
             participants.add(monstre);
+            participants2.add(monstre);
             System.out.println("Monstre " + monstre.getEspece() + " créé !");
         }
 
@@ -75,11 +79,11 @@ public class Main {
             }
             participants.sort((a, b) -> Integer.compare(initiativeMap.get(b), initiativeMap.get(a)));
 
-            Barre_haut barre = new Barre_haut();
+            BarreHaut barre = new BarreHaut();
             map_milieu map = new map_milieu(20, 20);
             System.out.println("\n=== Début du donjon ===");
             barre.Affichage(joueurs.get(0), 1, participants, 1);
-            map.Print(participants);
+            map.Print(participants2);
 
             int index = 0;
             while (true) {

@@ -1,6 +1,6 @@
 package equipements;
 
-import inter_face.ContenuCase;
+import interfacejeu.ContenuCase;
 
 public interface Equipement  extends ContenuCase {
     int getEnchante();
