@@ -3,11 +3,16 @@ package monstres;
 import Des.Des;
 import personnages.Joueur;
 
+import javax.swing.*;
+
 public class Monstreperso extends Monstre {
 
+    public String icone;
+
     public Monstreperso(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
-                        int classeArmure, String typeAttaque, int portee, String degats) {
+                        int classeArmure, String typeAttaque, int portee, String degats, String icone) {
         super(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
+        this.icone = icone;
     }
 
     @Override
@@ -31,7 +36,6 @@ public class Monstreperso extends Monstre {
 
         boolean succes = jetAttaque > classeArmureCible;
         int degatsInfliges = 0;
-
         if (succes) {
             degatsInfliges = Des.lancerDes(getDegats());
             cible.addPdV(-degatsInfliges);
@@ -71,5 +75,16 @@ public class Monstreperso extends Monstre {
             this.degatsInfliges = degatsInfliges;
             this.classeArmureCible = classeArmureCible;
         }
+    }
+
+    public String getIcone() {
+        return icone;
+    }
+
+
+
+    @Override
+    public String afficher() {
+        return getIcone();
     }
 }

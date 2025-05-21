@@ -73,4 +73,9 @@ public class Dragon extends Monstre {
             this.classeArmureCible = classeArmureCible;
         }
     }
+
+    @Override
+    public String afficher() {
+        return "\uD83D\uDC09";
+    }
 }

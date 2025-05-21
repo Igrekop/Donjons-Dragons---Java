@@ -48,4 +48,15 @@ public abstract class Armes implements Equipement {
     public String toString() {
         return "Arme : " + getNom() + " (Dégâts : " + getDegats() + ", Portée : " + getPortee() + ")";
     }
+
+    @Override
+    public String getTypeContenu() {
+        return "Equipement";
+    }
+
+    @Override
+    public  String afficher(){
+        return " * ";
+    }
+
 }
