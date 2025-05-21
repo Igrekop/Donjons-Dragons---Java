@@ -218,20 +218,15 @@ public class Joueur extends Personnage implements ContenuCase {
                     return;
             }
 
-            if (map.isValidPositionAndFree(newX, newY)) {
-                System.out.println("Déplacement valide vers : " + newX + "," + newY);
-
-                int oldX = posX;
-                int oldY = posY;
-
+            if(map.isValidPositionAndFree(newX, newY)) {
+                map.videCase(posX, posY);
                 posX = newX;
                 posY = newY;
-
-                map.videCase(oldX, oldY);
                 map.UpdateCase(posX, posY, this);
-
                 System.out.println(getNom() + " se déplace vers " + direction + ".");
-            } else {
+            }
+
+             else {
                 System.out.println("Déplacement impossible vers " + direction + ".");
             }
 
