@@ -27,6 +27,19 @@ public class Case {
         return estVide() || estEquipement();
     }
 
+
+
+    public boolean passable() {
+        if (contenu == null || "Equipement".equals(contenu.getTypeContenu())) {
+            System.out.print("Passer");
+            return true;
+        }
+        String type = contenu.getTypeContenu();
+        return !"Obstacle".equals(type) && !"Joueur".equals(type) && !"Monstre".equals(type);
+    }
+
+
+
     public String afficher() {
         return estVide() ? " . " : contenu.afficher();
     }
