@@ -37,17 +37,19 @@ public class Inter_manag {
 
         barreHaut.Affichage(joueur1, 1, participants,2);
 
-        joueur1.setPosXY(14,10);
+        joueur1.setPosXY(14,9);
         joueur2.setPosXY(15,11);
         joueur3.setPosXY(13,7);
-
-        //joueur1.seDeplacer("droite",map);
-        joueur2.seDeplacer("droite",map);
-        joueur3.seDeplacer("haut",map);
 
         map.addObstacle(15,12);
         map.addObstacle(15,14);
         map.addEquipment(14,11,d);
+
+        joueur1.seDeplacer("droite",map,2);
+        joueur2.seDeplacer("droite",map, 1);
+        //joueur3.seDeplacer("haut",map,1);
+
+
 
 
         map.Print(participants);
