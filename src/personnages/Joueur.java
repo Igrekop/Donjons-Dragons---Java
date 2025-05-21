@@ -6,10 +6,9 @@ import equipements.GestionEquipements;
 import inter_face.map_milieu;
 import monstres.*;
 import races.Races;
-import equipements.Armes.Armes;
+
 import equipements.Armures.Armure;
 import Des.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
