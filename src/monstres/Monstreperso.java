@@ -97,4 +97,8 @@ public class Monstreperso extends Monstre {
     public int getPvDeBase() {
         return m_PvDeBase;
     }
+
+
+
+
 }

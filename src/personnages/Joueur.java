@@ -6,13 +6,13 @@ import equipements.GestionEquipements;
 import interfacejeu.ContenuCase;
 import interfacejeu.map_milieu;
 import monstres.*;
-import personnages.Affichable.affichable;
+import personnages.Entité.entite;
 import races.Races;
 
 import Des.*;
 import java.util.ArrayList;
 
-public class Joueur extends Personnage implements ContenuCase, affichable {
+public class Joueur extends Personnage implements ContenuCase, entite {
     private Classe m_classe;
     private Races m_race;
     private ArrayList<Equipement> m_inventaire;
