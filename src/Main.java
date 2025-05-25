@@ -1,5 +1,6 @@
 import classes.*;
 import equipements.Armures.ArmureLegere;
+import equipements.Equipement;
 import maitredujeux.Maitredujeux;
 import monstres.Monstre;
 import personnages.*;
@@ -9,6 +10,8 @@ import Des.*;
 import java.util.*;
 import personnages.Entité.entite;
 
+import static equipements.GestionEquipements.initialiserEquipements;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -17,6 +20,8 @@ public class Main {
         List<Object> participants2 = new ArrayList<>();
         List<Joueur> joueurs = new ArrayList<>();
         Maitredujeux mj = new Maitredujeux();
+
+        map_milieu map = new map_milieu(20,20);
 
         System.out.println("=== Création des personnages ===");
 
@@ -30,7 +35,16 @@ public class Main {
             joueurs.add(joueur);
             participants.add(joueur);
             participants2.add(joueur);
-            joueur.setPosXY(13, 10);
+
+            //a refaire
+            System.out.println("Maître du jeu, placez le joueur sur la carte !");
+            System.out.print("Entrez la coordonnée X (ligne) : ");
+            int x = scanner.nextInt();
+            System.out.print("Entrez la coordonnée Y (colonne) : ");
+            int y = scanner.nextInt();
+            scanner.nextLine();
+            joueur.setPosXY(x, y);
+            System.out.println("Joueur placé en (" + x + ", " + y + ").");
             numeroJoueur++;
         }
 
@@ -49,6 +63,15 @@ public class Main {
             participants.add(monstre);
             participants2.add(monstre);
             System.out.println("Monstre " + monstre.getEspece() + " créé !");
+
+            System.out.println("Maître du jeu, placez le monstre sur la carte !");
+            System.out.print("Entrez la coordonnée X (ligne) : ");
+            int x = scanner.nextInt();
+            System.out.print("Entrez la coordonnée Y (colonne) : ");
+            int y = scanner.nextInt();
+            scanner.nextLine();
+            monstre.setPosXY(x, y);
+            System.out.println("Monstre placé en (" + x + ", " + y + ").");
         }
 
         if (participants.isEmpty()) {
@@ -81,8 +104,61 @@ public class Main {
             participants.sort((a, b) -> Integer.compare(initiativeMap.get(b), initiativeMap.get(a)));
 
             BarreHaut barre = new BarreHaut();
-            map_milieu map = new map_milieu(20, 20);
             System.out.println("\n=== Début du donjon ===");
+
+            while (true) {
+                System.out.print("Souhaitez-vous ajouter un obstacle ? (oui/non) : ");
+                String reponse = scanner.nextLine().trim().toLowerCase();
+
+                if (!reponse.equals("oui")) {
+                    break;
+                }
+
+                System.out.print("Entrez la coordonnée X de l'obstacle : ");
+                int x = scanner.nextInt();
+
+                System.out.print("Entrez la coordonnée Y de l'obstacle : ");
+                int y = scanner.nextInt();
+                scanner.nextLine();
+
+                map.addObstacle(x, y);
+                System.out.println("Obstacle ajouté en (" + x + ", " + y + ").");
+            }
+
+            System.out.println("Fin de l'ajout des obstacles.");
+            scanner.close();
+
+            Scanner scanner2 = new Scanner(System.in);
+            List<Equipement> equipements = initialiserEquipements();
+            Random random = new Random();
+
+            while (true) {
+                System.out.print("Souhaitez-vous ajouter un équipement sur la carte ? (oui/non) : ");
+                String reponse = scanner.nextLine().trim().toLowerCase();
+
+                if (!reponse.equals("oui")) {
+                    break;
+                }
+
+                System.out.print("Entrez la coordonnée X (ligne) : ");
+                int x = scanner.nextInt();
+                System.out.print("Entrez la coordonnée Y (colonne) : ");
+                int y = scanner.nextInt();
+                scanner.nextLine();
+
+                // Tirage aléatoire d'un équipement
+                Equipement equipementAleatoire = equipements.get(random.nextInt(equipements.size()));
+
+                // Placement de l'équipement
+                map.addEquipment(x, y, equipementAleatoire);
+
+                System.out.println("Équipement ajouté en (" + x + ", " + y + ") : " + equipementAleatoire.getNom());
+            }
+
+            System.out.println("Fin de l'ajout des équipements.");
+            scanner.close();
+
+
             barre.Affichage(joueurs.get(0), 1, participants, 1);
             map.Print(participants2);
 

@@ -7,10 +7,6 @@ public class Obstacle implements ContenuCase {
         return "Obstacle";
     }
 
-
-
-
-
     @Override
     public String afficher() {
         return "[ ]";
