@@ -16,7 +16,7 @@ import static equipements.GestionEquipements.initialiserEquipements;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<entite> participants = new ArrayList<>();
+        ArrayList<entite> participants = new ArrayList<>();
         List<Object> participants2 = new ArrayList<>();
         List<Joueur> joueurs = new ArrayList<>();
         Maitredujeux mj = new Maitredujeux();
@@ -182,9 +182,10 @@ public class Main {
                                 for (int i = 0; i < cibles.size(); i++) {
                                     System.out.println((i + 1) + ". " + cibles.get(i).getEspece());
                                 }
-                                int mort = 0;
+                                int mort = 1;
                                 for (int i = 0; i < cibles.size(); i++) {
                                     if (!cibles.get(i).estMort()) {
+                                        mort=0;
                                         continue;
                                     }
                                     else {
@@ -206,8 +207,7 @@ public class Main {
                                 int choix = Integer.parseInt(scanner.nextLine()) - 1;
                                 if (choix >= 0 && choix < cibles.size()) {
                                     joueur.attaquer(cibles.get(choix));
-                                    System.out.println("Commentaire ? ");
-                                    System.out.println(scanner.nextLine());
+                                    mj.intervenir(participants, map);
                                     actionsRestantes--;
                                 }
                             }
@@ -231,7 +231,7 @@ public class Main {
                         Joueur cible = cibles.get(new Random().nextInt(cibles.size()));
                         monstre.attaquer(cible);
                         System.out.println(monstre.getEspece() + " attaque " + cible.getNom() + " !");
-                        System.out.println("Commentaire du MJ ? ");
+                        mj.intervenir(participants, map);
                         System.out.println(scanner.nextLine());
                     }
                 }
