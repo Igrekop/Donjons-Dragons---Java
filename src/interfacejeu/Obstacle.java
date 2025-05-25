@@ -1,13 +1,14 @@
 package interfacejeu;
 
-import personnages.Affichable.affichable;
-
 public class Obstacle implements ContenuCase {
 
     @Override
     public String getTypeContenu() {
         return "Obstacle";
     }
+
+
+
 
 
     @Override

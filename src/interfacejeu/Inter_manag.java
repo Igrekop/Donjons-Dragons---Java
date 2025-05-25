@@ -7,7 +7,7 @@ import classes.Roublard;
 import equipements.Armes.ArmeCourante;
 import maitredujeux.Maitredujeux;
 import monstres.Dragon;
-import personnages.Affichable.affichable;
+import personnages.Entité.entite;
 import personnages.Joueur;
 import races.Elfe;
 import races.Humain;
@@ -30,8 +30,8 @@ public class Inter_manag {
         Dragon raciste = new Dragon(1);
 
 
-        List<affichable> participants = new ArrayList<>();
-        List<Object> p2 = new ArrayList<>();
+        ArrayList<entite> participants = new ArrayList<>();
+        ArrayList<Object> p2 = new ArrayList<>();
         participants.add(joueur1);
         participants.add(joueur2);
         participants.add(joueur3);
@@ -58,7 +58,7 @@ public class Inter_manag {
         //joueur2.seDeplacer("droite",map, 1);
         //joueur3.seDeplacer("haut",map,1);
 
-
+        mj.intervenir(participants, map);
 
 
         map.Print(p2);

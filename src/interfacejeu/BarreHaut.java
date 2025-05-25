@@ -1,7 +1,5 @@
 package interfacejeu;
-import personnages.*;
-import monstres.*;
-import personnages.Affichable.affichable;
+import personnages.Entité.entite;
 
 import java.util.List;
 
@@ -12,7 +10,7 @@ public class BarreHaut {
 
 
 
-    public void Affichage(affichable joueurActif, int donj, List<affichable> participants, int tour) {
+    public void Affichage(entite joueurActif, int donj, List<entite> participants, int tour) {
         System.out.println(barre);
         System.out.println("Donjon " + donj + ":");
         SAL(2);
@@ -23,7 +21,7 @@ public class BarreHaut {
         System.out.println(barre);
         System.out.println("Tour " + tour + ":");
 
-        for (affichable obj : participants) {
+        for (entite obj : participants) {
             String prefixe = (obj == joueurActif) ? "-> " : "   ";
             System.out.println(prefixe + obj.getAffichageCourt() + "   " + obj.getAffichageLong());
         }

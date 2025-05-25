@@ -1,6 +1,5 @@
 package equipements.Armures;
 import equipements.*;
-import personnages.Affichable.affichable;
 
 public abstract class Armure implements Equipement {
     private String m_nom;

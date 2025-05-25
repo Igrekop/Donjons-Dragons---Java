@@ -7,13 +7,13 @@ import races.*;
 import interfacejeu.*;
 import Des.*;
 import java.util.*;
-import personnages.Affichable.affichable;
+import personnages.Entité.entite;
 
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<affichable> participants = new ArrayList<>();
+        List<entite> participants = new ArrayList<>();
         List<Object> participants2 = new ArrayList<>();
         List<Joueur> joueurs = new ArrayList<>();
         Maitredujeux mj = new Maitredujeux();
@@ -30,6 +30,7 @@ public class Main {
             joueurs.add(joueur);
             participants.add(joueur);
             participants2.add(joueur);
+            joueur.setPosXY(13, 10);
             numeroJoueur++;
         }
 

@@ -80,6 +80,6 @@ public class Dragon extends Monstre {
 
     @Override
     public String afficher() {
-        return "\uD83D\uDC09";
+        return "\uD83D\uDC09" + " " ;
     }
 }

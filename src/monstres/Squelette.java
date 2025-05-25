@@ -78,6 +78,6 @@ public class Squelette extends Monstre {
 
     @Override
     public String afficher() {
-        return "\uD83D\uDC80";
+        return "\uD83D\uDC80" + " ";
     }
 }

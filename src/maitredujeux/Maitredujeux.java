@@ -1,11 +1,11 @@
 package maitredujeux;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
+import interfacejeu.ContenuCase;
+import interfacejeu.map_milieu;
 import monstres.*;
+import personnages.Entité.entite;
 import personnages.Joueur;
 
 public class Maitredujeux {
@@ -181,4 +181,63 @@ public class Maitredujeux {
         } while (valeur < min);
         return valeur;
     }
+
+    public void intervenir(ArrayList<entite> participants,map_milieu map) {
+        System.out.println("=== Intervention du Maître du Jeu ===");
+        System.out.println("1. Commenter l'action");
+        System.out.println("2. Déplacer un monstre ou un joueur");
+        System.out.println("3. Ne rien faire");
+
+        int choix = saisirEntierMin("Votre choix : ", 1);
+
+        switch (choix) {
+            case 1:
+                System.out.print("Commentaire : ");
+                String commentaire = m_scanner.nextLine();
+                ajouterLignes("MJ : " + commentaire);
+                break;
+            case 2:
+                deplacerEntite(participants, map);
+                break;
+            case 3:
+                System.out.println("Aucune intervention.");
+                break;
+            default:
+                System.out.println("Choix invalide.");
+        }
+    }
+
+    public void deplacerEntite(List<entite> entites, map_milieu map) {
+        System.out.println("=== Déplacement d'une entité ===");
+        for (int i = 0; i < entites.size(); i++) {
+            entite e = entites.get(i);
+            System.out.println((i + 1) + ". " + e.getNom() + " - Position (" + e.getPosX() + ", " + e.getPosY() + ")");
+        }
+
+        int choix = saisirEntierMin("Choisissez une entité : ", 1) - 1;
+        if (choix < 0 || choix >= entites.size()) {
+            System.out.println("Choix invalide.");
+            return;
+        }
+
+        entite entite = entites.get(choix);
+        int x = saisirEntierPositif("Nouvelle position X : ");
+        int y = saisirEntierPositif("Nouvelle position Y : ");
+
+        if (!map.isValidPositionAndFree(x, y)) {
+            System.out.println("Position invalide sur la carte.");
+            return;
+        }
+
+        entite.setPosXY(x, y);
+        System.out.println(entite.getNom() + " a été déplacé en (" + x + ", " + y + ").");
+    }
+
+
+
+
+
+
+
 }
+
