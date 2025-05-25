@@ -1,382 +1,566 @@
 @startuml '[https://plantuml.com/sequence-diagram](https://plantuml.com/sequence-diagram)'
 
-package races {
-    class Races {
-        - nom : String
-        - bonusForce : int 
-        - bonusDexterite : int 
-        - bonusVitesse : int 
-        - bonusPV : int
-        - bonusInitiative : int
-        + appliquerBonus(personnage : Personnage) 
-        + getNom()
+
+
+    class Main {
+        + main(args: String[]): void
+        + creerPersonnage(scanner: Scanner, numeroJoueur: int): Joueur
     }
 
-    class Elfe {
-        + Elfe()
-    }
+    Main --> Joueur : creates
+    Main --> Races : uses
+    Main --> Classe : uses
+    Main --> Maitredujeux : uses
+    Main --> map_milieu : manages
+    Main --> BarreHaut : uses
+    Main --> Des : uses
 
-    class Halfelin {
-        + Halfelin()
-    }
-
-    class Humain {
-        + Humain()
-    }
-
-    class Nain {
-        + Nain()
-    }
-
-    Races <|-- Elfe
-    Races <|-- Halfelin
-    Races <|-- Humain
-    Races <|-- Nain
-}
-
-package personnages {
-   abstract class Personnage {
-            - nom : String
-            - pointDeVie : int
-            - force : int
-            - dexterite : int
-            - vitesse : int
-            - initiative : int
-            - equipementEquipe : Equipement[]
-            + Personnage(nom: String, pointDeVie: int, force: int, dexterite: int, vitesse: int, initiative: int)
-            + attaquer(cible: Monstre) : void
-            + equiper(slot: int, equipement: Equipement) : void
-            + equiper(equipement: Equipement, equipe: Object) : void
-            + getEquiper() : List<Equipement>
-            + toString() : String
+    package classes {
+        abstract class Classe {
+            - m_nom : String
+            - m_pvDeBase : int
+            + {abstract} genererEquipementDeBase(joueur: Joueur) : void
             + getNom() : String
-            + getPointDeVie() : int
-            + getForce() : int
-            + getDexterite() : int
-            + getVitesse() : int
-            + getInitiative() : int
-            + setNom(nom : String) : void
-            + setPointDeVie(pv : int) : void
-            + addPdV(pv : int) : void
-            + setForce(force : int) : void
-            + setVitesse_change(vitesse : int) : void
-            + setDexterite(dex : int) : void
-            + setVitesse(vitesse : int) : void
-            + setInitiative(initiative : int) : void
+            + getPvDeBase() : int
+            + toString() : String
         }
 
-    class Joueur {
-            - Classe m_classe
-            - Races m_race
-            - ArrayList<Equipement> m_inventaire
-            - int posX
-            - int posY
-
-            + Joueur(String nom, Classe classe, Races race)
-            + void attaquer(Monstre cible)
-            + void equiper(Equipement equipement, Object equipe)
-            + void ajouterEquipement(Equipement equipement)
-            + void afficherInventaire()
-            + int getClasseArmureActuelle()
-            + void setPosition(int x, int y)
-            + void seDeplacer(String direction, map_milieu map)
-            + void ramasserEquipement(map_milieu map)
-            + String toString()
-            + Classe getClasse()
-            + Races getRace()
-            + ArrayList<Equipement> getEquipements()
+        class Clerc {
+            + Clerc()
+            + genererEquipementDeBase(joueur: Joueur) : void
+            + toString() : String
         }
 
-    Personnage <|-- Joueur
-    
-
-}
-
-package classes {
-    abstract class Classe {
-        - String nom
-        - int pvDeBase
-        - List<Equipement> equipements
-        + Classe(String nom, int pvDeBase)
-        + getNom(): String
-        + getPvDeBase(): int
-        + getEquipements(): List<Equipement>
-        # genererEquipementDeBase()
-        + toString(): String Override
-    }
-
-    class Clerc extends Classe {
-        + Clerc()
-        + genererEquipementDeBase() : void
-        toString(): String Override
-    }
-
-    class Guerrier extends Classe {
-        + Guerrier()
-        + genererEquipementDeBase() : void
-        toString(): String Override
-    }
-
-    class Magicien extends Classe {
-        + Magicien()
-        + genererEquipementDeBase() : void
-        toString(): String Override
-    }
-
-    class Roublard extends Classe {
-        + Roublard()
-        + genererEquipementDeBase() : void
-        toString(): String Override
-    }
-
-    Classe <|-- Clerc
-    Classe <|-- Guerrier
-    Classe <|-- Magicien
-    Classe <|-- Roublard
-
-    
-}
-
-package monstres {
-    abstract class Monstre {
-        - String espece
-        - int numero
-        - int pointDeVie
-        - int force
-        - int dexterite
-        - int initiative
-        - int classeArmure
-        - String typeAttaque
-        - int portee
-        - String degats
-        + Monstre(...)
-        + attaquer(cible: Personnage)
-        + toString(): String
-    }
-
-    class Squelette extends Monstre {
-        + Squelette(numero: int)
-        + attaquer(cible: Personnage): void
-    }
-
-    class Dragon extends Monstre {
-        + Dragon(numero: int)
-        + attaquer(cible: Personnage): void
-    }
-
-    class Gobelin extends Monstre {
-        + Gobelin(numero: int)
-        + attaquer(cible: Personnage): void
-    }
-
-    class Monstreperso extends Monstre {
-        + Monstreperso(espece: int,numero: int,pointDeVie: int,force: int,dexterite: int,initiative: int,
-                                classeArmure: int,typeAttaque: String,portee:int ,degats: int)
-        + attaquer(cible: Personnage)
-    }
-
-    Monstre <|-- Squelette
-    Monstre <|-- Dragon
-    Monstre <|-- Gobelin
-    Monstre <|-- Monstreperso
-}
-
-package equipements {
-    interface Equipement {
-        + getNom(): String
-        + getType(): String
-        + getModificateurVitesse(): int
-        + getModificateurForce(): int
-        + getPortee(): int
-        + getDegats(): String
-        + getClasseArmure(): int
-        + estArme(): boolean
-        + estArmure(): boolean
-
-    }
-
-    interface EquipementDeBase {
-        + genererEquipementDeBase() : void
-    }
-
-    class GestionEquipements {
-        + initialiserEquipements(): List<Equipement>
-        + afficherEquipements(List<Equipement>): void
-        + equiperPremiereArmeEtArmure(personnage: Personnage, equipements: List<Equipement>)
-    }
-
-
-
-    EquipementDeBase <|-- GestionEquipements
-
-
-package Armes {
-    abstract class Armes {
-        - String nom
-        - String degats
-        - int portee
-        - String type
-        + Armes(String, String, int, String)
-        + getNom(): String
-        + getType(): String
-        + getDegats(): String
-        + getPortee(): int
-        + getModificateurVitesse(): int
-        + getModificateurForce(): int
-    }
-
-    class ArmeCourante {
-        + ArmeCourante(nom: String, degats: String)
-        + toString(): String
-        + getClasseArmure(): int Override
-    }
-
-    class ArmeDistance {
-        + ArmeDistance(nom: String, degats: String, portee: int)
-        + toString(): String
-        + getClasseArmure(): int Override
-    }
-
-    class ArmeDeGuerre {
-        + ArmeDeGuerre(nom: String, degats: String)
-        + getModificateurVitesse(): int Override
-        + getModificateurForce(): int Override
-        + getClasseArmure(): int Override
-        + toString(): String
-    }
-
-    Armes <|-- ArmeCourante
-    Armes <|-- ArmeDistance
-    Armes <|-- ArmeDeGuerre
-    Armes --> equipements.Equipement
-}
-
-package Armures {
-    abstract class Armure {
-        - String nom
-        - int classeArmure
-        - String type
-        + Armure(String nom, int classeArmure, String type)
-        + getNom(): String
-        + getType(): String
-        + getClasseArmure(): int Override
-        + getModificateurVitesse(): int Override
-        + getModificateurForce(): int Override
-    }
-
-    class ArmureLegere {
-        + ArmureLegere(nom: String, classeArmure: int)
-        + toString(): String Override
-        + getPortee(): int Override
-        + getDegats(): String Override
-        + getClasseArmure(): int Override
-    }
-
-    class ArmureLourde {
-        + ArmureLourde(nom: String, classeArmure: int)
-        + getModificateurVitesse(): int «override»
-        + getPortee(): int Override
-        + getDegats(): String Override
-        + toString(): String Override
-        + getClasseArmure(): int Override
-    }
-
-    Armure <|-- ArmureLegere
-    Armure <|-- ArmureLourde
-    Armure --> equipements.Equipement
-}
-}
-
-package Des {
-class Des {
-    - random : Random
-    - DICE_FACES : String[]
-    - lancerDes(nombreFaces: int, nombreDes: int): int
-    - printDiceFace(num: int, faces: int): void
-    + lancerDes(notation: String): int
-    + lancerDesAvecAnimation(notation: String): void
-    + main(args: String[]): void
-}
-}
-
-package maitredujeux {
-    class Maitredujeux {
-        - lignes : ArrayList<String>
-        - compteurMonstres : Map<String, Integer>
-        - especesPerso : ArrayList<String>
-        + Maitredujeux()
-        + ajouterLignes(ligne: String) : void
-        + afficherligne() : void
-        + creemonstre() : Monstre
-        + creemonstreperso() : Monstreperso
-        - creerMonstreEspece(espece: String) : Monstre
-        - saisirEntierPositif(message: String) : int
-        - saisirEntierMin(message: String, min: int) : int
-    }
-}
-
-package inter_face {
-
-    class Barre_haut  {
-            - static final String barre
-            + void Affichage(Joueur J0, int donj, List<Object> participants, int tour)
-            + void SAL(int nb)
+        class Guerrier {
+            + Guerrier()
+            + genererEquipementDeBase(joueur: Joueur) : void
+            + toString() : String
         }
 
-        class map_milieu {
-            - Case[][] map
-            - letters: String
-            - rows: int
-            - cols: int
-            + initializeMap(): void
-            + generateLetters(int cols): String
-            + isValidPosition(int row, int col): boolean
-            + map_milieu(int rows, int cols)
-            + addObstacle(int row, int col): void
-            + addEquipement(int row, int col, Equipement e): void
-            + Affichage(List<Object> participants): void
+        class Magicien {
+            + Magicien()
+            + genererEquipementDeBase(joueur: Joueur) : void
+            + toString() : String
         }
 
-        class Inter_manag {
-            + main(String[] args)
+        class Roublard {
+            + Roublard()
+            + genererEquipementDeBase(joueur: Joueur) : void
+            + toString() : String
         }
 
-        class Obstacle() {
-            +toString()
+        Classe <|-- Clerc
+        Classe <|-- Guerrier
+        Classe <|-- Magicien
+        Classe <|-- Roublard
+
+        Classe --> Joueur
+        Classe --> equipements.Equipement
+        Classe --> equipements.GestionEquipements
         }
 
-        class Case {
-            - contenu : Object
-            + getContenu(): Object
-            + setContenu(Object contenu): void
-            + estVide(): boolean
-            + afficher(): String
+        package Des {
+            class Des {
+                - m_random : Random {static}
+                - DICE_FACES : String[] {static, final}
+                + lancerDes(notation: String) : int {static}
+                + lancerDesAvecAnimation(notation: String) {static}
+                - lancerDes(nombreFaces: int, nombreDes: int) : int {static}
+                - printDiceFace(num: int, faces: int) : void {static}
+                + toString() : String
+                + main(args: String[]) {static}
+            }
+          }
+
+
+        package equipements {
+            interface Equipement {
+                + getEnchante(): int
+                + setEnchante(enchante: int): void
+                + getNom(): String
+                + getType(): String
+                + getModificateurVitesse(): int
+                + getModificateurForce(): int
+                + getPortee(): int
+                + getDegats(): String
+                + getClasseArmure(): int
+                + estArme(): boolean
+                + estArmure(): boolean
+                + getTypeContenu(): String
+                + afficher(): String
+            }
+
+            class GestionEquipements {
+                + initialiserEquipements(): List<Equipement> {static}
+                + toString(): String
+                + equiperPremiereArmeEtArmure(Personnage, List<Equipement>): void {static}
+            }
+
+            package Armes {
+                abstract class Armes {
+                    - m_nom: String
+                    - m_degats: String
+                    - m_portee: int
+                    - m_type: String
+                    - enchante: int
+                    + Armes(nom: String, degats: String, portee: int, type: String)
+                    + getEnchante(): int
+                    + setEnchante(enchante: int): void
+                    + getDegats(): String
+                    + getPortee(): int
+                    + getNom(): String
+                    + getType(): String
+                    + getModificateurVitesse(): int
+                    + getModificateurForce(): int
+                    + toString(): String
+                }
+
+                class ArmeCourante {
+                    + ArmeCourante(nom: String, degats: String)
+                    + getClasseArmure(): int
+                    + estArme(): boolean
+                    + estArmure(): boolean
+                    + toString(): String
+                }
+
+                class ArmeDeGuerre {
+                    + ArmeDeGuerre(nom: String, degats: String)
+                    + getModificateurVitesse(): int
+                    + getModificateurForce(): int
+                    + getClasseArmure(): int
+                    + toString(): String
+                    + estArme(): boolean
+                    + estArmure(): boolean
+                }
+
+                class ArmeDistance {
+                    + ArmeDistance(nom: String, degats: String, portee: int)
+                    + toString(): String
+                    + getClasseArmure(): int
+                    + estArme(): boolean
+                    + estArmure(): boolean
+                }
+
+                Armes <|-- ArmeCourante
+                Armes <|-- ArmeDeGuerre
+                Armes <|-- ArmeDistance
+            }
+
+            package Armures {
+                abstract class Armure {
+                    - m_nom: String
+                    - m_classeArmure: int
+                    - m_type: String
+                    + Armure(nom: String, classeArmure: int, type: String)
+                    + getClasseArmure(): int
+                    + getNom(): String
+                    + getType(): String
+                    + getModificateurVitesse(): int
+                    + getModificateurForce(): int
+                    + getPortee(): int
+                    + getDegats(): String
+                    + toString(): String
+                }
+
+                class ArmureLegere {
+                    + ArmureLegere(nom: String, classeArmure: int)
+                    + getEnchante(): int
+                    + setEnchante(enchante: int): void
+                    + getPortee(): int
+                    + getDegats(): String
+                    + getClasseArmure(): int
+                    + estArmure(): boolean
+                    + estArme(): boolean
+                    + toString(): String
+                }
+
+                class ArmureLourde {
+                    + ArmureLourde(nom: String, classeArmure: int)
+                    + getEnchante(): int
+                    + setEnchante(enchante: int): void
+                    + getModificateurVitesse(): int
+                    + getPortee(): int
+                    + getDegats(): String
+                    + toString(): String
+                    + getClasseArmure(): int
+                    + estArmure(): boolean
+                    + estArme(): boolean
+                }
+
+                Armure <|-- ArmureLegere
+                Armure <|-- ArmureLourde
+            }
+
+            Equipement <|.. Armes
+            Equipement <|.. Armure
+            GestionEquipements --> Equipement
         }
 
+        package interfacejeu {
+
+            interface ContenuCase {
+                + getTypeContenu(): String
+                + afficher(): String
+            }
+
+            class BarreHaut {
+                - barre: String {static, final}
+                + Affichage(joueurActif: entite, donj: int, participants: List<entite>, tour: int)
+                + SAL(nb: int): void
+            }
+
+            class Case {
+                - contenu: ContenuCase
+                + Case()
+                + getContenu(): ContenuCase
+                + setContenu(contenu: ContenuCase): void
+                + estVide(): boolean
+                + estEquipement(): boolean
+                + passable(): boolean
+                + accessibleParJoueur(): boolean
+                + afficher(): String
+            }
+
+            class Inter_manag {
+                + main(args: String[]): void {static}
+            }
+
+            class map_milieu {
+                - map: Case[][]
+                - rows: int
+                - cols: int
+                - letters: String
+                + map_milieu(rows: int, cols: int)
+                - initializeMap(): void
+                - generateLetters(cols: int): String
+                + isValidPositionAndFree(row: int, col: int): boolean
+                + addObstacle(row: int, col: int): void
+                + addEquipment(row: int, col: int, equipement: Equipement): void
+                + UpdateCase(row: int, col: int, contenu: ContenuCase): void
+                + videCase(row: int, col: int): void
+                + recupererEquipementsAdjacents(row: int, col: int): List<Equipement>
+                + recupererEquipement(row: int, col: int): Equipement
+                + nettoyerParticipants(): void
+                + Print(participants: List<Object>): void
+            }
+
+            class Obstacle {
+                + getTypeContenu(): String
+                + afficher(): String
+            }
+
+            ContenuCase <|.. Obstacle
+            ContenuCase <|.. equipements.Equipement
+            Case --> ContenuCase
+            map_milieu --> Case
+            map_milieu --> equipements.Equipement
+            map_milieu --> monstres.Monstre
+            map_milieu --> personnages.Joueur
+            BarreHaut --> personnages.Entité.entite
+            Inter_manag --> BarreHaut
+            Inter_manag --> map_milieu
+            Inter_manag --> classes.Classe
+            Inter_manag --> races.Races
+            Inter_manag --> maitredujeux.Maitredujeux
+            Inter_manag --> personnages.Joueur
+            Inter_manag --> monstres.Dragon
+        }
+
+        package maitredujeux {
+            class Maitredujeux {
+                - m_lignes: ArrayList<String>
+                - m_compteurMonstres: Map<String, Integer>
+                - m_especesPerso: ArrayList<String>
+                - m_scanner: Scanner
+                - m_monstresPersonnalises: Map<String, Monstreperso>
+
+                + Maitredujeux()
+                + ajouterLignes(ligne: String): void
+                + afficherLignes(): void
+                + creerMonstre(): Monstre
+                + creerMonstrePerso(): Monstreperso
+                + intervenir(participants: ArrayList<entite>, map: map_milieu): void
+                + deplacerEntite(entites: List<entite>, map: map_milieu): void
+                - creerMonstreEspece(espece: String): Monstre
+                - saisirEntierPositif(message: String): int
+                - saisirEntierMin(message: String, min: int): int
+            }
+        }
+
+        package monstres {
+            abstract class Monstre {
+                - m_espece: String
+                - m_numero: int
+                - m_pointDeVie: int
+                - m_force: int
+                - m_dexterite: int
+                - m_initiative: int
+                - m_classeArmure: int
+                - m_typeAttaque: String
+                - m_portee: int
+                - m_degats: String
+                - posX: int
+                - posY: int
+
+                + Monstre(espece: String, numero: int, pointDeVie: int, force: int, dexterite: int, initiative: int, classeArmure: int, typeAttaque: String, portee: int, degats: String)
+                + {abstract} attaquer(cible: Joueur): void
+                + {abstract} getPvDeBase(): int
+                + {abstract} afficher(): String
+                + getPointDeVie(): int
+                + getDegats(): String
+                + getForce(): int
+                + getPortee(): int
+                + getTypeAttaque(): String
+                + getEspece(): String
+                + getNumero(): int
+                + getDexterite(): int
+                + subirDegats(degatsSubis: int): int
+                + getClasseArmure(): int
+                + getInitiative(): int
+                + estMort(): boolean
+                + getPosX(): int
+                + getPosY(): int
+                + setPosXY(x: int, y: int): void
+                + getTypeContenu(): String
+                + getAffichageCourt(): String
+                + getAffichageLong(): String
+                + getNom(): String
+            }
+
+            class Monstreperso {
+                - icone: String
+                - m_PvDeBase: int
+
+                + Monstreperso(espece: String, numero: int, pointDeVie: int, force: int, dexterite: int, initiative: int, classeArmure: int, typeAttaque: String, portee: int, degats: String, icone: String)
+                + attaquer(cible: Joueur): void
+                + setIcone(ico: String): void
+                + getIcone(): String
+                + afficher(): String
+                + getPvDeBase(): int
+            }
+
+            class Dragon {
+                + Dragon(numero: int)
+                + attaquer(cible: Joueur): void
+                + getPvDeBase(): int
+                + afficher(): String
+            }
+
+            class Gobelin {
+                + Gobelin(numero: int)
+                + attaquer(cible: Joueur): void
+                + getPvDeBase(): int
+                + afficher(): String
+            }
+
+            class Squelette {
+                + Squelette(numero: int)
+                + attaquer(cible: Joueur): void
+                + getPvDeBase(): int
+                + afficher(): String
+            }
+
+            Monstre <|-- Monstreperso
+            Monstre <|-- Dragon
+            Monstre <|-- Gobelin
+            Monstre <|-- Squelette
+        }
+
+        package interfacejeu {
+            interface ContenuCase {
+                + getTypeContenu(): String
+                + afficher(): String
+            }
+        }
+
+        package personnages {
+            class Joueur {
+                + getClasseArmureActuelle(): int
+                + getNom(): String
+                + getPointDeVie(): int
+                + addPdV(pv: int): void
+            }
+        }
+
+        package Des {
+            class Des {
+                + lancerDes(notation: String): int {static}
+            }
+        }
+
+        Maitredujeux --> Monstre : creates
+        Maitredujeux --> Monstreperso : creates/manages
+        Maitredujeux --> interfacejeu.map_milieu : interacts
+        Monstre ..|> interfacejeu.ContenuCase : implements
+        Monstre --> Joueur : attacks
+        Monstre --> Des : uses
+        Monstreperso --> Des : uses
+        Dragon --> Des : uses
+        Gobelin --> Des : uses
+        Squelette --> Des : uses
 
 
-         Inter_manag --> Barre_haut
-         Inter_manag --> map_milieu
+        package personnages {
+            abstract class Personnage {
+                - nom: String
+                - pointDeVie: int
+                - force: int
+                - dexterite: int
+                - vitesse: int
+                - initiative: int
+                - equipementEquipe: Equipement[2]
+
+                + Personnage(nom: String, pointDeVie: int, force: int, dexterite: int, vitesse: int, initiative: int)
+                + {abstract} attaquer(cible: Monstre): void
+                + getEquiper(): List<Equipement>
+                + {abstract} equiper(equipement: Equipement, equipe: Object): void
+                + getNom(): String
+                + getPointDeVie(): int
+                + getForce(): int
+                + getDexterite(): int
+                + getVitesse(): int
+                + getInitiative(): int
+                + setNom(nom_change: String): void
+                + setPointDeVie(pv: int): void
+                + addPdV(pv: int): void
+                + setForce(force_change: int): void
+                + setVitesse_change(vitesse_change: int): void
+                + setDexterite(dexterite_change: int): void
+                + setVitesse(vitesse_change: int): void
+                + setInitiative(initiative_change: int): void
+                + estMort(): boolean
+            }
+
+            class Joueur {
+                - m_classe: Classe
+                - m_race: Races
+                - m_inventaire: ArrayList<Equipement>
+                - posX: int
+                - posY: int
+
+                + Joueur(nom: String, classe: Classe, race: Races)
+                + attaquer(cible: Monstre): void
+                + equiper(equipement: Equipement, equipe: Object): void
+                + getClasse(): Classe
+                + getRace(): Races
+                + getClasseArmureActuelle(): int
+                + ajouterEquipement(equipement: Equipement): void
+                + afficherInventaire(): void
+                + soignerComplet(): void
+                + getEquipements(): ArrayList<Equipement>
+                + seDeplacer(direction: String, map: map_milieu, nbCase: int): void
+                + ramasserEquipement(map: map_milieu): void
+                + getPosX(): int
+                + getPosY(): int
+                + setPosXY(x: int, y: int): void
+                + getPVdebase(): int
+                + getTypeContenu(): String
+                + afficher(): String
+                + affichageClass(): String
+                + getAffichageCourt(): String
+                + getAffichageLong(): String
+            }
+
+            interface entite {
+                + affichageClass(): String
+                + getAffichageCourt(): String
+                + getAffichageLong(): String
+                + getPosX(): int
+                + getPosY(): int
+                + setPosXY(x: int, y: int): void
+                + getNom(): String
+            }
+
+            Personnage <|-- Joueur
+            Joueur ..|> entite
+            Joueur ..|> interfacejeu.ContenuCase
+
+            Joueur --> Classe
+            Joueur --> Races
+            Joueur --> Equipement
+            Joueur --> Monstre
+            Joueur --> map_milieu
+            Joueur --> Des
+            Personnage --> Equipement
+            Personnage --> Monstre
+        }
+
+        package races {
+            abstract class Races {
+                - m_nom: String
+                - m_bonusForce: int
+                - m_bonusDexterite: int
+                - m_bonusVitesse: int
+                - m_bonusPV: int
+                - m_bonusInitiative: int
+
+                + Races(nom: String, bonusForce: int, bonusDexterite: int, bonusVitesse: int, bonusInitiative: int)
+                + appliquerBonus(personnage: Personnage): void
+                + getNom(): String
+                + toString(): String
+                - calculerStat(bonus: int): int
+            }
+
+            class Elfe {
+                + Elfe()
+            }
+
+            class Halfelin {
+                + Halfelin()
+            }
+
+            class Humain {
+                + Humain()
+            }
+
+            class Nain {
+                + Nain()
+            }
+
+            Races <|-- Elfe
+            Races <|-- Halfelin
+            Races <|-- Humain
+            Races <|-- Nain
+            Races --> Personnage : applies bonuses to
+            Races --> Des : uses for stat calculation
+            }
+
+            package Sort {
+                abstract class Sort {
+                    - nom: String
+                    + Sort(nom: String)
+                    + {abstract} utiliser(Joueur, Joueur): void
+                    + {abstract} utiliser(Joueur, Monstre): void
+                    + {abstract} utiliser(Monstre, Monstre): void
+                    + getNom(): String
+                }
+
+                class ArmeMagique {
+                    + ArmeMagique()
+                    + utiliser(Joueur cible1, Joueur cible2): void
+                    + utiliser(Joueur cible1, Monstre cible2): void
+                    + utiliser(Monstre cible1, Monstre cible2): void
+                }
+
+                class Guerison {
+                    + Guerison()
+                    + utiliser(Joueur cible1, Joueur cible2): void
+                    + utiliser(Joueur cible1, Monstre cible2): void
+                    + utiliser(Monstre cible1, Monstre cible2): void
+                }
+
+                Sort <|-- ArmeMagique
+                Sort <|-- Guerison
+                ArmeMagique --> Joueur : targets
+                ArmeMagique --> Equipement : enhances
+                Guerison --> Joueur : heals
+                Guerison --> Des : uses for healing calculation
+                Sort --> Joueur : can target
+                Sort --> Monstre : can target
+            }
 
 
-}
 
-Inter_manag --> Joueur
-Inter_manag --> Maitredujeux
-map_milieu --> Joueur
-         map_milieu --> Monstre
-         Barre_haut --> Joueur
-         Barre_haut --> Monstre
-Joueur --> equipements.Equipement
-Joueur --> classes.Classe
-Joueur --> races.Races
-Races --> Personnage
-Classe --> "0..*" equipements.Equipement : "utilise"
-Classe --> equipements.GestionEquipements : "gère"
-Maitredujeux --> Monstre : utilise
-Maitredujeux --> Monstreperso : crée
-Maitredujeux --> Gobelin : crée
-Maitredujeux --> Dragon : crée
-Maitredujeux --> Squelette : crée
+
 
 @enduml
