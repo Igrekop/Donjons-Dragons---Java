@@ -169,7 +169,7 @@ public class Main {
                     int actionsRestantes = 3;
                     while (actionsRestantes > 0) {
                         System.out.println("Actions restantes : " + actionsRestantes);
-                        System.out.println("1. Attaquer\n2. S'équiper\n3. Passer");
+                        System.out.println("1. Attaquer\n2. S'équiper\n3. Rammasser\n4. Se déplacer\n5. Passer");
                         System.out.print("Choisissez une action : ");
                         String action = scanner.nextLine();
 
@@ -242,10 +242,23 @@ public class Main {
                                     System.out.println("Vous n'avez aucun équipement dans votre inventaire.");
                                 }
                             }
-
-                            case "3" -> actionsRestantes = 0;
+                            case "3" -> {
+                                System.out.println("Rammasser un équipement");
+                                joueur.ramasserEquipement(map);
+                                actionsRestantes--;
+                            }
+                            case "4" -> {
+                                System.out.println("Vous avez choisi de vous déplacer !");
+                                System.out.println("Vers quelle direction souhaitez vous vous déplacez ? (haut/bas/droite/gauche");
+                                String direction = scanner.nextLine().trim().toLowerCase();
+                                int cases = Integer.parseInt(scanner.nextLine());
+                                joueur.seDeplacer(direction, map, cases);
+                                actionsRestantes--;
+                            }
+                            case "5" -> actionsRestantes = 0;
                             default -> System.out.println("Action invalide.");
                         }
+                        map.Print(participants2);
                     }
                 } else if (p instanceof Monstre monstre && !monstre.estMort()) {
                     System.out.println("\nTour de " + monstre.getEspece());
