@@ -126,7 +126,6 @@ public class Main {
             }
 
             System.out.println("Fin de l'ajout des obstacles.");
-            scanner.close();
 
             Scanner scanner2 = new Scanner(System.in);
             List<Equipement> equipements = initialiserEquipements();
@@ -156,7 +155,6 @@ public class Main {
             }
 
             System.out.println("Fin de l'ajout des équipements.");
-            scanner.close();
 
 
             barre.Affichage(joueurs.get(0), 1, participants, 1);
@@ -212,14 +210,39 @@ public class Main {
                                 }
                             }
                             case "2" -> {
-                                joueur.ajouterEquipement(new ArmureLegere("Armure d'écailles", 9));
+                                joueur.afficherInventaire();
+
                                 if (!joueur.getEquipements().isEmpty()) {
-                                    joueur.equiper(joueur.getEquipements().get(joueur.getEquipements().size() - 1), joueur.getEquiper());
-                                    System.out.println("Commentaire ? ");
-                                    System.out.println(scanner.nextLine());
-                                    actionsRestantes--;
+                                    // Afficher les objets avec leur index
+                                    System.out.println("Quel équipement souhaitez-vous équiper ? (entrez le numéro) :");
+                                    for (int i = 0; i < joueur.getEquipements().size(); i++) {
+                                        Equipement eq = joueur.getEquipements().get(i);
+                                        System.out.println(i + " - " + eq.getNom());
+                                    }
+
+                                    int choix = -1;
+                                    try {
+                                        choix = Integer.parseInt(scanner.nextLine());
+                                    } catch (NumberFormatException e) {
+                                        System.out.println("Entrée invalide.");
+                                    }
+
+                                    if (choix >= 0 && choix < joueur.getEquipements().size()) {
+                                        Equipement equipementChoisi = joueur.getEquipements().remove(choix);
+                                        joueur.equiper(equipementChoisi, null);
+
+                                        System.out.println("Commentaire ? ");
+                                        System.out.println(scanner.nextLine());
+
+                                        actionsRestantes--;
+                                    } else {
+                                        System.out.println("Numéro invalide.");
+                                    }
+                                } else {
+                                    System.out.println("Vous n'avez aucun équipement dans votre inventaire.");
                                 }
                             }
+
                             case "3" -> actionsRestantes = 0;
                             default -> System.out.println("Action invalide.");
                         }
