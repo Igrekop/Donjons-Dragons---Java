@@ -1,5 +1,6 @@
 package Sort;
 
+import interfacejeu.map_milieu;
 import monstres.Monstre;
 import personnages.Joueur;
 import personnages.Personnage;
