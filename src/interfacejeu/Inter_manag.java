@@ -49,9 +49,9 @@ public class Inter_manag {
         map.addObstacle(14, 13);
         map.addEquipment(14, 9, d);
 
-        joueur1.setPosXY(13, 10);
-        joueur3.setPosXY(12, 6);
-        raciste.setPosXY(15, 9);
+        //joueur1.setPosXY(13, 10);
+        //joueur3.setPosXY(12, 6);
+        //raciste.setPosXY(15, 9);
 
         //joueur1.seDeplacer("gauche",map,1);
         joueur1.seDeplacer("gauche",map,1);
