@@ -254,9 +254,13 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     public int getPosY() {return this.posY;
     }
 
-    public void setPosXY(int x, int y) {
-        this.posX = x;
-        this.posY = y;
+    public boolean setPosXY(int x, int y,map_milieu map) {
+        if (map.isValidPositionAndFree(x,y)) {
+            this.posX = x;
+            this.posY = y;
+            return true;
+        }
+        else  {return false;}
     }
 
     public int getPVdebase()

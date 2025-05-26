@@ -1,4 +1,6 @@
 package personnages.Entité;
+import
+import interfacejeu.map_milieu;
 
 public interface entite {
     String affichageClass();
@@ -7,6 +9,6 @@ public interface entite {
 
     int getPosX();
     int getPosY();
-    void setPosXY(int x, int y);
+    boolean setPosXY(int x, int y, map_milieu map);
     String getNom();
 }
