@@ -204,7 +204,7 @@ public class Maitredujeux {
                 deplacerEntite(participants, map);
                 break;
             case 3:
-                System.out.println("Aucune intervention.");
+                attaquerEntite(participants);
                 break;
             case 4:
                 System.out.println("Aucune intervention.");
@@ -240,7 +240,7 @@ public class Maitredujeux {
         System.out.println(entite.getNom() + " a été déplacé en (" + x + ", " + y + ").");
     }
 
-    public void attaquerEntite(List<entite> entites, map_milieu map) {
+    public void attaquerEntite(ArrayList<entite> entites) {
         System.out.println("=== Attaquer une entité ===");
 
 
