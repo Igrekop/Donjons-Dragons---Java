@@ -229,7 +229,7 @@ public class Maitredujeux {
             return;
         }
 
-        entite.setPosXY(x, y);
+        entite.setPosXY(x, y, map);
         System.out.println(entite.getNom() + " a été déplacé en (" + x + ", " + y + ").");
     }
 
