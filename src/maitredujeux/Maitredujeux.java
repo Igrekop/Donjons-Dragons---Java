@@ -142,12 +142,27 @@ public class Maitredujeux {
         System.out.print("Type d'attaque : ");
         String typeAttaque = m_scanner.nextLine();
 
-        System.out.print("Dégâts (ex: 1d6) : ");
-        String degats = m_scanner.nextLine();
+
+        String degats;
+        do {
+            System.out.print("Dégâts (ex: 1d6) : ");
+            degats = m_scanner.nextLine().trim();
+
+            if (!degats.matches("\\d+d\\d+")) {
+                System.out.println("Format invalide. Utilisez le format NdM, ex: 1d6 ou 2d8.");
+            }
+        } while (!degats.matches("\\d+d\\d+"));
+
         System.out.print("Icône du monstre (ex: X^, X(, etc.) : ");
         String icone = m_scanner.nextLine();
         if (icone.isEmpty()) {
             icone = "X&";
+        }
+        else {
+            while(icone.length() > 3) {
+                System.out.print("Icône du monstre (ex: X^, X(, etc., doit avoir max 3 caractères) : ");
+                icone = m_scanner.nextLine();
+            }
         }
 
 
