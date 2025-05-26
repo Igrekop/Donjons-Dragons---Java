@@ -1,6 +1,7 @@
 package monstres;
 
 import interfacejeu.ContenuCase;
+import interfacejeu.map_milieu;
 import personnages.Entité.entite;
 import personnages.Joueur;
 
