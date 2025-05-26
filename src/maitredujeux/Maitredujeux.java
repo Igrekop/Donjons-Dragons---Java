@@ -2,11 +2,14 @@ package maitredujeux;
 
 import java.util.*;
 
+import Des.Des;
 import interfacejeu.ContenuCase;
 import interfacejeu.map_milieu;
 import monstres.*;
 import personnages.Entité.entite;
 import personnages.Joueur;
+
+import static Des.Des.lancerDes;
 
 public class Maitredujeux {
     private ArrayList<String> m_lignes;
@@ -186,7 +189,8 @@ public class Maitredujeux {
         System.out.println("=== Intervention du Maître du Jeu ===");
         System.out.println("1. Commenter l'action");
         System.out.println("2. Déplacer un monstre ou un joueur");
-        System.out.println("3. Ne rien faire");
+        System.out.println("3. Attaquer un monstre ou un joueur");
+        System.out.println("4. Ne rien faire");
 
         int choix = saisirEntierMin("Votre choix : ", 1);
 
@@ -200,6 +204,9 @@ public class Maitredujeux {
                 deplacerEntite(participants, map);
                 break;
             case 3:
+                System.out.println("Aucune intervention.");
+                break;
+            case 4:
                 System.out.println("Aucune intervention.");
                 break;
             default:
@@ -229,15 +236,57 @@ public class Maitredujeux {
             return;
         }
 
-        entite.setPosXY(x, y);
+        entite.setPosXY(x, y,map);
         System.out.println(entite.getNom() + " a été déplacé en (" + x + ", " + y + ").");
     }
 
+    public void attaquerEntite(List<entite> entites, map_milieu map) {
+        System.out.println("=== Attaquer une entité ===");
 
 
+        for (int i = 0; i < entites.size(); i++) {
+            entite e = entites.get(i);
+            System.out.println((i + 1) + ". " + e.getNom() + " - Points de vie : " + e.AfficherPVDB());
+        }
+
+        // Choix de la cible
+        int choix = saisirEntierMin("Choisissez une entité : ", 1) - 1;
+        if (choix < 0 || choix >= entites.size()) {
+            System.out.println("Choix invalide.");
+            return;
+        }
 
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Choisir un dés à lancer (exemple: 2d13) : ");
+        String des = scanner.nextLine();
 
+        int jetAttaque;
+        try {
+            jetAttaque = lancerDes(des);
+        } catch (Exception e) {
+            System.out.println("Erreur lors du lancer de dés : " + e.getMessage());
+            return;
+        }
+
+
+        int modificateur = 2; // par exemple
+        int degats = jetAttaque + modificateur;
+
+
+        entite cible = entites.get(choix);
+        cible.setPV(-degats);
+        System.out.println("Vous attaquez " + cible.getNom() + " pour " + degats + " points de dégâts !");
+    }
 
 }
+
+
+
+
+
+
+
+
+
 

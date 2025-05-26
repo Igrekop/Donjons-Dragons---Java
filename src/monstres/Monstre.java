@@ -144,6 +144,17 @@ public abstract class Monstre implements ContenuCase, entite {
         return getEspece() + " n°" + getNumero();
     }
 
+    @Override
+    public String AfficherPVDB() {
+        System.out.print(getPointDeVie() + "/" + getPvDeBase());
+        return "";
+    }
+
+    @Override
+    public void setPV(int degats){
+        this.setPV(degats);
+    }
+
 
 
 
