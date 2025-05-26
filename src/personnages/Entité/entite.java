@@ -1,5 +1,4 @@
 package personnages.Entité;
-import
 import interfacejeu.map_milieu;
 
 public interface entite {

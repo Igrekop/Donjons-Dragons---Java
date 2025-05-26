@@ -37,13 +37,20 @@ public class Main {
             participants2.add(joueur);
 
             //a refaire
-            System.out.println("Maître du jeu, placez le joueur sur la carte !");
-            System.out.print("Entrez la coordonnée X (ligne) : ");
-            int x = scanner.nextInt();
-            System.out.print("Entrez la coordonnée Y (colonne) : ");
-            int y = scanner.nextInt();
-            scanner.nextLine();
-            joueur.setPosXY(x, y);
+            int x;
+            int y;
+            while(true) {
+                System.out.println("Maître du jeu, placez le joueur sur la carte !");
+                System.out.print("Entrez la coordonnée X (ligne) : ");
+                x = scanner.nextInt();
+                System.out.print("Entrez la coordonnée Y (colonne) : ");
+                y = scanner.nextInt();
+                scanner.nextLine();
+                if (joueur.setPosXY(x, y, map)) {
+                    break;
+                }
+            }
+
             System.out.println("Joueur placé en (" + x + ", " + y + ").");
             numeroJoueur++;
         }
@@ -64,13 +71,19 @@ public class Main {
             participants2.add(monstre);
             System.out.println("Monstre " + monstre.getEspece() + " créé !");
 
-            System.out.println("Maître du jeu, placez le monstre sur la carte !");
-            System.out.print("Entrez la coordonnée X (ligne) : ");
-            int x = scanner.nextInt();
-            System.out.print("Entrez la coordonnée Y (colonne) : ");
-            int y = scanner.nextInt();
-            scanner.nextLine();
-            monstre.setPosXY(x, y);
+            int x;
+            int y;
+            while(true) {
+                System.out.println("Maître du jeu, placez le monstre sur la carte !");
+                System.out.print("Entrez la coordonnée X (ligne) : ");
+                x = scanner.nextInt();
+                System.out.print("Entrez la coordonnée Y (colonne) : ");
+                y = scanner.nextInt();
+                scanner.nextLine();
+                if (monstre.setPosXY(x, y, map)) {
+                    break;
+                }
+            }
             System.out.println("Monstre placé en (" + x + ", " + y + ").");
         }
 
