@@ -29,12 +29,18 @@ public class Main {
         while (true) {
             System.out.print("\nCréer un nouveau personnage ? (oui/non) : ");
             String reponse = scanner.nextLine().trim().toLowerCase();
-            if (reponse.equals("non")) break;
+            if (reponse.equals("non")) {break;};
+            if (!reponse.equals("oui")) {
+                System.out.println("Réponse invalide. Veuillez répondre par 'oui' ou 'non'.");
+                continue;
+            }
 
-            Joueur joueur = creerPersonnage(scanner, numeroJoueur);
+
+            Joueur joueur = creerPersonnage(scanner, numeroJoueur); // ou new Joueur("Joueur" + numeroJoueur), selon ton constructeur
             joueurs.add(joueur);
             participants.add(joueur);
             participants2.add(joueur);
+            numeroJoueur++;
 
             //a refaire
             int x;
@@ -48,6 +54,9 @@ public class Main {
                 scanner.nextLine();
                 if (joueur.setPosXY(x, y, map)) {
                     break;
+                }
+                else {
+                    System.out.println("Mauvaise coordonnées");
                 }
             }
 
@@ -64,7 +73,11 @@ public class Main {
         while (true) {
             System.out.print("Créer un nouveau monstre ? (oui/non) : ");
             String reponse = scanner.nextLine().trim().toLowerCase();
-            if (reponse.equals("non")) break;
+            if (reponse.equals("non")) {break;};
+            if (!reponse.equals("oui")) {
+                System.out.println("Réponse invalide. Veuillez répondre par 'oui' ou 'non'.");
+                continue;
+            }
 
             Monstre monstre = mj.creerMonstre();
             participants.add(monstre);
@@ -82,6 +95,9 @@ public class Main {
                 scanner.nextLine();
                 if (monstre.setPosXY(x, y, map)) {
                     break;
+                }
+                else {
+                    System.out.println("Mauvaise coordonnées");
                 }
             }
             System.out.println("Monstre placé en (" + x + ", " + y + ").");
@@ -304,6 +320,10 @@ public class Main {
 
         System.out.print("Entrez le nom du personnage : ");
         String nom = scanner.nextLine();
+        while(nom.length() < 3) {
+            System.out.print("Entrez le nom du personnage (min. 3 caractères) : ");
+            nom = scanner.nextLine();
+        }
 
         Races race = null;
         while (race == null) {
