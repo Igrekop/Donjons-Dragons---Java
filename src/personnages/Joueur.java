@@ -292,5 +292,4 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     public String getAffichageLong() {
         return getNom() + " (" + getClasse().getNom() + " " + getRace().getNom() + ", " + getPointDeVie() + "/" + getPVdebase() + " HP)";
     }
-
 }
