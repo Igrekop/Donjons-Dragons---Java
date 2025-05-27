@@ -1,5 +1,7 @@
 package interfacejeu;
 
+import equipements.Armes.ArmeCourante;
+import equipements.Armures.ArmureLegere;
 import equipements.Equipement;
 import monstres.Monstre;
 import personnages.Joueur;
@@ -185,4 +187,140 @@ public class map_milieu {
         // Légende
         System.out.println("    * Equipement   |   [ ] Obstacle");
     }
+
+    public static map_milieu map1() {
+
+        map_milieu map = new map_milieu(15, 15);
+
+
+        map.addObstacle(0, 1);
+        map.addObstacle(2, 2);
+        map.addObstacle(4, 0);
+        map.addObstacle(3, 3);
+        map.addObstacle(5, 6);
+        map.addObstacle(12, 3);
+        map.addObstacle(15, 14);
+        map.addObstacle(13, 14);
+        map.addObstacle(2, 15);
+        map.addObstacle(3, 6);
+        map.addObstacle(10, 11);
+        map.addObstacle(12, 12);
+        map.addObstacle(9, 3);
+        map.addObstacle(12, 8);
+        map.addObstacle(1, 14);
+        map.addObstacle(2, 13);
+        map.addObstacle(8, 11);
+        map.addObstacle(8, 14);
+
+
+        ArmeCourante a1 = new ArmeCourante("Massue Anti-Emeute", "1d6");
+        ArmureLegere a2 = new ArmureLegere("Armure Yvann", 1);
+
+        map.addEquipment(2, 3, a1);
+        map.addEquipment(4, 2, a2);
+
+
+        return map;
+    }
+
+    public static map_milieu map2() {
+        int taille = 20;
+        map_milieu map = new map_milieu(taille, taille);
+
+
+        for (int i = 0; i < taille; i++) {
+            map.addObstacle(0, i);
+            map.addObstacle(taille - 1, i);
+            map.addObstacle(i, 0);
+            map.addObstacle(i, taille - 1);
+        }
+
+
+        for (int i = 2; i < 18; i++) {
+            map.addObstacle(i, 2);
+            map.addObstacle(i, 17);
+        }
+
+        for (int j = 4; j < 16; j++) {
+            map.addObstacle(2, j);
+            map.addObstacle(17, j);
+        }
+
+
+        for (int i = 4; i < 16; i += 2) {
+            for (int j = 4; j < 16; j++) {
+                if (j % 3 != 0) {
+                    map.addObstacle(i, j);
+                }
+            }
+        }
+
+
+        for (int i = 5; i < 15; i++) {
+            if (i % 2 == 0) continue;
+            map.addObstacle(i, 10);
+        }
+
+
+        ArmeCourante epee = new ArmeCourante("Épée du labyrinthe", "2d6");
+        ArmureLegere armure = new ArmureLegere("Cotte de maille", 15);
+        map.addEquipment(18, 18, epee);
+        map.addEquipment(1, 18, armure);
+
+        return map;
+    }
+
+    public static map_milieu map3() {
+
+        map_milieu map = new map_milieu(15, 40);
+
+
+        for (int i = 0; i < 35; i++) {
+            map.addObstacle(5, i);
+            map.addObstacle(10, i);
+
+
+        }
+
+
+
+        return map;
+    }
+
+    public void PrintVide() {
+
+
+        // Affichage de l'en-tête
+        System.out.println(letters);
+
+        // Ligne supérieure
+        System.out.print("   *");
+        for (int i = 0; i < cols * 3 + 1; i++) {
+            System.out.print("-");
+        }
+        System.out.println("*");
+
+        // Affichage du corps de la carte
+        for (int i = 0; i < rows; i++) {
+            System.out.print((i + 1 < 10 ? " " : "") + (i + 1) + " |");
+            for (int j = 0; j < cols; j++) {
+                System.out.print(map[i][j].afficher());
+            }
+            System.out.println("|");
+        }
+
+        // Ligne inférieure
+        System.out.print("   *");
+        for (int i = 0; i < cols * 3 + 1; i++) {
+            System.out.print("-");
+        }
+        System.out.println("*");
+
+        // Légende
+        System.out.println("    * Equipement   |   [ ] Obstacle");
+    }
+
+
+
+
 }
