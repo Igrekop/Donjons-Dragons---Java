@@ -9,11 +9,15 @@ import interfacejeu.*;
 import Des.*;
 import java.util.*;
 import personnages.Entité.entite;
+import interfacejeu.map_milieu;
 
 import static equipements.GestionEquipements.initialiserEquipements;
 
 
 public class Main {
+
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<entite> participants = new ArrayList<>();
@@ -21,7 +25,22 @@ public class Main {
         List<Joueur> joueurs = new ArrayList<>();
         Maitredujeux mj = new Maitredujeux();
 
-        map_milieu map = new map_milieu(20,20);
+        //map_milieu map = new map_milieu(20,20);
+        String art = """
+▀██▀▀█▄                       ██                                      ▄      ▀██▀▀█▄                                                   
+ ██   ██    ▄▄▄   ▄▄ ▄▄▄     ▄▄▄   ▄▄▄   ▄▄ ▄▄▄    ▄▄▄▄       ▄▄▄▄  ▄██▄      ██   ██  ▄▄▄ ▄▄   ▄▄▄▄     ▄▄▄ ▄   ▄▄▄   ▄▄ ▄▄▄    ▄▄▄▄  
+ ██    ██ ▄█  ▀█▄  ██  ██     ██ ▄█  ▀█▄  ██  ██  ██▄ ▀     ▄█▄▄▄██  ██       ██    ██  ██▀ ▀▀ ▀▀ ▄██   ██ ██  ▄█  ▀█▄  ██  ██  ██▄ ▀  
+ ██    ██ ██   ██  ██  ██     ██ ██   ██  ██  ██  ▄ ▀█▄▄    ██       ██       ██    ██  ██     ▄█▀ ██    █▀▀   ██   ██  ██  ██  ▄ ▀█▄▄ 
+▄██▄▄▄█▀   ▀█▄▄█▀ ▄██▄ ██▄    ██  ▀█▄▄█▀ ▄██▄ ██▄ █▀▄▄█▀     ▀█▄▄▄▀  ▀█▄▀    ▄██▄▄▄█▀  ▄██▄    ▀█▄▄▀█▀  ▀████▄  ▀█▄▄█▀ ▄██▄ ██▄ █▀▄▄█▀ 
+                           ▄▄ █▀                                                                       ▄█▄▄▄▄▀                         
+                            ▀▀                                                                                                         
+""";
+        System.out.println(art);
+
+        System.out.println("=== Map ===");
+        map_milieu map = map_milieu.map3();
+        map.PrintVide();
+
 
         System.out.println("=== Création des personnages ===");
 
