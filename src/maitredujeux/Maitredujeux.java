@@ -2,11 +2,14 @@ package maitredujeux;
 
 import java.util.*;
 
+import Des.Des;
 import interfacejeu.ContenuCase;
 import interfacejeu.map_milieu;
 import monstres.*;
 import personnages.Entité.entite;
 import personnages.Joueur;
+
+import static Des.Des.lancerDes;
 
 public class Maitredujeux {
     private ArrayList<String> m_lignes;
@@ -139,12 +142,27 @@ public class Maitredujeux {
         System.out.print("Type d'attaque : ");
         String typeAttaque = m_scanner.nextLine();
 
-        System.out.print("Dégâts (ex: 1d6) : ");
-        String degats = m_scanner.nextLine();
+
+        String degats;
+        do {
+            System.out.print("Dégâts (ex: 1d6) : ");
+            degats = m_scanner.nextLine().trim();
+
+            if (!degats.matches("\\d+d\\d+")) {
+                System.out.println("Format invalide. Utilisez le format NdM, ex: 1d6 ou 2d8.");
+            }
+        } while (!degats.matches("\\d+d\\d+"));
+
         System.out.print("Icône du monstre (ex: X^, X(, etc.) : ");
         String icone = m_scanner.nextLine();
         if (icone.isEmpty()) {
             icone = "X&";
+        }
+        else {
+            while(icone.length() > 3) {
+                System.out.print("Icône du monstre (ex: X^, X(, etc., doit avoir max 3 caractères) : ");
+                icone = m_scanner.nextLine();
+            }
         }
 
 
@@ -186,7 +204,8 @@ public class Maitredujeux {
         System.out.println("=== Intervention du Maître du Jeu ===");
         System.out.println("1. Commenter l'action");
         System.out.println("2. Déplacer un monstre ou un joueur");
-        System.out.println("3. Ne rien faire");
+        System.out.println("3. Attaquer un monstre ou un joueur");
+        System.out.println("4. Ne rien faire");
 
         int choix = saisirEntierMin("Votre choix : ", 1);
 
@@ -200,6 +219,9 @@ public class Maitredujeux {
                 deplacerEntite(participants, map);
                 break;
             case 3:
+                attaquerEntite(participants);
+                break;
+            case 4:
                 System.out.println("Aucune intervention.");
                 break;
             default:
@@ -229,15 +251,57 @@ public class Maitredujeux {
             return;
         }
 
-        entite.setPosXY(x, y, map);
+        entite.setPosXY(x, y,map);
         System.out.println(entite.getNom() + " a été déplacé en (" + x + ", " + y + ").");
     }
 
+    public void attaquerEntite(ArrayList<entite> entites) {
+        System.out.println("=== Attaquer une entité ===");
 
 
+        for (int i = 0; i < entites.size(); i++) {
+            entite e = entites.get(i);
+            System.out.println((i + 1) + ". " + e.getNom() + " - Points de vie : " + e.AfficherPVDB());
+        }
+
+        // Choix de la cible
+        int choix = saisirEntierMin("Choisissez une entité : ", 1) - 1;
+        if (choix < 0 || choix >= entites.size()) {
+            System.out.println("Choix invalide.");
+            return;
+        }
 
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Choisir un dés à lancer (exemple: 2d13) : ");
+        String des = scanner.nextLine();
 
+        int jetAttaque;
+        try {
+            jetAttaque = lancerDes(des);
+        } catch (Exception e) {
+            System.out.println("Erreur lors du lancer de dés : " + e.getMessage());
+            return;
+        }
+
+
+        int modificateur = 2; // par exemple
+        int degats = jetAttaque + modificateur;
+
+
+        entite cible = entites.get(choix);
+        cible.setPV(-degats);
+        System.out.println("Vous attaquez " + cible.getNom() + " pour " + degats + " points de dégâts !");
+    }
 
 }
+
+
+
+
+
+
+
+
+
 

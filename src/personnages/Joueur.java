@@ -269,6 +269,12 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     }
 
     @Override
+    public String AfficherPVDB() {
+        System.out.print(getPointDeVie() + "/" + getPVdebase());
+        return "";
+    }
+
+    @Override
     public String getTypeContenu() {
         return "Joueur";
     }
@@ -292,4 +298,10 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     public String getAffichageLong() {
         return getNom() + " (" + getClasse().getNom() + " " + getRace().getNom() + ", " + getPointDeVie() + "/" + getPVdebase() + " HP)";
     }
+
+    @Override
+    public void setPV(int degats){
+        this.addPdV(degats);
+    }
+
 }
