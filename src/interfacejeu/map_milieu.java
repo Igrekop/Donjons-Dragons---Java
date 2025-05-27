@@ -170,7 +170,7 @@ public class map_milieu {
 
         // Affichage du corps de la carte
         for (int i = 0; i < rows; i++) {
-            System.out.print((i + 1 < 10 ? " " : "") + (i + 1) + " |");
+            System.out.print((i < 10 ? " " : "") + i +" |");
             for (int j = 0; j < cols; j++) {
                 System.out.print(map[i][j].afficher());
             }
@@ -272,7 +272,7 @@ public class map_milieu {
 
     public static map_milieu map3() {
 
-        map_milieu map = new map_milieu(15, 40);
+        map_milieu map = new map_milieu(15, 25);
 
 
         for (int i = 0; i < 35; i++) {
@@ -302,7 +302,7 @@ public class map_milieu {
 
         // Affichage du corps de la carte
         for (int i = 0; i < rows; i++) {
-            System.out.print((i + 1 < 10 ? " " : "") + (i + 1) + " |");
+            System.out.print((i < 10 ? " " : "") + i  + " |");
             for (int j = 0; j < cols; j++) {
                 System.out.print(map[i][j].afficher());
             }

@@ -40,10 +40,13 @@ public class Main {
                            ▄▄ █▀                                                                       ▄█▄▄▄▄▀                         
                             ▀▀                                                                                                         
 """;
+        String credit = "Par SALMANE Yanis, DUBLANC--SOUBIGOU Yvann et SIHR Victor";
+
         System.out.println(art);
+        System.out.println(credit);
 
         System.out.println("=== Map ===");
-        map_milieu map = map_milieu.map3();
+        map_milieu map = map_milieu.map1();
         map.PrintVide();
 
 

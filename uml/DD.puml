@@ -7,13 +7,13 @@
         + creerPersonnage(scanner: Scanner, numeroJoueur: int): Joueur
     }
 
-    Main --> Joueur : creates
-    Main --> Races : uses
-    Main --> Classe : uses
-    Main --> Maitredujeux : uses
-    Main --> map_milieu : manages
-    Main --> BarreHaut : uses
-    Main --> Des : uses
+    Main --> personnages.Joueur : creates
+    Main --> races.Races : utilise
+    Main --> classes.Classe : utilise
+    Main --> maitredujeux.Maitredujeux : utilise
+    Main --> interfacejeu.map_milieu : geres
+    Main --> interfacejeu.BarreHaut : utilise
+    Main --> Des.Des : utilise
 
     package classes {
         abstract class Classe {
@@ -54,10 +54,11 @@
         Classe <|-- Magicien
         Classe <|-- Roublard
 
-        Classe --> Joueur
+
+        }
+        Classe --> personnages.Joueur
         Classe --> equipements.Equipement
         Classe --> equipements.GestionEquipements
-        }
 
         package Des {
             class Des {
@@ -250,21 +251,30 @@
             }
 
             ContenuCase <|.. Obstacle
-            ContenuCase <|.. equipements.Equipement
+
             Case --> ContenuCase
             map_milieu --> Case
-            map_milieu --> equipements.Equipement
-            map_milieu --> monstres.Monstre
-            map_milieu --> personnages.Joueur
-            BarreHaut --> personnages.Entité.entite
+
+
+
             Inter_manag --> BarreHaut
             Inter_manag --> map_milieu
-            Inter_manag --> classes.Classe
-            Inter_manag --> races.Races
-            Inter_manag --> maitredujeux.Maitredujeux
-            Inter_manag --> personnages.Joueur
-            Inter_manag --> monstres.Dragon
+
+
+
+
+
         }
+        map_milieu --> monstres.Monstre
+        map_milieu --> personnages.Joueur
+        Inter_manag --> monstres.Dragon
+        Inter_manag --> personnages.Joueur
+        Inter_manag --> maitredujeux.Maitredujeux
+        Inter_manag --> races.Races
+         Inter_manag --> classes.Classe
+         BarreHaut --> personnages.Entité.entite
+         map_milieu --> equipements.Equipement
+         ContenuCase <|.. equipements.Equipement
 
         package maitredujeux {
             class Maitredujeux {
@@ -388,16 +398,16 @@
             }
         }
 
-        Maitredujeux --> Monstre : creates
-        Maitredujeux --> Monstreperso : creates/manages
-        Maitredujeux --> interfacejeu.map_milieu : interacts
-        Monstre ..|> interfacejeu.ContenuCase : implements
-        Monstre --> Joueur : attacks
-        Monstre --> Des : uses
-        Monstreperso --> Des : uses
-        Dragon --> Des : uses
-        Gobelin --> Des : uses
-        Squelette --> Des : uses
+        maitredujeux.Maitredujeux --> monstres.Monstre : créer
+        maitredujeux.Maitredujeux --> monstres.Monstreperso : créer/gère
+        maitredujeux.Maitredujeux --> interfacejeu.map_milieu : interagis
+        monstres.Monstre ..|> interfacejeu.ContenuCase : implementes
+        monstres.Monstre --> personnages.Joueur : attaque
+        monstres.Monstre --> Des.Des : utilise
+        monstres.Monstreperso --> Des.Des : utilise
+        monstres.Dragon --> Des.Des : utilise
+        monstres.Gobelin --> Des.Des : utilise
+        monstres.Squelette --> Des.Des : utilise
 
 
         package personnages {
@@ -460,7 +470,7 @@
                 + getAffichageCourt(): String
                 + getAffichageLong(): String
             }
-
+            package Entité{
             interface entite {
                 + affichageClass(): String
                 + getAffichageCourt(): String
@@ -470,19 +480,20 @@
                 + setPosXY(x: int, y: int): void
                 + getNom(): String
             }
+            }
 
             Personnage <|-- Joueur
             Joueur ..|> entite
             Joueur ..|> interfacejeu.ContenuCase
 
-            Joueur --> Classe
-            Joueur --> Races
-            Joueur --> Equipement
-            Joueur --> Monstre
-            Joueur --> map_milieu
-            Joueur --> Des
-            Personnage --> Equipement
-            Personnage --> Monstre
+            Joueur --> classes.Classe
+            Joueur --> races.Races
+            Joueur --> equipements.Equipement
+            Joueur --> monstres.Monstre
+            Joueur --> interfacejeu.map_milieu
+            Joueur --> Des.Des
+            Personnage --> equipements.Equipement
+            Personnage --> monstres.Monstre
         }
 
         package races {
@@ -521,8 +532,8 @@
             Races <|-- Halfelin
             Races <|-- Humain
             Races <|-- Nain
-            Races --> Personnage : applies bonuses to
-            Races --> Des : uses for stat calculation
+            Races --> personnages.Personnage : applies bonuses to
+            Races --> Des.Des : uses for stat calculation
             }
 
             package Sort {
@@ -551,12 +562,12 @@
 
                 Sort <|-- ArmeMagique
                 Sort <|-- Guerison
-                ArmeMagique --> Joueur : targets
-                ArmeMagique --> Equipement : enhances
-                Guerison --> Joueur : heals
-                Guerison --> Des : uses for healing calculation
-                Sort --> Joueur : can target
-                Sort --> Monstre : can target
+                ArmeMagique --> personnages.Joueur : vise
+                ArmeMagique --> equipements.Equipement : enchante
+                Guerison --> personnages.Joueur : soigne
+                Guerison --> Des.Des : Point de vie génerer
+                Sort --> personnages.Joueur : peut viser
+                Sort --> monstres.Monstre : peut viser
             }
 
 
