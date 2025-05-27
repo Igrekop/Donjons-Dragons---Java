@@ -34,12 +34,18 @@ public class Main {
         while (true) {
             System.out.print("\nCréer un nouveau personnage ? (oui/non) : ");
             String reponse = scanner.nextLine().trim().toLowerCase();
-            if (reponse.equals("non")) break;
+            if (reponse.equals("non")) {break;};
+            if (!reponse.equals("oui")) {
+                System.out.println("Réponse invalide. Veuillez répondre par 'oui' ou 'non'.");
+                continue;
+            }
 
-            Joueur joueur = creerPersonnage(scanner, numeroJoueur);
+
+            Joueur joueur = creerPersonnage(scanner, numeroJoueur); // ou new Joueur("Joueur" + numeroJoueur), selon ton constructeur
             joueurs.add(joueur);
             participants.add(joueur);
             participants2.add(joueur);
+            numeroJoueur++;
 
             //a refaire
             int x;
@@ -53,6 +59,9 @@ public class Main {
                 scanner.nextLine();
                 if (joueur.setPosXY(x, y, map)) {
                     break;
+                }
+                else {
+                    System.out.println("Mauvaise coordonnées");
                 }
             }
 
@@ -69,7 +78,11 @@ public class Main {
         while (true) {
             System.out.print("Créer un nouveau monstre ? (oui/non) : ");
             String reponse = scanner.nextLine().trim().toLowerCase();
-            if (reponse.equals("non")) break;
+            if (reponse.equals("non")) {break;};
+            if (!reponse.equals("oui")) {
+                System.out.println("Réponse invalide. Veuillez répondre par 'oui' ou 'non'.");
+                continue;
+            }
 
             Monstre monstre = mj.creerMonstre();
             participants.add(monstre);
@@ -87,6 +100,9 @@ public class Main {
                 scanner.nextLine();
                 if (monstre.setPosXY(x, y, map)) {
                     break;
+                }
+                else {
+                    System.out.println("Mauvaise coordonnées");
                 }
             }
             System.out.println("Monstre placé en (" + x + ", " + y + ").");
@@ -196,40 +212,57 @@ public class Main {
                         switch (action) {
                             case "1" -> {
                                 System.out.println("Qui voulez-vous attaquer ?");
-                                List<Monstre> cibles = participants.stream().filter(o -> o instanceof Monstre m && !m.estMort()).map(o -> (Monstre) o).toList();
-                                for (int i = 0; i < cibles.size(); i++) {
-                                    System.out.println((i + 1) + ". " + cibles.get(i).getEspece());
-                                }
-                                int mort = 1;
-                                for (int i = 0; i < cibles.size(); i++) {
-                                    if (!cibles.get(i).estMort()) {
-                                        mort=0;
-                                        continue;
-                                    }
-                                    else {
-                                        mort = 1;
-                                    }
-                                }
+                                List<Monstre> cibles = participants.stream()
+                                        .filter(o -> o instanceof Monstre m && !m.estMort())
+                                        .map(o -> (Monstre) o)
+                                        .toList();
 
-                                if (mort == 0) {
+                                if (cibles.isEmpty()) {
                                     System.out.println("\n=== Tous les monstres sont vaincus ! Victoire ! ===");
                                     for (Joueur j : joueurs) {
                                         j.soignerComplet();
                                     }
                                     System.out.println("Préparation du donjon suivant...\n");
                                     numeroDonjon++;
-                                    // Ajouter de nouveaux monstres ici si désiré
+                                    // Ajouter de nouveaux monstres ici si besoin
                                     break;
-
                                 }
+
+                                for (int i = 0; i < cibles.size(); i++) {
+                                    System.out.println((i + 1) + ". " + cibles.get(i).getEspece());
+                                }
+
                                 int choix = Integer.parseInt(scanner.nextLine()) - 1;
                                 if (choix >= 0 && choix < cibles.size()) {
                                     joueur.attaquer(cibles.get(choix));
                                     mj.intervenir(participants, map);
                                     actionsRestantes--;
                                 }
+
+                                // Vérifie si tous les monstres sont morts après l'attaque
+                                boolean tousLesMonstresMorts = participants.stream()
+                                        .filter(o -> o instanceof Monstre)
+                                        .map(o -> (Monstre) o)
+                                        .allMatch(Monstre::estMort);
+
+                                if (tousLesMonstresMorts) {
+                                    System.out.println("\n=== Tous les monstres sont vaincus ! Victoire ! ===");
+                                    for (Joueur j : joueurs) {
+                                        j.soignerComplet();
+                                    }
+                                    System.out.println("Préparation du donjon suivant...\n");
+                                    numeroDonjon++;
+                                    // Ajouter de nouveaux monstres ici si besoin
+                                }
+
+                                // Vérifie si un joueur est mort après l’action
+                                boolean joueurMort = joueurs.stream().anyMatch(Joueur::estMort);
+                                if (joueurMort) {
+                                    System.out.println("\n=== Un joueur est mort... Défaite ! ===");
+                                    partieEnCours = false;
+                                }
                             }
-                            case "2" -> {
+                        case "2" -> {
                                 joueur.afficherInventaire();
 
                                 if (!joueur.getEquipements().isEmpty()) {
@@ -372,6 +405,10 @@ public class Main {
 
         System.out.print("Entrez le nom du personnage : ");
         String nom = scanner.nextLine();
+        while(nom.length() < 3) {
+            System.out.print("Entrez le nom du personnage (min. 3 caractères) : ");
+            nom = scanner.nextLine();
+        }
 
         Races race = null;
         while (race == null) {

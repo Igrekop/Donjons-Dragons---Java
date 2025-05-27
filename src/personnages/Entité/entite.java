@@ -10,4 +10,6 @@ public interface entite {
     int getPosY();
     boolean setPosXY(int x, int y, map_milieu map);
     String getNom();
+    String AfficherPVDB();
+    void setPV(int degats);
 }
