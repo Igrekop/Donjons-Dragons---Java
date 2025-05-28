@@ -295,7 +295,7 @@ public class Main {
                             }
                             case "4" -> {
                                 System.out.println("Vous avez choisi de vous déplacer !");
-                                System.out.println("Vers quelle direction souhaitez vous vous déplacez ? (haut/bas/droite/gauche");
+                                System.out.println("Vers quelle direction souhaitez vous vous déplacez ? (haut/bas/droite/gauche)");
                                 String direction = scanner.nextLine().trim().toLowerCase();
                                 int cases = Integer.parseInt(scanner.nextLine());
                                 joueur.seDeplacer(direction, map, cases);
