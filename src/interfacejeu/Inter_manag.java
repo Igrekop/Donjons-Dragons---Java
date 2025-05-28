@@ -70,3 +70,4 @@ public class Inter_manag {
     }
 
 }
+*/
