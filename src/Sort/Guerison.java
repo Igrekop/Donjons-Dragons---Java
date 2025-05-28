@@ -1,10 +1,7 @@
 package Sort;
 
-import classes.Classe;
-import classes.Guerrier;
 import monstres.Monstre;
 import personnages.Joueur;
-import personnages.Personnage;
 import Des.*;
 
 public class Guerison extends Sort{

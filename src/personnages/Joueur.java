@@ -1,6 +1,6 @@
 package personnages;
 
-import classes.Classe;
+import classes.Archetype;
 import equipements.Equipement;
 import equipements.GestionEquipements;
 import interfacejeu.ContenuCase;
@@ -13,14 +13,14 @@ import Des.*;
 import java.util.ArrayList;
 
 public class Joueur extends Personnage implements ContenuCase, entite {
-    private Classe m_classe;
+    private Archetype m_classe;
     private Races m_race;
     private ArrayList<Equipement> m_inventaire;
     private int posX;
     private int posY;
 
 
-    public Joueur(String nom, Classe classe, Races race) {
+    public Joueur(String nom, Archetype classe, Races race) {
         super(nom, classe.getPvDeBase(), 0, 0, 0, 0);
         this.m_classe = classe;
         this.m_race = race;
@@ -35,11 +35,22 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     public void attaquer(Monstre cible) {
         afficherAttaque(getNom(), cible.getEspece(), getEquiper().getFirst().getNom());
 
+        Equipement arme = equipementEquipe[0];
+        int portee = (arme != null) ? arme.getPortee() : 1; // portée par défaut = 1
+
+        // 1. Calcul de la distance entre joueur et monstre
+        int distance = Math.abs(getPosX() - cible.getPosX()) + Math.abs(getPosY() - cible.getPosY());
+
+        // 2. Vérification de la portée
+        if (distance > portee) {
+            afficherAttaqueEchouee();
+            return;
+        }
+
         int jetAttaque = Des.lancerDes("1d20");
         int modificateur = 0;
         int degats = 0;
 
-        Equipement arme = equipementEquipe[0];
         if (arme != null) {
             if (arme.getType().contains("Arme à distance")) {
                 modificateur = getDexterite();
@@ -48,17 +59,13 @@ public class Joueur extends Personnage implements ContenuCase, entite {
             }
         }
 
-        jetAttaque += modificateur + (1 * arme.getEnchante());
+        jetAttaque += modificateur + (arme != null ? arme.getEnchante() : 0);
         afficherJetAttaque(jetAttaque);
-
-        if (arme != null && arme.getPortee() < 2) {
-            afficherPortee(1);
-        }
 
         if (jetAttaque > cible.getClasseArmure()) {
             afficherAttaqueReussie();
             if (arme != null) {
-                degats = Des.lancerDes(arme.getDegats()) + (1 * arme.getEnchante());
+                degats = Des.lancerDes(arme.getDegats()) + arme.getEnchante();
             }
             afficherDegats(degats);
             cible.subirDegats(degats);
@@ -67,6 +74,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
             afficherAttaqueEchouee();
         }
     }
+
 
     public void equiper(Equipement equipement, Object equipe) {
         int forceAvant = getForce();
@@ -115,7 +123,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
         return sb.toString();
     }
 
-    public Classe getClasse() {
+    public Archetype getClasse() {
         return m_classe;
     }
 
@@ -224,11 +232,9 @@ public class Joueur extends Personnage implements ContenuCase, entite {
                 map.UpdateCase(posX, posY, this);
                 System.out.println(getNom() + " se déplace vers " + direction + ".");
             }
-
              else {
                 System.out.println("Déplacement impossible vers " + direction + ".");
             }
-
         } else {
             System.out.println("Nb Case Trop Grand");
         }
