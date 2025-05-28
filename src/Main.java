@@ -44,10 +44,13 @@ public class Main {
                            ▄▄ █▀                                                                       ▄█▄▄▄▄▀                         
                             ▀▀                                                                                                         
 """;
+        String credit = "Par SALMANE Yanis, DUBLANC--SOUBIGOU Yvann et SIHR Victor";
+
         System.out.println(art);
+        System.out.println(credit);
 
         System.out.println("=== Map ===");
-        map_milieu map = map_milieu.map3();
+        map_milieu map = map_milieu.map1();
         map.PrintVide();
 
 
@@ -64,11 +67,10 @@ public class Main {
             }
 
 
-            Joueur joueur = creerPersonnage(scanner, numeroJoueur); // ou new Joueur("Joueur" + numeroJoueur), selon ton constructeur
+            Joueur joueur = CreationPersonnage.creerPersonnage(scanner, numeroJoueur);
             joueurs.add(joueur);
             participants.add(joueur);
             participants2.add(joueur);
-            numeroJoueur++;
 
             //a refaire
             int x;
@@ -324,7 +326,7 @@ public class Main {
                             }
                             case "4" -> {
                                 System.out.println("Vous avez choisi de vous déplacer !");
-                                System.out.println("Vers quelle direction souhaitez vous vous déplacez ? (haut/bas/droite/gauche");
+                                System.out.println("Vers quelle direction souhaitez vous vous déplacez ? (haut/bas/droite/gauche)");
                                 String direction = scanner.nextLine().trim().toLowerCase();
                                 int cases = Integer.parseInt(scanner.nextLine());
                                 joueur.seDeplacer(direction, map, cases);
@@ -457,55 +459,5 @@ public class Main {
                 index = (index + 1) % participants.size();
             }
         }
-    }
-
-    public static Joueur creerPersonnage(Scanner scanner, int numeroJoueur) {
-        System.out.println("\n--- Joueur " + numeroJoueur + " ---");
-
-        System.out.print("Entrez le nom du personnage : ");
-        String nom = scanner.nextLine();
-        while(nom.length() < 3) {
-            System.out.print("Entrez le nom du personnage (min. 3 caractères) : ");
-            nom = scanner.nextLine();
-        }
-
-        Races race = null;
-        while (race == null) {
-            System.out.println("Choisissez une race :");
-            System.out.println("1 - Humain\n2 - Elfe\n3 - Nain\n4 - Halfelin");
-            String choix = scanner.nextLine();
-            race = switch (choix) {
-                case "1" -> new Humain();
-                case "2" -> new Elfe();
-                case "3" -> new Nain();
-                case "4" -> new Halfelin();
-                default -> {
-                    System.out.println("Choix invalide.");
-                    yield null;
-                }
-            };
-        }
-
-        Classe classe = null;
-        while (classe == null) {
-            System.out.println("Choisissez une classe :");
-            System.out.println("1 - Guerrier\n2 - Roublard\n3 - Clerc\n4 - Magicien");
-            String choix = scanner.nextLine();
-            classe = switch (choix) {
-                case "1" -> new Guerrier();
-                case "2" -> new Roublard();
-                case "3" -> new Clerc();
-                case "4" -> new Magicien();
-                default -> {
-                    System.out.println("Choix invalide.");
-                    yield null;
-                }
-            };
-        }
-
-        Joueur joueur = new Joueur(nom, classe, race);
-        System.out.println("Personnage créé : " + joueur.getNom() +
-                " (" + classe.getNom() + " " + race.getNom() + ")");
-        return joueur;
     }
 }
