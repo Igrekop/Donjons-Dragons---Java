@@ -2,6 +2,7 @@ package Sort;
 
 import equipements.Equipement;
 import monstres.Monstre;
+import personnages.Entité.entite;
 import personnages.Joueur;
 
 import java.util.ArrayList;
@@ -50,8 +51,7 @@ public class ArmeMagique extends Sort{
     }
 
     @Override
-    public void utiliser(Joueur cible1, Monstre cible2) {}
+    public void utiliser(entite cible1, entite cible2) {
 
-    @Override
-    public void utiliser(Monstre cible1, Monstre cible2) {}
+    }
 }
