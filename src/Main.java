@@ -9,19 +9,43 @@ import interfacejeu.*;
 import Des.*;
 import java.util.*;
 import personnages.Entité.entite;
+import Sort.*;
+
+import javax.lang.model.util.ElementScanner6;
+import javax.swing.text.html.parser.Entity;
+import interfacejeu.map_milieu;
 
 import static equipements.GestionEquipements.initialiserEquipements;
+import static java.lang.System.in;
 
 
 public class Main {
+
+
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(in);
         ArrayList<entite> participants = new ArrayList<>();
         List<Object> participants2 = new ArrayList<>();
         List<Joueur> joueurs = new ArrayList<>();
         Maitredujeux mj = new Maitredujeux();
 
-        map_milieu map = new map_milieu(20,20);
+        //map_milieu map = new map_milieu(20,20);
+        String art = """
+▀██▀▀█▄                       ██                                      ▄      ▀██▀▀█▄                                                   
+ ██   ██    ▄▄▄   ▄▄ ▄▄▄     ▄▄▄   ▄▄▄   ▄▄ ▄▄▄    ▄▄▄▄       ▄▄▄▄  ▄██▄      ██   ██  ▄▄▄ ▄▄   ▄▄▄▄     ▄▄▄ ▄   ▄▄▄   ▄▄ ▄▄▄    ▄▄▄▄  
+ ██    ██ ▄█  ▀█▄  ██  ██     ██ ▄█  ▀█▄  ██  ██  ██▄ ▀     ▄█▄▄▄██  ██       ██    ██  ██▀ ▀▀ ▀▀ ▄██   ██ ██  ▄█  ▀█▄  ██  ██  ██▄ ▀  
+ ██    ██ ██   ██  ██  ██     ██ ██   ██  ██  ██  ▄ ▀█▄▄    ██       ██       ██    ██  ██     ▄█▀ ██    █▀▀   ██   ██  ██  ██  ▄ ▀█▄▄ 
+▄██▄▄▄█▀   ▀█▄▄█▀ ▄██▄ ██▄    ██  ▀█▄▄█▀ ▄██▄ ██▄ █▀▄▄█▀     ▀█▄▄▄▀  ▀█▄▀    ▄██▄▄▄█▀  ▄██▄    ▀█▄▄▀█▀  ▀████▄  ▀█▄▄█▀ ▄██▄ ██▄ █▀▄▄█▀ 
+                           ▄▄ █▀                                                                       ▄█▄▄▄▄▀                         
+                            ▀▀                                                                                                         
+""";
+        System.out.println(art);
+
+        System.out.println("=== Map ===");
+        map_milieu map = map_milieu.map3();
+        map.PrintVide();
+
 
         System.out.println("=== Création des personnages ===");
 
@@ -198,7 +222,8 @@ public class Main {
                     int actionsRestantes = 3;
                     while (actionsRestantes > 0) {
                         System.out.println("Actions restantes : " + actionsRestantes);
-                        System.out.println("1. Attaquer\n2. S'équiper\n3. Rammasser\n4. Se déplacer\n5. Passer");
+                        System.out.println("1. Attaquer\n2. S'équiper\n3. Rammasser\n4. Se déplacer\n5. Sort\n6. Passer");
+
                         System.out.print("Choisissez une action : ");
                         String action = scanner.nextLine();
 
@@ -301,7 +326,68 @@ public class Main {
                                 joueur.seDeplacer(direction, map, cases);
                                 actionsRestantes--;
                             }
-                            case "5" -> actionsRestantes = 0;
+                            case "5" -> {
+                                if (joueur.getClasse() instanceof Clerc || joueur.getClasse() instanceof Magicien) {
+                                    System.out.println("Sorts disponibles :");
+                                    System.out.println("1. Guérison");
+                                    if (joueur.getClasse() instanceof Magicien) {
+                                        System.out.println("2. Bougie-Woogie");
+                                        System.out.println("3. Enchanter une arme");
+                                    }
+
+                                    System.out.print("Choisissez un sort : ");
+                                    String choixSort = scanner.nextLine();
+
+                                    switch (choixSort) {
+                                        case "1" -> {
+                                            System.out.println("Cibles disponibles pour Guérison :");
+                                            ArrayList<entite> ciblesPossibles = participants;
+                                            for (int i = 0; i < ciblesPossibles.size(); i++)
+                                            {
+                                                entite e = ciblesPossibles.get(i);
+                                                System.out.println((i+1) + " - " + e.getNom());
+                                            }
+                                            System.out.print("Entrez le numéro de la cible à soigner : ");
+                                            try {
+                                                int choix = Integer.parseInt(scanner.nextLine()) - 1;
+                                                if (choix >= 0 && choix < ciblesPossibles.size()) {
+                                                    Joueur cible = (Joueur) ciblesPossibles.get(choix);
+                                                    Guerison sort = new Guerison();
+                                                    sort.utiliser(cible, cible);
+                                                    System.out.println(cible.getNom() + " a été soigné !");
+                                                    actionsRestantes--;
+                                                } else {
+                                                    System.out.println("Numéro invalide.");
+                                                }
+                                            } catch (NumberFormatException e) {
+                                                System.out.println("Entrée invalide.");
+                                            }
+                                        }
+                                        case "2" -> {
+                                            if (joueur.getClasse() instanceof Magicien) {
+                                                System.out.println("Cibles disponibles pour Bougie-Woogie :");
+                                                for (entite e : participants) {
+                                                    System.out.println("- " + e.getNom());
+                                                }
+                                                actionsRestantes--;
+                                            } else {
+                                                System.out.println("Ce sort est réservé aux magiciens.");
+                                            }
+                                        }
+                                        case "3" -> {
+                                            if (joueur.getClasse() instanceof Magicien) {
+                                                actionsRestantes--;
+                                            } else {
+                                                System.out.println("Ce sort est réservé aux magiciens.");
+                                            }
+                                        }
+                                        default -> System.out.println("Sort inconnu.");
+                                    }
+                                } else {
+                                    System.out.println("Vous ne possédez aucun sort, cette action est donc impossible pour vous.");
+                                }
+                            }
+                            case "6" -> actionsRestantes = 0;
                             default -> System.out.println("Action invalide.");
                         }
                         map.Print(participants2);
