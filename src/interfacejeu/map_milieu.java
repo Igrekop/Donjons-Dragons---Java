@@ -272,7 +272,7 @@ public class map_milieu {
 
     public static map_milieu map3() {
 
-        map_milieu map = new map_milieu(15, 40);
+        map_milieu map = new map_milieu(15, 25);
 
 
         for (int i = 0; i < 35; i++) {
