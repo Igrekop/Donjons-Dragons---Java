@@ -24,7 +24,7 @@ skinparam linetype ortho
     Main --> interfacejeu.map_milieu : geres
     Main --> interfacejeu.BarreHaut : utilise
     Main --> Des.Des : utilise
-    Main --> Sort.* : utilise
+    Main --> Sort : utilise
 
     package classes {
         abstract class Classe {
