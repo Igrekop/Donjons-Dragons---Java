@@ -6,7 +6,7 @@ import personnages.Joueur;
 
 import java.util.List;
 
-public class Clerc extends Classe {
+public class Clerc extends Archetype {
     public Clerc() {
         super("Clerc", 16);
     }

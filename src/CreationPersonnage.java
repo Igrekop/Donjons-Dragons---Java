@@ -33,7 +33,7 @@ public class CreationPersonnage {
             };
         }
 
-        Classe classe = null;
+        Archetype classe = null;
         while (classe == null) {
             System.out.println("Choisissez une classe :");
             System.out.println("1 - Guerrier\n2 - Roublard\n3 - Clerc\n4 - Magicien");

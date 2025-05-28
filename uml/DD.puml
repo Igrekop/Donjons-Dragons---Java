@@ -8,7 +8,7 @@ skinparam linetype ortho
 
     CreationPersonnage --> personnages.Joueur : créer
     CreationPersonnage --> races.Races : utilise
-    CreationPersonnage --> classes.Classe : utilise
+    CreationPersonnage --> classes.Archetype : utilise
 
 
 
@@ -19,7 +19,7 @@ skinparam linetype ortho
 
 
     Main --> races.Races : utilise
-    Main --> classes.Classe : utilise
+    Main --> classes.Archetype : utilise
     Main --> maitredujeux.Maitredujeux : utilise
     Main --> interfacejeu.map_milieu : geres
     Main --> interfacejeu.BarreHaut : utilise
@@ -27,7 +27,7 @@ skinparam linetype ortho
     Main --> Sort : utilise
 
     package classes {
-        abstract class Classe {
+        abstract class Archetype {
             - m_nom : String
             - m_pvDeBase : int
             + {abstract} genererEquipementDeBase(joueur: Joueur) : void
@@ -60,16 +60,16 @@ skinparam linetype ortho
             + toString() : String
         }
 
-        Classe <|-- Clerc
-        Classe <|-- Guerrier
-        Classe <|-- Magicien
-        Classe <|-- Roublard
+        Archetype <|-- Clerc
+        Archetype <|-- Guerrier
+        Archetype <|-- Magicien
+        Archetype <|-- Roublard
 
 
         }
-        Classe --> personnages.Joueur
-        Classe --> equipements.Equipement
-        Classe --> equipements.GestionEquipements
+        Archetype --> personnages.Joueur
+        Archetype --> equipements.Equipement
+        Archetype --> equipements.GestionEquipements
 
         package Des {
             class Des {
@@ -282,7 +282,7 @@ skinparam linetype ortho
         Inter_manag --> personnages.Joueur
         Inter_manag --> maitredujeux.Maitredujeux
         Inter_manag --> races.Races
-         Inter_manag --> classes.Classe
+         Inter_manag --> classes.Archetype
          BarreHaut --> personnages.Entité.entite
          map_milieu --> equipements.Equipement
          ContenuCase <|.. equipements.Equipement
@@ -453,16 +453,16 @@ skinparam linetype ortho
             }
 
             class Joueur {
-                - m_classe: Classe
+                - m_classe: Archetype
                 - m_race: Races
                 - m_inventaire: ArrayList<Equipement>
                 - posX: int
                 - posY: int
 
-                + Joueur(nom: String, classe: Classe, race: Races)
+                + Joueur(nom: String, classe: Archetype, race: Races)
                 + attaquer(cible: Monstre): void
                 + equiper(equipement: Equipement, equipe: Object): void
-                + getClasse(): Classe
+                + getClasse(): Archetype
                 + getRace(): Races
                 + getClasseArmureActuelle(): int
                 + ajouterEquipement(equipement: Equipement): void
@@ -497,7 +497,7 @@ skinparam linetype ortho
             Joueur ..|> entite
             Joueur ..|> interfacejeu.ContenuCase
 
-            Joueur --> classes.Classe
+            Joueur --> classes.Archetype
             Joueur --> races.Races
             Joueur --> equipements.Equipement
             Joueur --> monstres.Monstre

@@ -6,7 +6,7 @@ import personnages.Joueur;
 
 import java.util.List;
 
-public class Magicien extends Classe {
+public class Magicien extends Archetype {
     public Magicien() {
         super("Magicien", 12);
     }

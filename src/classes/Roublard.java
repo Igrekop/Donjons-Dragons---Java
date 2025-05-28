@@ -6,7 +6,7 @@ import personnages.Joueur;
 
 import java.util.List;
 
-public class Roublard extends Classe {
+public class Roublard extends Archetype {
     public Roublard() {
         super("Roublard", 16);
     }
