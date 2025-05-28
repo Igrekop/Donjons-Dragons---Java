@@ -1,4 +1,4 @@
-package interfacejeu;
+/*package interfacejeu;
 import java.util.ArrayList;
 import java.util.List;
 import classes.Classe;
@@ -70,3 +70,4 @@ public class Inter_manag {
     }
 
 }
+*/
