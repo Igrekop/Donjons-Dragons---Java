@@ -1,19 +1,30 @@
 @startuml '[https://plantuml.com/sequence-diagram](https://plantuml.com/sequence-diagram)'
+skinparam linetype ortho
+
+
+    class CreationPersonnage {
+        + creerPersonnage(scanner: Scanner, numeroJoueur: int): Joueur
+    }
+
+    CreationPersonnage --> personnages.Joueur : créer
+    CreationPersonnage --> races.Races : utilise
+    CreationPersonnage --> classes.Classe : utilise
 
 
 
     class Main {
         + main(args: String[]): void
-        + creerPersonnage(scanner: Scanner, numeroJoueur: int): Joueur
+
     }
 
-    Main --> personnages.Joueur : creates
+
     Main --> races.Races : utilise
     Main --> classes.Classe : utilise
     Main --> maitredujeux.Maitredujeux : utilise
     Main --> interfacejeu.map_milieu : geres
     Main --> interfacejeu.BarreHaut : utilise
     Main --> Des.Des : utilise
+    Main --> Sort.* : utilise
 
     package classes {
         abstract class Classe {
@@ -532,8 +543,8 @@
             Races <|-- Halfelin
             Races <|-- Humain
             Races <|-- Nain
-            Races --> personnages.Personnage : applies bonuses to
-            Races --> Des.Des : uses for stat calculation
+            Races --> personnages.Personnage : applique des Bonus à
+            Races --> Des.Des : utilise pour les stats
             }
 
             package Sort {
@@ -558,6 +569,13 @@
                     + utiliser(Joueur cible1, Joueur cible2): void
                     + utiliser(Joueur cible1, Monstre cible2): void
                     + utiliser(Monstre cible1, Monstre cible2): void
+                }
+
+                class BougieWoogie {
+                + BoogieWoogie()
+                + utiliser(Joueur cible1, Joueur cible2): void
+                + utiliser(Joueur cible1, Monstre cible2): void
+                + utiliser(Monstre cible1, Monstre cible2): void
                 }
 
                 Sort <|-- ArmeMagique
