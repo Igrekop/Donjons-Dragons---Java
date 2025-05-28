@@ -11,6 +11,7 @@ import races.Races;
 
 import Des.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Joueur extends Personnage implements ContenuCase, entite {
     private Archetype m_classe;
@@ -99,7 +100,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
         setForce(getForce() + equipement.getModificateurForce());
         setVitesse(getVitesse() + equipement.getModificateurVitesse());
 
-        afficherEquipement(getNom(), equipement.getNom(), forceAvant, getForce(), vitesseAvant, getVitesse());
+        afficherEquipement(getNom(), equipement.getNom(), forceAvant, getForce(), vitesseAvant, getVitesse(), Optional.of(equipement.getEnchante()));
     }
 
 
@@ -168,10 +169,13 @@ public class Joueur extends Personnage implements ContenuCase, entite {
         System.out.println("Attaque échouée!");
     }
 
-    private void afficherEquipement(String nom, String equipement, int forceAvant, int forceApres, int vitesseAvant, int vitesseApres) {
+    private void afficherEquipement(String nom, String equipement, int forceAvant, int forceApres, int vitesseAvant, int vitesseApres, Optional<Integer> enchante) {
         System.out.println("[ÉQUIPEMENT] " + nom + " équipe : " + equipement);
         System.out.println("Force avant : " + forceAvant + ", Force après : " + forceApres);
         System.out.println("Vitesse avant : " + vitesseAvant + ", Vitesse après : " + vitesseApres);
+        if (enchante != null) {
+            System.out.println("Niveau de l'enchantement de l'arme : " + enchante);
+        }
     }
 
     public void ajouterEquipement(Equipement equipement) {
