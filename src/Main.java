@@ -7,7 +7,11 @@ import personnages.*;
 import races.*;
 import interfacejeu.*;
 import Des.*;
+
+import java.awt.*;
 import java.util.*;
+import java.util.List;
+
 import personnages.Entité.entite;
 import Sort.*;
 
@@ -343,7 +347,12 @@ public class Main {
                                     switch (choixSort) {
                                         case "1" -> {
                                             System.out.println("Cibles disponibles pour Guérison :");
-                                            ArrayList<entite> ciblesPossibles = participants;
+                                            ArrayList<entite> ciblesPossibles = new ArrayList<>();
+                                            for (entite e : participants) {
+                                                if (e instanceof Joueur) {
+                                                    ciblesPossibles.add(e);
+                                                }
+                                            }
                                             for (int i = 0; i < ciblesPossibles.size(); i++)
                                             {
                                                 entite e = ciblesPossibles.get(i);
@@ -368,10 +377,42 @@ public class Main {
                                         case "2" -> {
                                             if (joueur.getClasse() instanceof Magicien) {
                                                 System.out.println("Cibles disponibles pour Bougie-Woogie :");
-                                                for (entite e : participants) {
-                                                    System.out.println("- " + e.getNom());
+                                                ArrayList<entite> ciblesPossibles = participants;
+                                                for (int i = 0; i < ciblesPossibles.size(); i++)
+                                                {
+                                                    entite e = ciblesPossibles.get(i);
+                                                    System.out.println((i+1) + " - " + e.getNom());
                                                 }
-                                                actionsRestantes--;
+                                                System.out.print("Entrez le numéro de la premiere cible à echanger : ");
+                                                try {
+                                                    int choix = Integer.parseInt(scanner.nextLine()) - 1;
+                                                    if (choix >= 0 && choix < ciblesPossibles.size()) {
+                                                        entite cible1 = ciblesPossibles.get(choix);
+                                                        BougieWoogie sort = new BougieWoogie();
+                                                        System.out.println("Cibles disponibles pour Bougie-Woogie :");
+                                                        for (int i = 0; i < ciblesPossibles.size(); i++)
+                                                        {
+                                                            entite e = ciblesPossibles.get(i);
+                                                            System.out.println((i+1) + " - " + e.getNom());
+                                                        }
+                                                        System.out.print("Entrez le numéro de la deuxiem cible à echanger : ");
+                                                        try {
+                                                            int choix2 = Integer.parseInt(scanner.nextLine()) - 1;
+                                                            if (choix2 >= 0 && choix2 < ciblesPossibles.size()) {
+                                                                entite cible2 = ciblesPossibles.get(choix2);
+                                                                sort.utilisermap(cible1, cible2, map);
+                                                            } else {
+                                                                System.out.println("Numéro invalide.");
+                                                            }
+                                                        } catch (NumberFormatException e) {
+                                                            System.out.println("Entrée invalide.");
+                                                        }
+                                                    } else {
+                                                        System.out.println("Numéro invalide.");
+                                                    }
+                                                } catch (NumberFormatException e) {
+                                                    System.out.println("Entrée invalide.");
+                                                }
                                             } else {
                                                 System.out.println("Ce sort est réservé aux magiciens.");
                                             }
