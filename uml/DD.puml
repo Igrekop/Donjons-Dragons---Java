@@ -17,6 +17,10 @@ skinparam linetype ortho
 
     }
 
+    class Jeu {
+        + demarrer(): void
+    }
+
 
     Main --> races.Races : utilise
     Main --> classes.Archetype : utilise
@@ -302,9 +306,10 @@ skinparam linetype ortho
                 + creerMonstrePerso(): Monstreperso
                 + intervenir(participants: ArrayList<entite>, map: map_milieu): void
                 + deplacerEntite(entites: List<entite>, map: map_milieu): void
-                - creerMonstreEspece(espece: String): Monstre
-                - saisirEntierPositif(message: String): int
-                - saisirEntierMin(message: String, min: int): int
+                + creerMonstreEspece(espece: String): Monstre
+                + saisirEntierPositif(message: String): int
+                + saisirEntierMin(message: String, min: int): int
+                + attaquerEntite(entites : ArrayList<entite>): void
             }
         }
 
@@ -551,31 +556,28 @@ skinparam linetype ortho
                 abstract class Sort {
                     - nom: String
                     + Sort(nom: String)
-                    + {abstract} utiliser(Joueur, Joueur): void
-                    + {abstract} utiliser(Joueur, Monstre): void
-                    + {abstract} utiliser(Monstre, Monstre): void
+                    + {abstract} utiliser(Joueur : cible1, Joueur : cible2): void
+                    + {abstract} utiliser(entite : cible1, entite : cible2): void
                     + getNom(): String
                 }
 
                 class ArmeMagique {
                     + ArmeMagique()
-                    + utiliser(Joueur cible1, Joueur cible2): void
-                    + utiliser(Joueur cible1, Monstre cible2): void
-                    + utiliser(Monstre cible1, Monstre cible2): void
+                    + {abstract} utiliser(Joueur : cible1, Joueur : cible2): void
+                    + {abstract} utiliser(entite : cible1, entite : cible2): void
                 }
 
                 class Guerison {
                     + Guerison()
-                    + utiliser(Joueur cible1, Joueur cible2): void
-                    + utiliser(Joueur cible1, Monstre cible2): void
-                    + utiliser(Monstre cible1, Monstre cible2): void
+                    + {abstract} utiliser(Joueur : cible1, Joueur : cible2): void
+                    + {abstract} utiliser(entite : cible1, entite : cible2): void
                 }
 
                 class BougieWoogie {
                 + BoogieWoogie()
-                + utiliser(Joueur cible1, Joueur cible2): void
-                + utiliser(Joueur cible1, Monstre cible2): void
-                + utiliser(Monstre cible1, Monstre cible2): void
+                + utilisermap(entite : cible1, entite : cible2), map_milieu : map): void
+                + {abstract} utiliser(Joueur : cible1, Joueur : cible2): void
+                + {abstract} utiliser(entite : cible1, entite : cible2): void
                 }
 
                 Sort <|-- ArmeMagique

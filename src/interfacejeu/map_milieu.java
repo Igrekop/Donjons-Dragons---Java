@@ -214,7 +214,7 @@ public class map_milieu {
 
 
         ArmeCourante a1 = new ArmeCourante("Massue Anti-Emeute", "1d6");
-        ArmureLegere a2 = new ArmureLegere("Armure Yvann", 999);
+        ArmureLegere a2 = new ArmureLegere("Armure Yvann", 1);
 
         map.addEquipment(2, 3, a1);
         map.addEquipment(4, 2, a2);
