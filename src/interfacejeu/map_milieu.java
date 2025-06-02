@@ -3,11 +3,13 @@ package interfacejeu;
 import equipements.Armes.ArmeCourante;
 import equipements.Armures.ArmureLegere;
 import equipements.Equipement;
+import equipements.GestionEquipements;
 import monstres.Monstre;
 import personnages.Joueur;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class map_milieu {
@@ -34,8 +36,12 @@ public class map_milieu {
 
     private String generateLetters(int cols) {
         StringBuilder sb = new StringBuilder("    ");
-        for (char c = 'A'; c < 'A' + cols; c++) {
-            sb.append(" ").append(c).append(" ");
+        for (int i = 0; i < cols; i++) {
+            if (i < 10) {
+                sb.append(" ").append(i).append(" ");
+            } else {
+                sb.append(i).append(" ");
+            }
         }
         return sb.toString();
     }
@@ -185,7 +191,7 @@ public class map_milieu {
         System.out.println("*");
 
         // Légende
-        System.out.println("    * Equipement   |   [ ] Obstacle");
+        System.out.println("    \uD83D\uDEE1\uFE0F/\uD83D\uDDE1\uFE0F Equipement   |   [ ] Obstacle");
     }
 
     public static map_milieu map1() {
@@ -218,6 +224,10 @@ public class map_milieu {
 
         map.addEquipment(2, 3, a1);
         map.addEquipment(4, 2, a2);
+        map.addRandomEquipment(11, 5);
+        map.addRandomEquipment(5, 13);
+        map.addRandomEquipment(14, 4);
+        map.addRandomEquipment(12, 11);
 
 
         return map;
@@ -264,8 +274,12 @@ public class map_milieu {
 
         ArmeCourante epee = new ArmeCourante("Épée du labyrinthe", "2d6");
         ArmureLegere armure = new ArmureLegere("Cotte de maille", 15);
-        map.addEquipment(18, 18, epee);
-        map.addEquipment(1, 18, armure);
+        map.addEquipment(18, 17, epee);
+        map.addEquipment(2, 2, armure);
+        map.addRandomEquipment(6, 12);
+        map.addRandomEquipment(14, 5);
+        map.addRandomEquipment(5, 7);
+        map.addRandomEquipment(11, 16);
 
         return map;
     }
@@ -278,11 +292,14 @@ public class map_milieu {
         for (int i = 0; i < 35; i++) {
             map.addObstacle(5, i);
             map.addObstacle(10, i);
-
-
         }
 
-
+        map.addRandomEquipment(2, 11);
+        map.addRandomEquipment(4, 23);
+        map.addRandomEquipment(7, 9);
+        map.addRandomEquipment(7, 24);
+        map.addRandomEquipment(12, 1);
+        map.addRandomEquipment(14, 6);
 
         return map;
     }
@@ -317,10 +334,18 @@ public class map_milieu {
         System.out.println("*");
 
         // Légende
-        System.out.println("    * Equipement   |   [ ] Obstacle");
+        System.out.println("    \uD83D\uDEE1\uFE0F/\uD83D\uDDE1\uFE0F  Equipement   |   [ ] Obstacle");
     }
 
+    public void addRandomEquipment(int row, int col) {
+        List<Equipement> equipements = GestionEquipements.initialiserEquipements();
+        if (equipements.isEmpty()) return;
 
+        Random random = new Random();
+        Equipement equipementAleatoire = equipements.get(random.nextInt(equipements.size()));
 
-
+        if (isValidPositionAndFree(row - 1, col - 1)) {
+            map[row - 1][col - 1].setContenu(equipementAleatoire);
+        }
+    }
 }
