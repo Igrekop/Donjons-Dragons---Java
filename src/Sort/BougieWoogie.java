@@ -11,12 +11,11 @@ public class BougieWoogie extends Sort{
         super("Bougie-Woogie");
     }
 
-    public void utilisermap(entite cible1, entite cible2, map_milieu map) {
+    public void utilisermap(entite cible1, entite cible2) {
         int cible1PosX = cible1.getPosX();
         int cible1PosY = cible1.getPosY();
 
-        cible1.setPosXY(cible2.getPosX(), cible2.getPosY(), map);
-        cible2.setPosXY(cible1PosX, cible1PosY, map);
+        echangerPositions(cible1, cible2);
 
     }
 

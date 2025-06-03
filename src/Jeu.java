@@ -419,12 +419,12 @@ public class Jeu {
                                                             entite e = ciblesPossibles.get(i);
                                                             System.out.println((i+1) + " - " + e.getNom());
                                                         }
-                                                        System.out.print("Entrez le numéro de la deuxiem cible à echanger : ");
+                                                        System.out.print("Entrez le numéro de la deuxième cible à échanger : ");
                                                         try {
                                                             int choix2 = Integer.parseInt(scanner.nextLine()) - 1;
                                                             if (choix2 >= 0 && choix2 < ciblesPossibles.size()) {
                                                                 entite cible2 = ciblesPossibles.get(choix2);
-                                                                sort.utilisermap(cible1, cible2, map);
+                                                                sort.utilisermap(cible1, cible2);
                                                             } else {
                                                                 System.out.println("Numéro invalide.");
                                                             }
