@@ -292,8 +292,6 @@ public class map_milieu {
         for (int i = 0; i < 35; i++) {
             map.addObstacle(5, i);
             map.addObstacle(10, i);
-
-
         }
 
         map.addRandomEquipment(2, 11);
