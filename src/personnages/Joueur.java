@@ -314,4 +314,11 @@ public class Joueur extends Personnage implements ContenuCase, entite {
         this.addPdV(degats);
     }
 
+    @Override
+    public void setPosSansVerif(int x, int y) {
+        this.posX = x;
+        this.posY = y;
+    }
+
+
 }

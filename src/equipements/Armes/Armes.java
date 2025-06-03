@@ -68,7 +68,7 @@ public abstract class Armes implements Equipement{
 
     @Override
     public  String afficher(){
-        return " * ";
+        return " \uD83D\uDDE1\uFE0F ";
     }
 
 

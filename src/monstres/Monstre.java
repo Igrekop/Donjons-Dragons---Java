@@ -157,12 +157,18 @@ public abstract class Monstre implements ContenuCase, entite {
 
     @Override
     public void setPV(int degats){
-        this.setPV(degats);
+        this.addPdV(degats);
     }
 
+    public void addPdV(int pv) {
+        m_pointDeVie += pv;
+    }
 
-
-
+    @Override
+    public void setPosSansVerif(int x, int y) {
+        this.posX = x;
+        this.posY = y;
+    }
 
 
 }
