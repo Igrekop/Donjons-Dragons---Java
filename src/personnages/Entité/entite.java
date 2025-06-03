@@ -12,4 +12,6 @@ public interface entite {
     String getNom();
     String AfficherPVDB();
     void setPV(int degats);
+    void setPosSansVerif(int x, int y);
+
 }

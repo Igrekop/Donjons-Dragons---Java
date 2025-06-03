@@ -59,7 +59,7 @@ public abstract class Armure implements Equipement {
 
     @Override
     public  String afficher(){
-        return " * ";
+        return " \uD83D\uDEE1\uFE0F ";
     }
 
 

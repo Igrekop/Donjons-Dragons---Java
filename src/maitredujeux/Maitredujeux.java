@@ -261,7 +261,7 @@ public class Maitredujeux {
 
         for (int i = 0; i < entites.size(); i++) {
             entite e = entites.get(i);
-            System.out.println((i + 1) + ". " + e.getNom() + " - Points de vie : " + e.AfficherPVDB());
+            System.out.println((i + 1) + " . " + e.getNom() + " - Points de vie : " + e.AfficherPVDB());
         }
 
         // Choix de la cible
