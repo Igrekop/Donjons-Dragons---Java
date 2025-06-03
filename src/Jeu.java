@@ -272,7 +272,7 @@ public class Jeu {
                                     }
                                     System.out.println("Préparation du donjon suivant...\n");
                                     numeroDonjon++;
-                                    // Ajouter de nouveaux monstres ici si besoin
+                                    map = choisirNouvelleCarte(scanner);
                                     break;
                                 }
 
