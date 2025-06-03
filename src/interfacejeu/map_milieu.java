@@ -191,7 +191,7 @@ public class map_milieu {
         System.out.println("*");
 
         // Légende
-        System.out.println("    * Equipement   |   [ ] Obstacle");
+        System.out.println("    \uD83D\uDEE1\uFE0F/\uD83D\uDDE1\uFE0F Equipement   |   [ ] Obstacle");
     }
 
     public static map_milieu map1() {
