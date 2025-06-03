@@ -224,6 +224,10 @@ public class map_milieu {
 
         map.addEquipment(2, 3, a1);
         map.addEquipment(4, 2, a2);
+        map.addRandomEquipment(11, 5);
+        map.addRandomEquipment(5, 13);
+        map.addRandomEquipment(14, 4);
+        map.addRandomEquipment(12, 11);
 
 
         return map;
