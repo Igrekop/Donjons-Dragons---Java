@@ -352,6 +352,7 @@ public class Jeu {
                                 System.out.println("Vous avez choisi de vous déplacer !");
                                 System.out.println("Vers quelle direction souhaitez vous vous déplacez ? (haut/bas/droite/gauche)");
                                 String direction = scanner.nextLine().trim().toLowerCase();
+                                System.out.println("Le nombre de cases? ");
                                 int cases = Integer.parseInt(scanner.nextLine());
                                 joueur.seDeplacer(direction, map, cases);
                                 actionsRestantes--;
@@ -483,5 +484,35 @@ public class Jeu {
                 index = (index + 1) % participants.size();
             }
         }
+    }
+
+
+    private map_milieu choisirNouvelleCarte(Scanner scanner) {
+        map_milieu map = null;
+        boolean verif = false;
+        while (!verif) {
+            System.out.println("\nChoisir la nouvelle map :");
+            System.out.println("1. Forêt D'Yvann");
+            System.out.println("2. Labyrinthe D'Yvann");
+            System.out.println("3. Les 3 voies de l'Homme Gazées");
+            String reponse = scanner.nextLine().trim().toLowerCase();
+            switch (reponse) {
+                case "1":
+                    map = map_milieu.map1();
+                    verif = true;
+                    break;
+                case "2":
+                    map = map_milieu.map2();
+                    verif = true;
+                    break;
+                case "3":
+                    map = map_milieu.map3();
+                    verif = true;
+                    break;
+                default:
+                    System.out.println("Réponse invalide. Veuillez entrer 1, 2 ou 3.");
+            }
+        }
+        return map;
     }
 }
