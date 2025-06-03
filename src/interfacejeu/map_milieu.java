@@ -36,8 +36,12 @@ public class map_milieu {
 
     private String generateLetters(int cols) {
         StringBuilder sb = new StringBuilder("    ");
-        for (char c = 'A'; c < 'A' + cols; c++) {
-            sb.append(" ").append(c).append(" ");
+        for (int i = 0; i < cols; i++) {
+            if (i < 10) {
+                sb.append(" ").append(i).append(" ");
+            } else {
+                sb.append(i).append(" ");
+            }
         }
         return sb.toString();
     }
