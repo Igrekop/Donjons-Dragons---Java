@@ -34,7 +34,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     }
 
     public void attaquer(Monstre cible) {
-        afficherAttaque(getNom(), cible.getEspece(), getEquiper().getFirst().getNom());
+        afficherAttaque(getNom(), cible.getEspece(), getNomArme());
 
         Equipement arme = equipementEquipe[0];
         int portee = (arme != null) ? arme.getPortee() : 1; // portée par défaut = 1
@@ -318,6 +318,10 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     public void setPosSansVerif(int x, int y) {
         this.posX = x;
         this.posY = y;
+    }
+
+    public String getNomArme() {
+        return getEquiper().getFirst().getNom();
     }
 
 

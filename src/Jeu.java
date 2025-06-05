@@ -425,6 +425,7 @@ public class Jeu {
                                                             if (choix2 >= 0 && choix2 < ciblesPossibles.size()) {
                                                                 entite cible2 = ciblesPossibles.get(choix2);
                                                                 sort.utilisermap(cible1, cible2);
+                                                                actionsRestantes--;
                                                             } else {
                                                                 System.out.println("Numéro invalide.");
                                                             }
