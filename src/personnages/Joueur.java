@@ -194,11 +194,6 @@ public class Joueur extends Personnage implements ContenuCase, entite {
         }
     }
 
-    public void soignerComplet() {
-        this.addPdV((this.getPointDeVie() - this.getPointDeVie()) + getClasse().getPvDeBase());
-    }
-
-
     public ArrayList<Equipement> getEquipements() {
         return m_inventaire;
     }
@@ -320,5 +315,8 @@ public class Joueur extends Personnage implements ContenuCase, entite {
         this.posY = y;
     }
 
-
+    @Override
+    public void soignerComplet() {
+        this.setPointDeVie(this.getClasse().getPvDeBase());
+    }
 }
