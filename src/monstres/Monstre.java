@@ -16,8 +16,8 @@ public abstract class Monstre implements ContenuCase, entite {
     private String m_typeAttaque;
     private int m_portee;
     private String m_degats;
-    private int posX;
-    private int posY;
+    private int m_posX;
+    private int m_posY;
 
 
     public Monstre(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
@@ -107,16 +107,16 @@ public abstract class Monstre implements ContenuCase, entite {
         else {return false;}
     }
 
-    public int getPosX() {return this.posX;
+    public int getPosX() {return this.m_posX;
     }
 
-    public int getPosY() {return this.posY;
+    public int getPosY() {return this.m_posY;
     }
 
     public boolean setPosXY(int x, int y, map_milieu map) {
         if (map.isValidPositionAndFree(x,y)) {
-            this.posX = x;
-            this.posY = y;
+            this.m_posX = x;
+            this.m_posY = y;
             return true;
         }
         else  {return false;}
@@ -166,8 +166,8 @@ public abstract class Monstre implements ContenuCase, entite {
 
     @Override
     public void setPosSansVerif(int x, int y) {
-        this.posX = x;
-        this.posY = y;
+        this.m_posX = x;
+        this.m_posY = y;
     }
 
 
