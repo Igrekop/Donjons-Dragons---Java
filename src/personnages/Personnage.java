@@ -98,7 +98,7 @@ public abstract class Personnage {
     public void setVitesse(int vitesse_change) {
         vitesse = vitesse_change;
     }
-
+    
     public void setInitiative(int initiative_change) {
         initiative = initiative_change;
     }
