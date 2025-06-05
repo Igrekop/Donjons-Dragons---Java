@@ -420,7 +420,55 @@ public class Jeu {
                                                     }
                                                     case "3" -> {
                                                         if (joueur.getClasse() instanceof Magicien) {
-                                                            actionsRestantes--;
+                                                            System.out.println("Cibles disponibles pour l'enchantement :");
+                                                            ArrayList<entite> ciblesPossibles = new ArrayList<>();
+                                                            for (entite e : participants) {
+                                                                if (e instanceof Joueur) {
+                                                                    ciblesPossibles.add(e);
+                                                                }
+                                                            }
+                                                            for (int i = 0; i < ciblesPossibles.size(); i++)
+                                                            {
+                                                                entite e = ciblesPossibles.get(i);
+                                                                System.out.println((i+1) + " - " + e.getNom());
+                                                            }
+                                                            System.out.print("Entrez le numéro de la cible à enchanter : ");
+                                                            try {
+                                                                int choix = Integer.parseInt(scanner.nextLine()) - 1;
+                                                                if (choix >= 0 && choix < ciblesPossibles.size()) {
+                                                                    Joueur joueurCible = (Joueur) ciblesPossibles.get(choix);
+
+                                                                    ArmeMagique sort = new ArmeMagique();
+                                                                    ArrayList<Equipement> armes = sort.getArmesDisponibles(joueurCible);
+
+                                                                    if (armes.isEmpty()) {
+                                                                        System.out.println(joueurCible.getNom() + " ne possède aucune arme.");
+                                                                    } else {
+                                                                        for (int i = 0; i < armes.size(); i++) {
+                                                                            System.out.println((i + 1) + " - " + armes.get(i).getNom());
+                                                                        }
+
+                                                                        System.out.print("Choisissez le numéro de l'arme à améliorer : ");
+                                                                        Scanner scanner3 = new Scanner(System.in);
+                                                                        int choix2 = scanner3.nextInt();
+
+                                                                        if (choix2 >= 1 && choix2 <= armes.size()) {
+                                                                            Equipement armeChoisie = armes.get(choix2 - 1);
+                                                                            sort.utiliser(joueurCible, joueurCible, armeChoisie);
+                                                                            System.out.println("L'arme '" + armeChoisie.getNom() + "' a été améliorée !");
+                                                                        } else {
+                                                                            System.out.println("Choix invalide.");
+                                                                        }
+                                                                    }
+                                                                    actionsRestantes--;
+
+                                                                    actionsRestantes--;
+                                                                } else {
+                                                                    System.out.println("Numéro invalide.");
+                                                                }
+                                                            } catch (NumberFormatException e) {
+                                                                System.out.println("Entrée invalide.");
+                                                            }
                                                         } else {
                                                             System.out.println("Ce sort est réservé aux magiciens.");
                                                         }
