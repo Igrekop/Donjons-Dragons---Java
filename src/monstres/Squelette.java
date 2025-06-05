@@ -11,21 +11,25 @@ public class Squelette extends Monstre {
 
     @Override
     public void attaquer(Joueur cible) {
+        // Calcul de la distance entre le monstre et le joueur
+        int distance = Math.abs(getPosX() - cible.getPosX()) + Math.abs(getPosY() - cible.getPosY());
+
+        if (distance > getPortee()) {
+            System.out.println(getEspece() + " n°" + getNumero() + " est trop loin pour attaquer " + cible.getNom() + " !");
+            System.out.println("Distance : " + distance + " / Portée : " + getPortee());
+            return;
+        }
+
         CombatResultat resultat = calculerAttaque(cible);
         afficherResultatAttaque(resultat, cible);
     }
 
     private CombatResultat calculerAttaque(Joueur cible) {
         int jetAttaque = Des.lancerDes("1d20");
-        int modificateur;
 
-        if (getPortee() == 1) {
-            modificateur = getForce();
-        } else {
-            modificateur = getDexterite();
-        }
-
+        int modificateur = (getPortee() == 1) ? getForce() : getDexterite();
         jetAttaque += modificateur;
+
         int classeArmureCible = cible.getClasseArmureActuelle();
 
         boolean succes = jetAttaque > classeArmureCible;
@@ -42,11 +46,13 @@ public class Squelette extends Monstre {
     private void afficherResultatAttaque(CombatResultat resultat, Joueur cible) {
         System.out.println(getEspece() + " n°" + getNumero() + " attaque " + cible.getNom() + " avec " + getTypeAttaque() + " !");
         System.out.println("Jet d'attaque : " + resultat.jetAttaque + " (modificateur : " + resultat.modificateur + ")");
+
         if (getPortee() == 1) {
             System.out.println("Attaque corps à corps.");
         } else {
             System.out.println("Attaque à distance.");
         }
+
         if (resultat.succes) {
             System.out.println("Attaque réussie !");
             System.out.println("Dégâts infligés : " + resultat.degatsInfliges);
@@ -55,6 +61,7 @@ public class Squelette extends Monstre {
             System.out.println("Attaque échouée !");
         }
     }
+
 
     private static class CombatResultat {
         int jetAttaque;
