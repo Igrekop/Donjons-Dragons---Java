@@ -103,14 +103,14 @@ public abstract class Personnage {
         initiative = initiative_change;
     }
 
-    public abstract void soignerComplet();
-
     public boolean estMort() {
         if (this.pointDeVie <= 0) {
             return true;
         }
         else {return false;}
     }
+
+    public abstract void soignerComplet();
 }
 
 
