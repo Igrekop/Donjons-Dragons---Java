@@ -109,6 +109,8 @@ public abstract class Personnage {
         }
         else {return false;}
     }
+
+    public abstract void soignerComplet();
 }
 
 
