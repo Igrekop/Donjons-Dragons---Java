@@ -212,9 +212,10 @@ public class Jeu {
 
                     int index = 0;
                     while (true) {
-                        Object p = participants.get(index);
+                        entite p = participants.get(index);
 
-                        if (p instanceof Joueur joueur && !joueur.estMort()) {
+                        if (!p.estMonstre() && !p.estMort()) {
+                            Joueur joueur = (Joueur) p;
                             System.out.println("\nC'est le tour de " + joueur.getNom() + " !");
                             int actionsRestantes = 3;
                             while (actionsRestantes > 0) {
@@ -228,9 +229,10 @@ public class Jeu {
                                     case "1" -> {
                                         System.out.println("Qui voulez-vous attaquer ?");
                                         List<Monstre> cibles = participants.stream()
-                                                .filter(o -> o instanceof Monstre m && !m.estMort())
-                                                .map(o -> (Monstre) o)
+                                                .filter(m -> m.estMonstre() && !m.estMort())
+                                                .map(m -> (Monstre) m) // Ce cast reste nécessaire mais sûr car tu viens de filtrer estMonstre() == true
                                                 .toList();
+
 
                                         if (cibles.isEmpty()) {
                                             System.out.println("\n=== Tous les monstres sont vaincus ! Victoire ! ===");
@@ -258,9 +260,8 @@ public class Jeu {
 
                                         // Vérifie si tous les monstres sont morts après l'attaque
                                         boolean tousLesMonstresMorts = participants.stream()
-                                                .filter(o -> o instanceof Monstre)
-                                                .map(o -> (Monstre) o)
-                                                .allMatch(Monstre::estMort);
+                                                .filter(entite::estMonstre)
+                                                .allMatch(entite::estMort);
 
                                         if (tousLesMonstresMorts) {
                                             System.out.println("\n=== Tous les monstres sont vaincus ! Victoire ! ===");
@@ -330,10 +331,13 @@ public class Jeu {
                                         actionsRestantes--;
                                     }
                                     case "5" -> {
-                                        if (joueur.getClasse() instanceof Clerc || joueur.getClasse() instanceof Magicien) {
+                                        Archetype classe = joueur.getClasse();
+                                        String type = classe.getNom();
+
+                                        if (type.equals("Clerc") || type.equals("Magicien")) {
                                             System.out.println("Sorts disponibles :");
                                             System.out.println("1. Guérison");
-                                            if (joueur.getClasse() instanceof Magicien) {
+                                            if (type.equals("Magicien")) {
                                                 System.out.println("2. Bougie-Woogie");
                                                 System.out.println("3. Enchanter une arme");
                                             }
@@ -346,7 +350,7 @@ public class Jeu {
                                                     System.out.println("Cibles disponibles pour Guérison :");
                                                     ArrayList<entite> ciblesPossibles = new ArrayList<>();
                                                     for (entite e : participants) {
-                                                        if (e instanceof Joueur) {
+                                                        if (!e.estMonstre()) {
                                                             ciblesPossibles.add(e);
                                                         }
                                                     }
@@ -371,7 +375,7 @@ public class Jeu {
                                                     }
                                                 }
                                                 case "2" -> {
-                                                    if (joueur.getClasse() instanceof Magicien) {
+                                                    if (type.equals("Magicien")) {
                                                         System.out.println("Cibles disponibles pour Bougie-Woogie :");
                                                         List<entite> ciblesPossibles = participants;
                                                         for (int i = 0; i < ciblesPossibles.size(); i++) {
@@ -413,11 +417,11 @@ public class Jeu {
                                                     }
                                                 }
                                                 case "3" -> {
-                                                    if (joueur.getClasse() instanceof Magicien) {
+                                                    if (type.equals("Magicien")) {
                                                         System.out.println("Cibles disponibles pour l'enchantement :");
                                                         ArrayList<entite> ciblesPossibles = new ArrayList<>();
                                                         for (entite e : participants) {
-                                                            if (e instanceof Joueur) {
+                                                            if (!e.estMonstre()) {
                                                                 ciblesPossibles.add(e);
                                                             }
                                                         }
@@ -479,7 +483,8 @@ public class Jeu {
                                 barre.Affichage(joueurs.get(0), numeroDonjon, participants, numeroTour);
                                 map.Print(participants);
                             }
-                        } else if (p instanceof Monstre monstre && !monstre.estMort()) {
+                        } else if (!p.estMort()) {
+                            Monstre monstre = (Monstre) p;
                             System.out.println("\nTour de " + monstre.getEspece());
                             List<Joueur> cibles = joueurs.stream().filter(j -> !j.estMort()).toList();
                             if (!cibles.isEmpty()) {
@@ -502,7 +507,7 @@ public class Jeu {
 
                         // Vérification globale à la fin de chaque tour - si tous les monstres sont morts, fin de la partie
                         boolean tousLesMonstresMortsFinal = participants.stream()
-                                .filter(o -> o instanceof Monstre)
+                                .filter(o -> o.estMonstre())
                                 .map(o -> (Monstre) o)
                                 .allMatch(Monstre::estMort);
                         if (tousLesMonstresMortsFinal) {

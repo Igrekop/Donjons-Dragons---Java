@@ -147,20 +147,20 @@ public class map_milieu {
 
     public void Print(List<entite> participants) {
         nettoyerParticipants();
-        for (Object obj : participants) {
-            if (obj instanceof Joueur joueur) {
-                int x = joueur.getPosX();
-                int y = joueur.getPosY();
+        for (entite obj : participants) {
+            if (!obj.estMonstre()) {
+                int x = obj.getPosX();
+                int y = obj.getPosY();
 
                 if(x >= 0 && x < rows && y >= 0 && y < cols) {
-                    map[x][y].setContenu(joueur);
+                    map[x][y].setContenu((ContenuCase) obj);
                 }
-            } else if (obj instanceof Monstre monstre) {
-                int x = monstre.getPosX();
-                int y = monstre.getPosY();
+            } else if (obj.estMonstre()) {
+                int x = obj.getPosX();
+                int y = obj.getPosY();
 
                 if(x >= 0 && x < rows && y >= 0 && y < cols) {
-                    map[x][y].setContenu(monstre);
+                    map[x][y].setContenu((ContenuCase) obj);
                 }
             }
         }
