@@ -306,7 +306,7 @@ public class Maitredujeux {
     private void controlerMonstre(List<entite> participants, map_milieu map) {
         // Filtrer les monstres vivants
         List<Monstre> monstresDisponibles = participants.stream()
-                .filter(e -> e instanceof Monstre && !((Monstre)e).estMort())
+                .filter(e -> e.estMonstre() && !e.estMort())
                 .map(e -> (Monstre)e)
                 .toList();
 
@@ -358,8 +358,8 @@ public class Maitredujeux {
     private void attaquerAvecMonstre(Monstre monstre, List<entite> participants) {
         // Filtrer les joueurs proches (dans la portée du monstre)
         List<Joueur> cibles = participants.stream()
-                .filter(e -> e instanceof Joueur j &&
-                        distance(monstre, j) <= monstre.getPortee())
+                .filter(e -> !e.estMonstre() &&
+                        distance(monstre, e) <= monstre.getPortee())
                 .map(e -> (Joueur)e)
                 .toList();
 
