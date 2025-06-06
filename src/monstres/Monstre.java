@@ -16,12 +16,13 @@ public abstract class Monstre implements ContenuCase, entite {
     private String m_typeAttaque;
     private int m_portee;
     private String m_degats;
+    private int m_vitesse;
     private int m_posX;
     private int m_posY;
 
 
     public Monstre(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
-                   int classeArmure, String typeAttaque, int portee, String degats) {
+                   int classeArmure, String typeAttaque, int portee, String degats, int vit) {
         m_espece = espece;
         m_numero = numero;
         m_pointDeVie = pointDeVie;
@@ -32,6 +33,7 @@ public abstract class Monstre implements ContenuCase, entite {
         m_typeAttaque = typeAttaque;
         m_portee = portee;
         m_degats = degats;
+        m_vitesse = vit;
     }
 
     public abstract void attaquer(Joueur cible);
@@ -74,6 +76,10 @@ public abstract class Monstre implements ContenuCase, entite {
 
     public int getDexterite() {
         return m_dexterite;
+    }
+
+    public int getVitesse() {
+        return m_vitesse;
     }
 
     /**
