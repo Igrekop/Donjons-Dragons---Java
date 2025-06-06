@@ -325,5 +325,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
         setPointDeVie(this.getClasse().getPvDeBase());
     }
 
+    @Override
+    public boolean estMonstre(){return false;}
 
 }

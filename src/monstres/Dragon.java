@@ -85,6 +85,11 @@ public class Dragon extends Monstre {
     }
 
     @Override
+    public String getTypeContenu() {
+        return "";
+    }
+
+    @Override
     public String afficher() {
         return "\uD83D\uDC09" + " " ;
     }

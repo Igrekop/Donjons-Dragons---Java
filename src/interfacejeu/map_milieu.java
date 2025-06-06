@@ -5,6 +5,7 @@ import equipements.Armures.ArmureLegere;
 import equipements.Equipement;
 import equipements.GestionEquipements;
 import monstres.Monstre;
+import personnages.Entité.entite;
 import personnages.Joueur;
 
 import java.util.ArrayList;
@@ -144,7 +145,7 @@ public class map_milieu {
     }
 
 
-    public void Print(List<Object> participants) {
+    public void Print(List<entite> participants) {
         nettoyerParticipants();
         for (Object obj : participants) {
             if (obj instanceof Joueur joueur) {

@@ -96,6 +96,10 @@ public class Monstreperso extends Monstre {
     }
 
 
+    @Override
+    public String getTypeContenu() {
+        return "";
+    }
 
     @Override
     public String afficher() {
