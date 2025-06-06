@@ -6,7 +6,7 @@ import personnages.Joueur;
 public class Dragon extends Monstre {
     public Dragon(int numero) {
         super("Dragon", numero, 100, 0, 18, 10,
-                15, "souffle de feu", 6, "2d10");
+                15, "souffle de feu", 6, "2d10",1);
     }
 
     @Override

@@ -102,10 +102,11 @@ public class Maitredujeux {
                             modele.getTypeAttaque(),
                             modele.getPortee(),
                             modele.getDegats(),
-                            modele.getIcone()
+                            modele.getIcone(),
+                            modele.getVitesse()
                     );
                 }
-                return new Monstreperso(espece, numero, 50, 10, 10, 10, 10, "attaque basique", 1, "1d6","X&" );
+                return new Monstreperso(espece, numero, 50, 10, 10, 10, 10, "attaque basique", 1, "1d6","X&" ,3);
         }
     }
 
@@ -139,9 +140,10 @@ public class Maitredujeux {
 
         int initiative = saisirEntierPositif("Initiative : ");
         int classeArmure = saisirEntierPositif("Classe d'armure : ");
+        int vitesse = saisirEntierPositif("Vitesse : ");
+
         System.out.print("Type d'attaque : ");
         String typeAttaque = m_scanner.nextLine();
-
 
         String degats;
         do {
@@ -165,11 +167,14 @@ public class Maitredujeux {
             }
         }
 
-
-        Monstreperso m = new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats,icone);
+        Monstreperso m = new Monstreperso(espece, numero, pointDeVie, force, dexterite,
+                initiative, classeArmure, typeAttaque, portee,
+                degats, icone, vitesse);
         m_monstresPersonnalises.put(espece, m);
 
-        return new Monstreperso(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats,icone);
+        return new Monstreperso(espece, numero, pointDeVie, force, dexterite,
+                initiative, classeArmure, typeAttaque, portee,
+                degats, icone, vitesse);
     }
 
     private int saisirEntierPositif(String message) {
@@ -200,12 +205,13 @@ public class Maitredujeux {
         return valeur;
     }
 
-    public void intervenir(ArrayList<entite> participants,map_milieu map) {
+    public void intervenir(ArrayList<entite> participants, map_milieu map) {
         System.out.println("=== Intervention du Maître du Jeu ===");
         System.out.println("1. Commenter l'action");
         System.out.println("2. Déplacer un monstre ou un joueur");
         System.out.println("3. Attaquer un monstre ou un joueur");
-        System.out.println("4. Ne rien faire");
+        System.out.println("4. Contrôler un monstre");
+        System.out.println("5. Ne rien faire");
 
         int choix = saisirEntierMin("Votre choix : ", 1);
 
@@ -222,6 +228,9 @@ public class Maitredujeux {
                 attaquerEntite(participants);
                 break;
             case 4:
+                controlerMonstre(participants, map);
+                break;
+            case 5:
                 System.out.println("Aucune intervention.");
                 break;
             default:
@@ -293,6 +302,160 @@ public class Maitredujeux {
         cible.setPV(-degats);
         System.out.println("Vous attaquez " + cible.getNom() + " pour " + degats + " points de dégâts !");
     }
+
+
+    private void controlerMonstre(ArrayList<entite> participants, map_milieu map) {
+        // Filtrer les monstres vivants
+        List<Monstre> monstresDisponibles = participants.stream()
+                .filter(e -> e instanceof Monstre && !((Monstre)e).estMort())
+                .map(e -> (Monstre)e)
+                .toList();
+
+        if (monstresDisponibles.isEmpty()) {
+            System.out.println("Aucun monstre disponible à contrôler.");
+            return;
+        }
+
+        // Afficher la liste des monstres
+        System.out.println("\n=== Monstres disponibles ===");
+        for (int i = 0; i < monstresDisponibles.size(); i++) {
+            Monstre m = monstresDisponibles.get(i);
+            System.out.printf("%d. %s - PV: %d/%d - Position: (%d,%d)\n",
+                    i+1, m.getNom(), m.getPointDeVie(), m.getPvDeBase(),
+                    m.getPosX(), m.getPosY());
+        }
+
+        // Sélection du monstre
+        int choixMonstre = saisirEntierMinMax("Choisissez un monstre à contrôler (1-" + monstresDisponibles.size() + ") : ",
+                1, monstresDisponibles.size()) - 1;
+        Monstre monstre = monstresDisponibles.get(choixMonstre);
+        System.out.println("Vous contrôlez maintenant " + monstre.getNom());
+
+        // Menu de contrôle
+        boolean continuer = true;
+        while (continuer && !monstre.estMort()) {
+            System.out.println("\n=== Contrôle de " + monstre.getNom() + " ===");
+            System.out.println("1. Attaquer");
+            System.out.println("2. Se déplacer");
+            System.out.println("3. Arrêter le contrôle");
+
+            int action = saisirEntierMinMax("Votre choix : ", 1, 3);
+
+            switch (action) {
+                case 1:
+                    attaquerAvecMonstre(monstre, participants);
+                    break;
+                case 2:
+                    deplacerMonstre(monstre, map);
+                    break;
+                case 3:
+                    continuer = false;
+                    System.out.println("Vous arrêtez de contrôler " + monstre.getNom());
+                    break;
+            }
+        }
+    }
+
+    private void attaquerAvecMonstre(Monstre monstre, ArrayList<entite> participants) {
+        // Filtrer les joueurs proches (dans la portée du monstre)
+        List<Joueur> cibles = participants.stream()
+                .filter(e -> e instanceof Joueur j &&
+                        distance(monstre, j) <= monstre.getPortee())
+                .map(e -> (Joueur)e)
+                .toList();
+
+        if (cibles.isEmpty()) {
+            System.out.println("Aucun joueur à portée d'attaque.");
+            return;
+        }
+
+        // Afficher les cibles disponibles
+        System.out.println("\n=== Cibles disponibles ===");
+        for (int i = 0; i < cibles.size(); i++) {
+            Joueur j = cibles.get(i);
+            System.out.printf("%d. %s - PV: %d/%d - Distance: %d\n",
+                    i+1, j.getNom(), j.getPointDeVie(), j.getPVdebase(),
+                    distance(monstre, j));
+        }
+
+        // Sélection de la cible
+        int choixCible = saisirEntierMinMax("Choisissez une cible (1-" + cibles.size() + ") : ",
+                1, cibles.size()) - 1;
+        Joueur cible = cibles.get(choixCible);
+
+        // Effectuer l'attaque
+        int jetAttaque = Des.lancerDes("1d20");
+        int modificateur = monstre.getPortee() > 1 ? monstre.getDexterite() : monstre.getForce();
+        int totalAttaque = jetAttaque + modificateur;
+
+        System.out.printf("%s attaque %s (Jet: %d + Mod: %d = %d vs CA: %d)\n",
+                monstre.getNom(), cible.getNom(),
+                jetAttaque, modificateur, totalAttaque,
+                cible.getClasseArmureActuelle());
+
+        if (totalAttaque > cible.getClasseArmureActuelle()) {
+            int degats = Des.lancerDes(monstre.getDegats());
+            System.out.println("Attaque réussie ! Dégâts: " + degats);
+            cible.setPV(-degats);
+            System.out.printf("%s PV: %d/%d\n",
+                    cible.getNom(), cible.getPointDeVie(), cible.getPVdebase());
+        } else {
+            System.out.println("Attaque échouée !");
+        }
+    }
+
+    private int distance(entite e1, entite e2) {
+        return Math.abs(e1.getPosX() - e2.getPosX()) + Math.abs(e1.getPosY() - e2.getPosY());
+    }
+
+    private void deplacerMonstre(Monstre monstre, map_milieu map) {
+        System.out.println("Directions: haut, bas, gauche, droite");
+        System.out.print("Direction: ");
+        String direction = m_scanner.nextLine().toLowerCase();
+
+        int vitesse = monstre.getVitesse();
+        int maxCases = vitesse / 3;
+        System.out.print("Nombre de cases (1-" + maxCases + "): ");
+        int nbCases = saisirEntierMinMax("", 1, maxCases);
+
+        int newX = monstre.getPosX();
+        int newY = monstre.getPosY();
+
+        switch (direction) {
+            case "haut": newX -= nbCases; break;
+            case "bas": newX += nbCases; break;
+            case "gauche": newY -= nbCases; break;
+            case "droite": newY += nbCases; break;
+            default:
+                System.out.println("Direction invalide.");
+                return;
+        }
+
+        if (map.isValidPositionAndFree(newX, newY)) {
+            map.videCase(monstre.getPosX(), monstre.getPosY());
+            monstre.setPosSansVerif(newX, newY);
+            map.UpdateCase(newX, newY, monstre);
+            System.out.printf("%s s'est déplacé en (%d,%d)\n",
+                    monstre.getNom(), newX, newY);
+        } else {
+            System.out.println("Déplacement impossible !");
+        }
+    }
+
+    private int saisirEntierMinMax(String message, int min, int max) {
+        int valeur;
+        do {
+            System.out.print(message);
+            while (!m_scanner.hasNextInt()) {
+                m_scanner.nextLine();
+                System.out.print(message);
+            }
+            valeur = m_scanner.nextInt();
+            m_scanner.nextLine();
+        } while (valeur < min || valeur > max);
+        return valeur;
+    }
+
 
 }
 

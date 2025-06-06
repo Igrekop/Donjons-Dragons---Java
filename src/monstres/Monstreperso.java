@@ -11,8 +11,8 @@ public class Monstreperso extends Monstre {
     private final int m_PvDeBase;
 
     public Monstreperso(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
-                        int classeArmure, String typeAttaque, int portee, String degats, String icone) {
-        super(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats);
+                        int classeArmure, String typeAttaque, int portee, String degats, String icone, int vitesse) {
+        super(espece, numero, pointDeVie, force, dexterite, initiative, classeArmure, typeAttaque, portee, degats,vitesse);
         this.icone = icone;
         this.m_PvDeBase = pointDeVie;
     }
