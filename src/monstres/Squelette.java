@@ -84,6 +84,11 @@ public class Squelette extends Monstre {
     }
 
     @Override
+    public String getTypeContenu() {
+        return "";
+    }
+
+    @Override
     public String afficher() {
         return "\uD83D\uDC80" + " ";
     }

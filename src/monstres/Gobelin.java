@@ -84,6 +84,11 @@ public class Gobelin extends Monstre {
     }
 
     @Override
+    public String getTypeContenu() {
+        return "";
+    }
+
+    @Override
     public String afficher() {
         return "\uD83D\uDC7A" + " ";
     }

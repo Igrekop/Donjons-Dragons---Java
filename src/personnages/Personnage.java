@@ -2,10 +2,12 @@ package personnages;
 
 import equipements.Equipement;
 import monstres.Monstre;
+import personnages.Entité.entite;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Personnage {
+public abstract class Personnage implements entite {
     private String nom;
     private int pointDeVie;
     private int force;
@@ -103,6 +105,7 @@ public abstract class Personnage {
         initiative = initiative_change;
     }
 
+    @Override
     public boolean estMort() {
         if (this.pointDeVie <= 0) {
             return true;

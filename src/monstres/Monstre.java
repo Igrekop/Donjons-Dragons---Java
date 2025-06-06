@@ -106,6 +106,7 @@ public abstract class Monstre implements ContenuCase, entite {
         return m_initiative;
     }
 
+    @Override
     public boolean estMort() {
         if (this.getPointDeVie() <= 0) {
             return true;
@@ -131,9 +132,7 @@ public abstract class Monstre implements ContenuCase, entite {
     public abstract String afficher();
 
     @Override
-    public String getTypeContenu() {
-        return "Monstre";
-    }
+    public boolean estMonstre(){return true;}
 
     @Override
     public String affichageClass(){

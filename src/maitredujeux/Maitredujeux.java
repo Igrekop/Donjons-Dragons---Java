@@ -3,7 +3,6 @@ package maitredujeux;
 import java.util.*;
 
 import Des.Des;
-import interfacejeu.ContenuCase;
 import interfacejeu.map_milieu;
 import monstres.*;
 import personnages.Entité.entite;
@@ -205,7 +204,7 @@ public class Maitredujeux {
         return valeur;
     }
 
-    public void intervenir(ArrayList<entite> participants, map_milieu map) {
+    public void intervenir(List<entite> participants, map_milieu map) {
         System.out.println("=== Intervention du Maître du Jeu ===");
         System.out.println("1. Commenter l'action");
         System.out.println("2. Déplacer un monstre ou un joueur");
@@ -264,7 +263,7 @@ public class Maitredujeux {
         System.out.println(entite.getNom() + " a été déplacé en (" + x + ", " + y + ").");
     }
 
-    public void attaquerEntite(ArrayList<entite> entites) {
+    public void attaquerEntite(List<entite> entites) {
         System.out.println("=== Attaquer une entité ===");
 
 
@@ -304,7 +303,7 @@ public class Maitredujeux {
     }
 
 
-    private void controlerMonstre(ArrayList<entite> participants, map_milieu map) {
+    private void controlerMonstre(List<entite> participants, map_milieu map) {
         // Filtrer les monstres vivants
         List<Monstre> monstresDisponibles = participants.stream()
                 .filter(e -> e instanceof Monstre && !((Monstre)e).estMort())
@@ -356,7 +355,7 @@ public class Maitredujeux {
         }
     }
 
-    private void attaquerAvecMonstre(Monstre monstre, ArrayList<entite> participants) {
+    private void attaquerAvecMonstre(Monstre monstre, List<entite> participants) {
         // Filtrer les joueurs proches (dans la portée du monstre)
         List<Joueur> cibles = participants.stream()
                 .filter(e -> e instanceof Joueur j &&
