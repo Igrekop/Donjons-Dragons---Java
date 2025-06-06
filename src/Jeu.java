@@ -462,7 +462,6 @@ public class Jeu {
                                                                     }
                                                                     actionsRestantes--;
 
-                                                                    actionsRestantes--;
                                                                 } else {
                                                                     System.out.println("Numéro invalide.");
                                                                 }
