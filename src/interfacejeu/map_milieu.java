@@ -132,12 +132,11 @@ public class map_milieu {
         return null;
     }
 
-
     public void nettoyerParticipants() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Object contenu = map[i][j].getContenu();
-                if (contenu instanceof Joueur || contenu instanceof Monstre) {
+                if (contenu instanceof Joueur || contenu instanceof Monstre) { //ici Yanis y'a un instanceof
                     map[i][j].setContenu(null);
                 }
             }
