@@ -133,12 +133,8 @@ public class Jeu {
                 }
 
                 System.out.println("\n=== Introduction par le Maître du Jeu ===");
-                System.out.println("""
-                            Vous vous trouvez à l'entrée d'un ancien donjon oublié, perdu au cœur de la forêt noire.
-                            Une rumeur parle d'un artefact légendaire scellé dans ses profondeurs, mais nul n'en est jamais revenu...
-                            Des monstres rôdent, tapis dans l'ombre, prêts à défendre leurs trésors.
-                            Votre aventure commence maintenant...
-                        """);
+                String commentaire = scanner.nextLine();
+                mj.ajouterLignes("MJ : " + commentaire);
 
                 boolean partieEnCours = true;
                 while (partieEnCours && partiegagné == false) {
@@ -325,7 +321,7 @@ public class Jeu {
                                         System.out.println("Vous avez choisi de vous déplacer !");
                                         System.out.println("Vers quelle direction souhaitez vous vous déplacez ? (haut/bas/droite/gauche)");
                                         String direction = scanner.nextLine().trim().toLowerCase();
-                                        System.out.println("Le nombre de cases? ");
+                                        System.out.println("Le nombre de cases? (" + joueur.getVitesse()/3 + "cases max)");
                                         int cases = Integer.parseInt(scanner.nextLine());
                                         joueur.seDeplacer(direction, map, cases);
                                         actionsRestantes--;
@@ -485,21 +481,41 @@ public class Jeu {
                             }
                         } else if (!p.estMort()) {
                             Monstre monstre = (Monstre) p;
+                            int actionmonstre = 3;
                             System.out.println("\nTour de " + monstre.getEspece());
-                            List<Joueur> cibles = joueurs.stream().filter(j -> !j.estMort()).toList();
-                            if (!cibles.isEmpty()) {
-                                Joueur cible = cibles.get(new Random().nextInt(cibles.size()));
-                                monstre.attaquer(cible);
-                                System.out.println(monstre.getEspece() + " attaque " + cible.getNom() + " !");
-                                mj.intervenir(participants, map);
-                                System.out.println(scanner.nextLine());
+                            System.out.println("Actions restantes : " + actionmonstre);
+                            while (actionmonstre > 0 && !monstre.estMort()) {
+                                System.out.println("\n=== Contrôle de " + monstre.getNom() + " ===");
+                                System.out.println("1. Attaquer");
+                                System.out.println("2. Se déplacer");
+                                System.out.println("3. Arrêter le contrôle");
+
+                                int action = mj.saisirEntierMinMax("Votre choix : ", 1, 3);
+
+                                switch (action) {
+                                    case 1:
+                                        mj.attaquerAvecMonstre(monstre, participants);
+                                        actionmonstre--;
+                                        break;
+                                    case 2:
+                                        mj.deplacerMonstre(monstre, map);
+                                        actionmonstre--;
+                                        break;
+                                    case 3:
+                                        actionmonstre = 0;
+                                        System.out.println("Vous arrêtez de contrôler " + monstre.getNom());
+                                        break;
+                                }
                             }
                         }
 
                         boolean joueurMort = joueurs.stream().anyMatch(Joueur::estMort);
 
                         if (joueurMort) {
-                            System.out.println("\n=== Un joueur est mort... Défaite ! ===");
+                            System.out.println("\n=== Un joueur est mort... Défaite ! === \n Un mot pour conclure Maître ?");
+                            commentaire = scanner.nextLine();
+                            mj.ajouterLignes("MJ : " + commentaire);
+                            mj.afficherLignes();
                             partieEnCours = false;
                             partiegagné = false;
                             break;
@@ -528,7 +544,11 @@ public class Jeu {
                     }
                 }
             } else {
-                System.out.println("Bravo vous avez fini");
+                System.out.println("Bravo vous avez fini\n Un mot pour conclure maître ?");
+                String commentaire = scanner.nextLine();
+                mj.ajouterLignes("MJ : " + commentaire);
+                mj.afficherLignes();
+                break;
             }
 
         }
@@ -584,16 +604,6 @@ public class Jeu {
         jeu.partie(scanner, participants, joueurs, monstres, mj, numeroDonjon, map, numeroTour);
 
         scanner.close();
-    }
-
-    // Exemple de méthode pour nettoyer les monstres morts
-    private void nettoyerMonstres(List<entite> participants, List<Monstre> monstres) {
-        for (Monstre m : new ArrayList<>(monstres)) {
-            if (m.estMort()) {
-                monstres.remove(m);
-                participants.remove(m);
-            }
-        }
     }
 }
 

@@ -2,10 +2,12 @@ package equipements;
 
 import equipements.Armes.*;
 import equipements.Armures.*;
+import personnages.Joueur;
 import personnages.Personnage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class GestionEquipements {
 
@@ -46,19 +48,69 @@ public class GestionEquipements {
         return sb.toString();
     }
 
-    public static void equiperPremiereArmeEtArmure(Personnage personnage, List<Equipement> equipements) {
-        Equipement arme = null;
-        Equipement armure = null;
+    public static void equiperPremiereArmeEtArmure(Joueur personnage) {
+        List<Equipement> armes = new ArrayList<>();
+        List<Equipement> armures = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
 
-        for (Equipement eq : equipements) {
-            if (arme == null && eq.getType().contains("Arme")) {
-                arme = eq;
-            } else if (armure == null && eq.getType().contains("Armure")) {
-                armure = eq;
+          for (Equipement eq : personnage.getEquipements()) {
+            if (eq.getType().contains("Arme")) {
+                armes.add(eq);
+            } else if (eq.getType().contains("Armure")) {
+                armures.add(eq);
             }
-            if (arme != null && armure != null) break;
         }
-        if (arme != null) personnage.equiper(arme, null);
-        if (armure != null) personnage.equiper(armure, null);
+
+        // Choix de l'arme
+        if (!armes.isEmpty()) {
+            System.out.println("Choisissez une arme à équiper :");
+            for (int i = 0; i < armes.size(); i++) {
+                System.out.println(i + " - " + armes.get(i).getNom());
+            }
+
+            int choixArme = lireChoix(scanner, armes.size());
+            if (choixArme != -1) {
+                Armes armeChoisie = (Armes) armes.get(choixArme);
+                personnage.getEquiper().remove(armeChoisie);
+                personnage.equiper(armeChoisie, null);
+            }
+        } else {
+            System.out.println("Aucune arme disponible.");
+        }
+
+        // Choix de l'armure
+        if (!armures.isEmpty()) {
+            System.out.println("Choisissez une armure à équiper :");
+            for (int i = 0; i < armures.size(); i++) {
+                System.out.println(i + " - " + armures.get(i).getNom());
+            }
+
+            int choixArmure = lireChoix(scanner, armures.size());
+            if (choixArmure != -1) {
+                Armure armureChoisie = (Armure) armures.get(choixArmure);
+                personnage.getEquiper().remove(armureChoisie);
+                personnage.equiper(armureChoisie, null);
+            }
+        } else {
+            System.out.println("Aucune armure disponible.");
+        }
     }
+
+
+    private static int lireChoix(Scanner scanner, int tailleListe) {
+        int choix = -1;
+        try {
+            System.out.print("Votre choix : ");
+            choix = Integer.parseInt(scanner.nextLine());
+            if (choix < 0 || choix >= tailleListe) {
+                System.out.println("Numéro invalide.");
+                return -1;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Entrée invalide.");
+            return -1;
+        }
+        return choix;
+    }
+
 }

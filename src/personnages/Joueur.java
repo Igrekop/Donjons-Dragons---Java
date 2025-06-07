@@ -30,7 +30,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
         race.appliquerBonus(this);
         classe.genererEquipementDeBase(this);
-        GestionEquipements.equiperPremiereArmeEtArmure(this, getEquipements());
+        GestionEquipements.equiperPremiereArmeEtArmure(this);
     }
 
     public void attaquer(Monstre cible) {
@@ -89,18 +89,26 @@ public class Joueur extends Personnage implements ContenuCase, entite {
                 getEquipements().add(equipementEquipe[0]);
             }
             equipementEquipe[0] = equipement;
+            getEquipements().remove(equipement);
+
         } else if (equipement.estArmure()) {
             if (equipementEquipe[1] != null) {
                 setVitesse(getVitesse() - equipementEquipe[1].getModificateurVitesse());
                 getEquipements().add(equipementEquipe[1]);
             }
             equipementEquipe[1] = equipement;
+            getEquipements().remove(equipement);
         }
 
         setForce(getForce() + equipement.getModificateurForce());
         setVitesse(getVitesse() + equipement.getModificateurVitesse());
 
-        afficherEquipement(getNom(), equipement.getNom(), forceAvant, getForce(), vitesseAvant, getVitesse(), Optional.of(equipement.getEnchante()));
+        if (equipement.estArme()) {
+            afficherEquipement(getNom(), equipement.getNom(), forceAvant, getForce(), vitesseAvant, getVitesse(), Optional.of(equipement.getEnchante()));
+        }
+        else {
+            afficherEquipement(getNom(), equipement.getNom(), forceAvant, getForce(), vitesseAvant, getVitesse(), null);
+        }
     }
 
 
