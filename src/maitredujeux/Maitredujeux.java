@@ -241,7 +241,7 @@ public class Maitredujeux {
         System.out.println("=== Déplacement d'une entité ===");
         for (int i = 0; i < entites.size(); i++) {
             entite e = entites.get(i);
-            System.out.println((i + 1) + ". " + e.getNom() + " - Position (" + e.getPosX() + ", " + e.getPosY() + ")");
+            System.out.println((i + 1) + " . " + e.getNom() + " - Position (" + e.getPosX() + ", " + e.getPosY() + ")");
         }
 
         int choix = saisirEntierMin("Choisissez une entité : ", 1) - 1;
@@ -292,10 +292,7 @@ public class Maitredujeux {
             return;
         }
 
-
-        int modificateur = 2; // par exemple
-        int degats = jetAttaque + modificateur;
-
+        int degats = jetAttaque;
 
         entite cible = entites.get(choix);
         cible.setPV(-degats);
@@ -355,7 +352,7 @@ public class Maitredujeux {
         }
     }
 
-    private void attaquerAvecMonstre(Monstre monstre, List<entite> participants) {
+    public void attaquerAvecMonstre(Monstre monstre, List<entite> participants) {
         // Filtrer les joueurs proches (dans la portée du monstre)
         List<Joueur> cibles = participants.stream()
                 .filter(e -> !e.estMonstre() &&
@@ -407,7 +404,7 @@ public class Maitredujeux {
         return Math.abs(e1.getPosX() - e2.getPosX()) + Math.abs(e1.getPosY() - e2.getPosY());
     }
 
-    private void deplacerMonstre(Monstre monstre, map_milieu map) {
+    public void deplacerMonstre(Monstre monstre, map_milieu map) {
         System.out.println("Directions: haut, bas, gauche, droite");
         System.out.print("Direction: ");
         String direction = m_scanner.nextLine().toLowerCase();
@@ -441,7 +438,7 @@ public class Maitredujeux {
         }
     }
 
-    private int saisirEntierMinMax(String message, int min, int max) {
+    public int saisirEntierMinMax(String message, int min, int max) {
         int valeur;
         do {
             System.out.print(message);

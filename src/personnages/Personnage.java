@@ -114,6 +114,7 @@ public abstract class Personnage implements entite {
     }
 
     public abstract void soignerComplet();
+
 }
 
 
