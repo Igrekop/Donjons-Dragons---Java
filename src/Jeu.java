@@ -57,7 +57,8 @@ public class Jeu {
 
 
     public void partie(Scanner scanner, List<Entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, MapMilieu map, int numeroTour) {
-        while (!joueurs.isEmpty()) {
+        int finijeux = 0;
+        while (!joueurs.isEmpty() || finijeux!=1) {
             // Nettoyer les morts
             monstres.removeIf(Monstre::estMort);
             participants.removeIf(e -> e.estMort());
@@ -554,11 +555,10 @@ public class Jeu {
             else {
                 System.out.println("Bravo vous avez fini\n Un mot pour conclure maître ?");
                 String commentaireFin = scanner.nextLine();
+                scanner.close();
                 mj.ajouterLignes("MJ : " + commentaireFin);
-                System.out.println( commentaireFin);
-
-
-                break;
+                mj.afficherLignes();
+                System.exit(0);
             }
 
         }
