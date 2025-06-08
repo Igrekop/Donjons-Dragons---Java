@@ -303,7 +303,12 @@ public class Joueur extends Personnage implements ContenuCase, Entite {
 
     @Override
     public String afficher() {
-        return this.getNom().length() > 3 ? this.getNom().substring(0, 3) : String.format("%-3s", this.getNom());
+        if (this.getNom() == "Yanis" || this.getNom() == "yanis") { return "👑 ";}
+        else if (this.getNom() == "Sonic" || this.getNom() == "sonic") { return "\uD83E\uDD94 ";}
+        else if (this.getNom() == "Yvann" || this.getNom() == "yvann") { return "\uD83D\uDCA9 ";}
+        else {
+            return this.getNom().length() > 3 ? this.getNom().substring(0, 3) : String.format("%-3s", this.getNom());
+        }
     }
 
     @Override
@@ -313,7 +318,13 @@ public class Joueur extends Personnage implements ContenuCase, Entite {
 
     @Override
     public String getAffichageCourt() {
-        return getNom().substring(0, 3);
+        if (getNom() == "Yanis" || getNom() == "yanis") { return "👑 ";}
+        else if (this.getNom() == "Sonic" || this.getNom() == "sonic") { return "\uD83E\uDD94 ";}
+        else if (this.getNom() == "Yvann" || this.getNom() == "yvann") { return "\uD83D\uDCA9 ";}
+        else {
+
+            return getNom().substring(0, 3);
+        }
     }
 
     @Override

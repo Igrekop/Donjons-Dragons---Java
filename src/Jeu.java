@@ -137,6 +137,8 @@ public class Jeu {
                 System.out.println("\n=== Introduction par le Maître du Jeu ===");
                 String commentaire = scanner.nextLine();
                 mj.ajouterLignes("MJ : " + commentaire);
+                System.out.println( commentaire);
+
 
                 boolean partieEnCours = true;
                 while (partieEnCours && partiegagné == false) {
@@ -170,6 +172,7 @@ public class Jeu {
                         scanner.nextLine();
 
                         map.addObstacle(x, y);
+                        map.UpdateCase(x,y,new Obstacle());
                         System.out.println("Obstacle ajouté en (" + x + ", " + y + ").");
                     }
 
@@ -198,6 +201,7 @@ public class Jeu {
 
                         // Placement de l'équipement
                         map.addEquipment(x, y, equipementAleatoire);
+                        map.UpdateCase(x,y,equipementAleatoire);
 
                         System.out.println("Équipement ajouté en (" + x + ", " + y + ") : " + equipementAleatoire.getNom());
                     }
@@ -206,6 +210,7 @@ public class Jeu {
 
 
                     barre.Affichage(joueurs.get(0), numeroDonjon, participants, numeroTour);
+
                     map.Print(participants);
 
                     int index = 0;
@@ -545,11 +550,14 @@ public class Jeu {
                         index = (index + 1) % participants.size();
                     }
                 }
-            } else {
+            }
+            else {
                 System.out.println("Bravo vous avez fini\n Un mot pour conclure maître ?");
-                String commentaire = scanner.nextLine();
-                mj.ajouterLignes("MJ : " + commentaire);
-                mj.afficherLignes();
+                String commentaireFin = scanner.nextLine();
+                mj.ajouterLignes("MJ : " + commentaireFin);
+                System.out.println( commentaireFin);
+
+
                 break;
             }
 
