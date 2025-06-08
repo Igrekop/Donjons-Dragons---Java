@@ -2,7 +2,7 @@ package Sort;
 
 import equipements.Equipement;
 import personnages.Joueur;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 
 import java.util.ArrayList;
 

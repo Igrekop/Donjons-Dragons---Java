@@ -2,10 +2,12 @@ package personnages;
 
 import classes.Archetype;
 import equipements.Equipement;
+import equipements.armes.ArmeCourante;
+import equipements.armures.ArmureLegere;
 import interfacejeu.ContenuCase;
 import interfacejeu.MapMilieu;
 import monstres.*;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 import races.Races;
 
 import des.*;
@@ -29,6 +31,9 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
         race.appliquerBonus(this);
         classe.genererEquipementDeBase(this);
+        this.equiper((new ArmeCourante("Sans Arme", "1d1")));
+        this.equiper(new ArmureLegere("Sans Armure", 1));
+
     }
 
     public void attaquer(Monstre cible) {
@@ -75,7 +80,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     }
 
 
-    public void equiper(Equipement equipement, Object equipe) {
+    public void equiper(Equipement equipement) {
         int forceAvant = getForce();
         int vitesseAvant = getVitesse();
 
@@ -139,7 +144,12 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     }
 
     private Equipement getDernierEquipement() {
-        return getEquiper().getLast();
+        if(getEquipements().getLast() == null) {
+            return(new ArmureLegere("Rien", 1));
+        }
+        else {
+            return getEquiper().getLast();
+        }
     }
 
     public int getClasseArmureActuelle() {

@@ -71,7 +71,7 @@ public class GestionEquipements {
             if (choixArme != -1) {
                 Armes armeChoisie = (Armes) armes.get(choixArme);
                 personnage.getEquiper().remove(armeChoisie);
-                personnage.equiper(armeChoisie, null);
+                personnage.equiper(armeChoisie);
             }
         } else {
             System.out.println("Aucune arme disponible.");
@@ -88,7 +88,7 @@ public class GestionEquipements {
             if (choixArmure != -1) {
                 Armure armureChoisie = (Armure) armures.get(choixArmure);
                 personnage.getEquiper().remove(armureChoisie);
-                personnage.equiper(armureChoisie, null);
+                personnage.equiper(armureChoisie);
             }
         } else {
             System.out.println("Aucune armure disponible.");

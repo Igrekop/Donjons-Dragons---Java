@@ -1,16 +1,13 @@
 import classes.Guerrier;
 import equipements.Equipement;
 import equipements.armes.ArmeCourante;
-import equipements.armures.ArmureLegere;
 import interfacejeu.*;
 import monstres.Gobelin;
-import monstres.Monstre;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import personnages.Joueur;
 import races.Elfe;
-import interfacejeu.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
