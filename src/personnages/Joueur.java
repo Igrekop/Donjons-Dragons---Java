@@ -7,19 +7,19 @@ import equipements.armures.ArmureLegere;
 import interfacejeu.ContenuCase;
 import interfacejeu.MapMilieu;
 import monstres.*;
-import personnages.entite.entite;
+import personnages.entite.Entite;
 import races.Races;
 
 import des.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class Joueur extends Personnage implements ContenuCase, entite {
+public class Joueur extends Personnage implements ContenuCase, Entite {
     private Archetype m_classe;
     private Races m_race;
     private ArrayList<Equipement> m_inventaire;
-    private int posX;
-    private int posY;
+    private int m_posX;
+    private int m_posY;
 
 
     public Joueur(String nom, Archetype classe, Races race) {
@@ -39,7 +39,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     public void attaquer(Monstre cible) {
         afficherAttaque(getNom(), cible.getEspece(), getNomArme());
 
-        Equipement arme = equipementEquipe[0];
+        Equipement arme = m_equipementEquipe[0];
         int portee = (arme != null) ? arme.getPortee() : 1; // portée par défaut = 1
 
         // 1. Calcul de la distance entre joueur et monstre
@@ -86,20 +86,20 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
         // Vérifier si l'équipement est déjà équipé et le retirer si nécessaire
         if (equipement.estArme()) {
-            if (equipementEquipe[0] != null) {
-                setForce(getForce() - equipementEquipe[0].getModificateurForce());
-                setVitesse(getVitesse() - equipementEquipe[0].getModificateurVitesse());
-                getEquipements().add(equipementEquipe[0]);
+            if (m_equipementEquipe[0] != null) {
+                setForce(getForce() - m_equipementEquipe[0].getModificateurForce());
+                setVitesse(getVitesse() - m_equipementEquipe[0].getModificateurVitesse());
+                getEquipements().add(m_equipementEquipe[0]);
             }
-            equipementEquipe[0] = equipement;
+            m_equipementEquipe[0] = equipement;
             getEquipements().remove(equipement);
 
         } else if (equipement.estArmure()) {
-            if (equipementEquipe[1] != null) {
-                setVitesse(getVitesse() - equipementEquipe[1].getModificateurVitesse());
-                getEquipements().add(equipementEquipe[1]);
+            if (m_equipementEquipe[1] != null) {
+                setVitesse(getVitesse() - m_equipementEquipe[1].getModificateurVitesse());
+                getEquipements().add(m_equipementEquipe[1]);
             }
-            equipementEquipe[1] = equipement;
+            m_equipementEquipe[1] = equipement;
             getEquipements().remove(equipement);
         }
 
@@ -218,8 +218,8 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
 
     public void seDeplacer(String direction, MapMilieu map, int nbCase) {
-        int newX = posX;
-        int newY = posY;
+        int newX = m_posX;
+        int newY = m_posY;
 
         if (nbCase <= (this.getVitesse() / 3)) {
 
@@ -242,10 +242,10 @@ public class Joueur extends Personnage implements ContenuCase, entite {
             }
 
             if(map.isValidPositionAndFree(newX, newY)) {
-                map.videCase(posX, posY);
-                posX = newX;
-                posY = newY;
-                map.UpdateCase(posX, posY, this);
+                map.videCase(m_posX, m_posY);
+                m_posX = newX;
+                m_posY = newY;
+                map.UpdateCase(m_posX, m_posY, this);
                 System.out.println(getNom() + " se déplace vers " + direction + ".");
             }
              else {
@@ -260,26 +260,26 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
 
     public void ramasserEquipement(MapMilieu map) {
-        Equipement equip = map.recupererEquipement(posX, posY);
+        Equipement equip = map.recupererEquipement(m_posX, m_posY);
         if (equip != null) {
             ajouterEquipement(equip);
-            System.out.println(getNom() + " a ramassé : " + equip.getNom() + " en (" + posX + ", " + posY + ").");
+            System.out.println(getNom() + " a ramassé : " + equip.getNom() + " en (" + m_posX + ", " + m_posY + ").");
         } else {
             System.out.println("Pas d'équipement à récupérer à cette position.");
         }
     }
 
 
-    public int getPosX() {return this.posX;
+    public int getPosX() {return this.m_posX;
     }
 
-    public int getPosY() {return this.posY;
+    public int getPosY() {return this.m_posY;
     }
 
     public boolean setPosXY(int x, int y, MapMilieu map) {
         if (map.isValidPositionAndFree(x,y)) {
-            this.posX = x;
-            this.posY = y;
+            this.m_posX = x;
+            this.m_posY = y;
             return true;
         }
         else  {return false;}
@@ -291,7 +291,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     }
 
     @Override
-    public String AfficherPVDB() {
+    public String afficherPVDB() {
         System.out.print(getPointDeVie() + "/" + getPVdebase());
         return "";
     }
@@ -328,8 +328,8 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
     @Override
     public void setPosSansVerif(int x, int y) {
-        this.posX = x;
-        this.posY = y;
+        this.m_posX = x;
+        this.m_posY = y;
     }
 
     public String getNomArme() {

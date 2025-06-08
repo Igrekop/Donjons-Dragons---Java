@@ -1,6 +1,6 @@
 package Sort;
 
-import personnages.entite.entite;
+import personnages.entite.Entite;
 import personnages.Joueur;
 
 public class BougieWoogie extends Sort{
@@ -9,7 +9,7 @@ public class BougieWoogie extends Sort{
         super("Bougie-Woogie");
     }
 
-    public void utilisermap(entite cible1, entite cible2) {
+    public void utilisermap(Entite cible1, Entite cible2) {
         int cible1PosX = cible1.getPosX();
         int cible1PosY = cible1.getPosY();
 
@@ -23,7 +23,7 @@ public class BougieWoogie extends Sort{
     }
 
     @Override
-    public void utiliser(entite cible1, entite cible2) {
+    public void utiliser(Entite cible1, Entite cible2) {
 
     }
 }

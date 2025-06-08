@@ -1,5 +1,5 @@
 package interfacejeu;
-import personnages.entite.entite;
+import personnages.entite.Entite;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class BarreHaut {
     /**
      * Classe d'affichage pour la barre supérieure de l'interface de jeu.
      */
-    public void Affichage(entite joueurActif, int donj, List<entite> participants, int tour) {
+    public void Affichage(Entite joueurActif, int donj, List<Entite> participants, int tour) {
         System.out.println(m_barre);
         System.out.println("Donjon " + donj + ":");
         sautLigne(2);
@@ -23,7 +23,7 @@ public class BarreHaut {
         System.out.println(m_barre);
         System.out.println("Tour " + tour + ":");
 
-        for (entite obj : participants) {
+        for (Entite obj : participants) {
             String prefixe = (obj == joueurActif) ? "-> " : "   ";
             System.out.println(prefixe + obj.getAffichageCourt() + "   " + obj.getAffichageLong());
         }

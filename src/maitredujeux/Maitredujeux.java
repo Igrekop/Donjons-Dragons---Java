@@ -5,7 +5,7 @@ import java.util.*;
 import des.Des;
 import interfacejeu.MapMilieu;
 import monstres.*;
-import personnages.entite.entite;
+import personnages.entite.Entite;
 import personnages.Joueur;
 
 import static des.Des.lancerDes;
@@ -204,7 +204,7 @@ public class Maitredujeux {
         return valeur;
     }
 
-    public void intervenir(List<entite> participants, MapMilieu map) {
+    public void intervenir(List<Entite> participants, MapMilieu map) {
         System.out.println("=== Intervention du Maître du Jeu ===");
         System.out.println("1. Commenter l'action");
         System.out.println("2. Déplacer un monstre ou un joueur");
@@ -237,10 +237,10 @@ public class Maitredujeux {
         }
     }
 
-    public void deplacerEntite(List<entite> entites, MapMilieu map) {
+    public void deplacerEntite(List<Entite> entites, MapMilieu map) {
         System.out.println("=== Déplacement d'une entité ===");
         for (int i = 0; i < entites.size(); i++) {
-            entite e = entites.get(i);
+            Entite e = entites.get(i);
             System.out.println((i + 1) + " . " + e.getNom() + " - Position (" + e.getPosX() + ", " + e.getPosY() + ")");
         }
 
@@ -250,7 +250,7 @@ public class Maitredujeux {
             return;
         }
 
-        entite entite = entites.get(choix);
+        Entite entite = entites.get(choix);
         int x = saisirEntierPositif("Nouvelle position X : ");
         int y = saisirEntierPositif("Nouvelle position Y : ");
 
@@ -263,13 +263,13 @@ public class Maitredujeux {
         System.out.println(entite.getNom() + " a été déplacé en (" + x + ", " + y + ").");
     }
 
-    public void attaquerEntite(List<entite> entites) {
+    public void attaquerEntite(List<Entite> entites) {
         System.out.println("=== Attaquer une entité ===");
 
 
         for (int i = 0; i < entites.size(); i++) {
-            entite e = entites.get(i);
-            System.out.println((i + 1) + " . " + e.getNom() + " - Points de vie : " + e.AfficherPVDB());
+            Entite e = entites.get(i);
+            System.out.println((i + 1) + " . " + e.getNom() + " - Points de vie : " + e.afficherPVDB());
         }
 
         // Choix de la cible
@@ -294,13 +294,13 @@ public class Maitredujeux {
 
         int degats = jetAttaque;
 
-        entite cible = entites.get(choix);
+        Entite cible = entites.get(choix);
         cible.setPV(-degats);
         System.out.println("Vous attaquez " + cible.getNom() + " pour " + degats + " points de dégâts !");
     }
 
 
-    private void controlerMonstre(List<entite> participants, MapMilieu map) {
+    private void controlerMonstre(List<Entite> participants, MapMilieu map) {
         // Filtrer les monstres vivants
         List<Monstre> monstresDisponibles = participants.stream()
                 .filter(e -> e.estMonstre() && !e.estMort())
@@ -352,7 +352,7 @@ public class Maitredujeux {
         }
     }
 
-    public void attaquerAvecMonstre(Monstre monstre, List<entite> participants) {
+    public void attaquerAvecMonstre(Monstre monstre, List<Entite> participants) {
         // Filtrer les joueurs proches (dans la portée du monstre)
         List<Joueur> cibles = participants.stream()
                 .filter(e -> !e.estMonstre() &&
@@ -400,7 +400,7 @@ public class Maitredujeux {
         }
     }
 
-    private int distance(entite e1, entite e2) {
+    private int distance(Entite e1, Entite e2) {
         return Math.abs(e1.getPosX() - e2.getPosX()) + Math.abs(e1.getPosY() - e2.getPosY());
     }
 

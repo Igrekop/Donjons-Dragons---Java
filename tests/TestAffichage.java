@@ -3,7 +3,7 @@ import equipements.Equipement;
 import equipements.armes.ArmeCourante;
 import interfacejeu.*;
 import monstres.Gobelin;
-import personnages.entite.entite;
+import personnages.entite.Entite;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import personnages.Joueur;
@@ -20,7 +20,7 @@ public class TestAffichage {
     private final PrintStream originalOut = System.out;
 
     private BarreHaut barreHaut;
-    private entite joueurActif;
+    private Entite joueurActif;
 
     @BeforeEach
     public void setUp() {
@@ -39,7 +39,7 @@ public class TestAffichage {
 
     @Test
     public void testAfficherBarreHautAfficheLeNomDuJoueur() {
-        List<entite> participants = List.of(joueurActif);
+        List<Entite> participants = List.of(joueurActif);
         barreHaut.Affichage(joueurActif, 1, participants, 1);
         String output = outputStream.toString();
         assertTrue(output.contains("Donjon 1"));

@@ -4,7 +4,7 @@ import equipements.armes.ArmeCourante;
 import equipements.armures.ArmureLegere;
 import equipements.Equipement;
 import equipements.GestionEquipements;
-import personnages.entite.entite;
+import personnages.entite.Entite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,9 +142,9 @@ public class MapMilieu {
     }
 
 
-    public void Print(List<entite> participants) {
+    public void Print(List<Entite> participants) {
         nettoyerParticipants();
-        for (entite obj : participants) {
+        for (Entite obj : participants) {
             if (!obj.estMonstre()) {
                 int x = obj.getPosX();
                 int y = obj.getPosY();

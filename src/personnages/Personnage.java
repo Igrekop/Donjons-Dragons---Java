@@ -2,27 +2,27 @@ package personnages;
 
 import equipements.Equipement;
 import monstres.Monstre;
-import personnages.entite.entite;
+import personnages.entite.Entite;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Personnage implements entite {
-    private String nom;
-    private int pointDeVie;
-    private int force;
-    private int dexterite;
-    private int vitesse;
-    private int initiative;
-    Equipement[] equipementEquipe = new Equipement[2];
+public abstract class Personnage implements Entite {
+    private String m_nom;
+    private int m_pointDeVie;
+    private int m_force;
+    private int m_dexterite;
+    private int m_vitesse;
+    private int m_initiative;
+    Equipement[] m_equipementEquipe = new Equipement[2];
 
     public Personnage (String nom, int pointDeVie, int force, int dexterite, int vitesse, int initiative) {
-        this.nom = nom;
-        this.pointDeVie = pointDeVie;
-        this.force = force;
-        this.dexterite = dexterite;
-        this.vitesse = vitesse;
-        this.initiative = initiative;
+        this.m_nom = nom;
+        this.m_pointDeVie = pointDeVie;
+        this.m_force = force;
+        this.m_dexterite = dexterite;
+        this.m_vitesse = vitesse;
+        this.m_initiative = initiative;
 
     }
 
@@ -30,7 +30,7 @@ public abstract class Personnage implements entite {
 
     public List<Equipement> getEquiper() {
         List<Equipement> equipe = new ArrayList<>();
-        for (Equipement e : equipementEquipe) {
+        for (Equipement e : m_equipementEquipe) {
             if (e != null) equipe.add(e);
         }
         return equipe;
@@ -41,73 +41,73 @@ public abstract class Personnage implements entite {
 
     @Override
     public String toString() {
-        return "Nom : " + nom +
-                "\nPoints de vie : " + pointDeVie +
-                "\nForce : " + force +
-                "\nDextérité : " + dexterite +
-                "\nVitesse : " + vitesse +
-                "\nInitiative : " + initiative;
+        return "Nom : " + m_nom +
+                "\nPoints de vie : " + m_pointDeVie +
+                "\nForce : " + m_force +
+                "\nDextérité : " + m_dexterite +
+                "\nVitesse : " + m_vitesse +
+                "\nInitiative : " + m_initiative;
     }
 
     public String getNom() {
-        return nom;
+        return m_nom;
     }
 
     public int getPointDeVie() {
-        return pointDeVie;
+        return m_pointDeVie;
     }
 
     public int getForce() {
-        return force;
+        return m_force;
     }
 
     public int getDexterite() {
-        return dexterite;
+        return m_dexterite;
     }
 
     public int getVitesse() {
-        return vitesse;
+        return m_vitesse;
     }
 
     public int getInitiative() {
-        return initiative;
+        return m_initiative;
     }
 
     public void setNom(String nom_change) {
-        nom = nom_change;
+        m_nom = nom_change;
     }
 
     public void setPointDeVie(int pv) {
-        pointDeVie = pv;
+        m_pointDeVie = pv;
     }
 
     public void addPdV(int pv) {
-        pointDeVie += pv;
+        m_pointDeVie += pv;
     }
 
     public void setForce(int force_change) {
-        force = force_change;
+        m_force = force_change;
     }
 
     public void setVitesse_change(int vitesse_change) {
-        vitesse += vitesse_change;
+        m_vitesse += vitesse_change;
     }
 
     public void setDexterite(int dexterite_change) {
-        dexterite = dexterite_change;
+        m_dexterite = dexterite_change;
     }
 
     public void setVitesse(int vitesse_change) {
-        vitesse = vitesse_change;
+        m_vitesse = vitesse_change;
     }
 
     public void setInitiative(int initiative_change) {
-        initiative = initiative_change;
+        m_initiative = initiative_change;
     }
 
     @Override
     public boolean estMort() {
-        if (this.pointDeVie <= 0) {
+        if (this.m_pointDeVie <= 0) {
             return true;
         }
         else {return false;}

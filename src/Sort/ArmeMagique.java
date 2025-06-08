@@ -2,7 +2,7 @@ package Sort;
 
 import equipements.Equipement;
 import personnages.Joueur;
-import personnages.entite.entite;
+import personnages.entite.Entite;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class ArmeMagique extends Sort {
     }
 
     @Override
-    public void utiliser(entite cible1, entite cible2) {
+    public void utiliser(Entite cible1, Entite cible2) {
 
     }
 
