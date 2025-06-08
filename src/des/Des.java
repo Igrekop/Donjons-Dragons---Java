@@ -1,4 +1,4 @@
-package Des;
+package des;
 
 import java.io.IOException;
 import java.util.Random;

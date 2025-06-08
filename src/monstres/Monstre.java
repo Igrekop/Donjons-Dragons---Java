@@ -1,7 +1,7 @@
 package monstres;
 
 import interfacejeu.ContenuCase;
-import interfacejeu.map_milieu;
+import interfacejeu.MapMilieu;
 import personnages.Entité.entite;
 import personnages.Joueur;
 
@@ -120,7 +120,7 @@ public abstract class Monstre implements ContenuCase, entite {
     public int getPosY() {return this.m_posY;
     }
 
-    public boolean setPosXY(int x, int y, map_milieu map) {
+    public boolean setPosXY(int x, int y, MapMilieu map) {
         if (map.isValidPositionAndFree(x,y)) {
             this.m_posX = x;
             this.m_posY = y;

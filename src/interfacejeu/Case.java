@@ -1,30 +1,26 @@
 package interfacejeu;
 
 public class Case {
-    private ContenuCase contenu;
+    private ContenuCase m_contenu;
 
     public Case() {
-        this.contenu = null;
+        this.m_contenu = null;
     }
 
-    public ContenuCase getContenu() {
-        return contenu;
+    public ContenuCase getM_contenu() {
+        return m_contenu;
     }
 
-    public void setContenu(ContenuCase contenu) {
-        this.contenu = contenu;
+    public void setM_contenu(ContenuCase m_contenu) {
+        this.m_contenu = m_contenu;
     }
 
     public boolean estVide() {
-        return contenu == null;
-    }
-
-    public boolean estEquipement() {
-        return "Equipement".equals(contenu.getTypeContenu());
+        return m_contenu == null;
     }
 
     public boolean passable() {
-        if (contenu == null) {
+        if (m_contenu == null) {
             return true;
         }
         return false;
@@ -35,8 +31,7 @@ public class Case {
     }
 
 
-
     public String afficher() {
-        return estVide() ? " . " : contenu.afficher();
+        return estVide() ? " . " : m_contenu.afficher();
     }
 }

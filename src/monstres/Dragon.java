@@ -1,6 +1,6 @@
 package monstres;
 
-import Des.Des;
+import des.Des;
 import personnages.Joueur;
 
 public class Dragon extends Monstre {
@@ -92,5 +92,10 @@ public class Dragon extends Monstre {
     @Override
     public String afficher() {
         return "\uD83D\uDC09" + " " ;
+    }
+
+    @Override
+    public boolean estParticipant() {
+        return true;
     }
 }

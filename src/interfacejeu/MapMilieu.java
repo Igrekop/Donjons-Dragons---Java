@@ -1,36 +1,34 @@
 package interfacejeu;
 
-import equipements.Armes.ArmeCourante;
-import equipements.Armures.ArmureLegere;
+import equipements.armes.ArmeCourante;
+import equipements.armures.ArmureLegere;
 import equipements.Equipement;
 import equipements.GestionEquipements;
-import monstres.Monstre;
 import personnages.Entité.entite;
-import personnages.Joueur;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class map_milieu {
-    private Case[][] map;
-    private int rows;
-    private int cols;
-    private String letters;
+public class MapMilieu {
+    private Case[][] m_map;
+    private int m_rows;
+    private int m_cols;
+    private String m_letters;
 
-    public map_milieu(int rows, int cols) {
-        this.rows = rows;
-        this.cols = cols;
-        this.map = new Case[rows][cols];
-        this.letters = generateLetters(cols);
+    public MapMilieu(int rows, int cols) {
+        this.m_rows = rows;
+        this.m_cols = cols;
+        this.m_map = new Case[rows][cols];
+        this.m_letters = generateLetters(cols);
         initializeMap();
     }
 
     private void initializeMap() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                map[i][j] = new Case();
+        for (int i = 0; i < m_rows; i++) {
+            for (int j = 0; j < m_cols; j++) {
+                m_map[i][j] = new Case();
             }
         }
     }
@@ -48,34 +46,34 @@ public class map_milieu {
     }
 
     public boolean isValidPositionAndFree(int row, int col) {
-        if(row < 0 || row >= rows || col < 0 || col >= cols) {
+        if(row < 0 || row >= m_rows || col < 0 || col >= m_cols) {
             return false;
         }
 
-        return map[row][col].estVide();
+        return m_map[row][col].estVide();
     }
 
     public void addObstacle(int row, int col) {
-        if(row >= 0 && row < rows && col >= 0 && col < cols) {
-            map[row][col].setContenu(new Obstacle());
+        if(row >= 0 && row < m_rows && col >= 0 && col < m_cols) {
+            m_map[row][col].setM_contenu(new Obstacle());
         }
     }
 
     public void addEquipment(int row, int col, Equipement equipement) {
         if (isValidPositionAndFree(row - 1, col - 1)) {
-            map[row - 1][col - 1].setContenu(equipement);
+            m_map[row - 1][col - 1].setM_contenu(equipement);
         }
     }
 
     public void UpdateCase(int row, int col, ContenuCase contenu) {
-        if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            map[row][col].setContenu(contenu);
+        if (row >= 0 && row < m_rows && col >= 0 && col < m_cols) {
+            m_map[row][col].setM_contenu(contenu);
         }
     }
 
     public void videCase(int row, int col) {
-        if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            map[row][col].setContenu(null);
+        if (row >= 0 && row < m_rows && col >= 0 && col < m_cols) {
+            m_map[row][col].setM_contenu(null);
         }
     }
 
@@ -89,9 +87,9 @@ public class map_milieu {
             int newRow = row + dir[0];
             int newCol = col + dir[1];
 
-            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
-                ContenuCase contenu = map[newRow][newCol].getContenu();
-                if (contenu != null && "Equipement".equals(map[newRow][newCol].getContenu().getTypeContenu())) {
+            if (newRow >= 0 && newRow < m_rows && newCol >= 0 && newCol < m_cols) {
+                ContenuCase contenu = m_map[newRow][newCol].getM_contenu();
+                if (contenu != null && "Equipement".equals(m_map[newRow][newCol].getM_contenu().getTypeContenu())) {
                     equipementsTrouves.add((Equipement) contenu);
                 }
             }
@@ -118,11 +116,11 @@ public class map_milieu {
 
         if (choix > 0 && choix <= equipements.size()) {
             Equipement equipementChoisi = equipements.get(choix - 1);
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols; j++) {
-                    ContenuCase contenu = map[i][j].getContenu();
+            for (int i = 0; i < m_rows; i++) {
+                for (int j = 0; j < m_cols; j++) {
+                    ContenuCase contenu = m_map[i][j].getM_contenu();
                     if (contenu == equipementChoisi) {
-                        map[i][j].setContenu(null);
+                        m_map[i][j].setM_contenu(null);
                         return equipementChoisi;
                     }
                 }
@@ -133,11 +131,11 @@ public class map_milieu {
     }
 
     public void nettoyerParticipants() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                Object contenu = map[i][j].getContenu();
-                if (contenu instanceof Joueur || contenu instanceof Monstre) { //ici Yanis y'a un instanceof
-                    map[i][j].setContenu(null);
+        for (int i = 0; i < m_rows; i++) {
+            for (int j = 0; j < m_cols; j++) {
+                ContenuCase contenu = m_map[i][j].getM_contenu();
+                if (contenu != null && contenu.estParticipant()) {
+                    m_map[i][j].setM_contenu(null);
                 }
             }
         }
@@ -151,41 +149,41 @@ public class map_milieu {
                 int x = obj.getPosX();
                 int y = obj.getPosY();
 
-                if(x >= 0 && x < rows && y >= 0 && y < cols) {
-                    map[x][y].setContenu((ContenuCase) obj);
+                if(x >= 0 && x < m_rows && y >= 0 && y < m_cols) {
+                    m_map[x][y].setM_contenu((ContenuCase) obj);
                 }
             } else if (obj.estMonstre()) {
                 int x = obj.getPosX();
                 int y = obj.getPosY();
 
-                if(x >= 0 && x < rows && y >= 0 && y < cols) {
-                    map[x][y].setContenu((ContenuCase) obj);
+                if(x >= 0 && x < m_rows && y >= 0 && y < m_cols) {
+                    m_map[x][y].setM_contenu((ContenuCase) obj);
                 }
             }
         }
 
         // Affichage de l'en-tête
-        System.out.println(letters);
+        System.out.println(m_letters);
 
         // Ligne supérieure
         System.out.print("   *");
-        for (int i = 0; i < cols * 3 + 1; i++) {
+        for (int i = 0; i < m_cols * 3 + 1; i++) {
             System.out.print("-");
         }
         System.out.println("*");
 
         // Affichage du corps de la carte
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < m_rows; i++) {
             System.out.print((i < 10 ? " " : "") + i +" |");
-            for (int j = 0; j < cols; j++) {
-                System.out.print(map[i][j].afficher());
+            for (int j = 0; j < m_cols; j++) {
+                System.out.print(m_map[i][j].afficher());
             }
             System.out.println("|");
         }
 
         // Ligne inférieure
         System.out.print("   *");
-        for (int i = 0; i < cols * 3 + 1; i++) {
+        for (int i = 0; i < m_cols * 3 + 1; i++) {
             System.out.print("-");
         }
         System.out.println("*");
@@ -194,9 +192,9 @@ public class map_milieu {
         System.out.println("    \uD83D\uDEE1\uFE0F/\uD83D\uDDE1\uFE0F Equipement   |   [ ] Obstacle");
     }
 
-    public static map_milieu map1() {
+    public static MapMilieu map1() {
 
-        map_milieu map = new map_milieu(15, 15);
+        MapMilieu map = new MapMilieu(15, 15);
 
 
         map.addObstacle(0, 1);
@@ -233,9 +231,9 @@ public class map_milieu {
         return map;
     }
 
-    public static map_milieu map2() {
+    public static MapMilieu map2() {
         int taille = 20;
-        map_milieu map = new map_milieu(taille, taille);
+        MapMilieu map = new MapMilieu(taille, taille);
 
 
         for (int i = 0; i < taille; i++) {
@@ -284,9 +282,9 @@ public class map_milieu {
         return map;
     }
 
-    public static map_milieu map3() {
+    public static MapMilieu map3() {
 
-        map_milieu map = new map_milieu(15, 25);
+        MapMilieu map = new MapMilieu(15, 25);
 
 
         for (int i = 0; i < 35; i++) {
@@ -308,27 +306,27 @@ public class map_milieu {
 
 
         // Affichage de l'en-tête
-        System.out.println(letters);
+        System.out.println(m_letters);
 
         // Ligne supérieure
         System.out.print("   *");
-        for (int i = 0; i < cols * 3 + 1; i++) {
+        for (int i = 0; i < m_cols * 3 + 1; i++) {
             System.out.print("-");
         }
         System.out.println("*");
 
         // Affichage du corps de la carte
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < m_rows; i++) {
             System.out.print((i < 10 ? " " : "") + i  + " |");
-            for (int j = 0; j < cols; j++) {
-                System.out.print(map[i][j].afficher());
+            for (int j = 0; j < m_cols; j++) {
+                System.out.print(m_map[i][j].afficher());
             }
             System.out.println("|");
         }
 
         // Ligne inférieure
         System.out.print("   *");
-        for (int i = 0; i < cols * 3 + 1; i++) {
+        for (int i = 0; i < m_cols * 3 + 1; i++) {
             System.out.print("-");
         }
         System.out.println("*");
@@ -345,7 +343,10 @@ public class map_milieu {
         Equipement equipementAleatoire = equipements.get(random.nextInt(equipements.size()));
 
         if (isValidPositionAndFree(row - 1, col - 1)) {
-            map[row - 1][col - 1].setContenu(equipementAleatoire);
+            m_map[row - 1][col - 1].setM_contenu(equipementAleatoire);
         }
+    }
+    public Case getCase(int row, int col) {
+        return this.m_map[row][col];
     }
 }

@@ -1,4 +1,4 @@
-package equipements.Armes;
+package equipements.armes;
 import equipements.*;
 
 public abstract class Armes implements Equipement{

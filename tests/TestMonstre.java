@@ -1,4 +1,3 @@
-package Test;
 
 import monstres.*;
 import org.junit.jupiter.api.Test;

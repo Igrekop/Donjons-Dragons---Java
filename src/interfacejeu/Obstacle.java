@@ -11,4 +11,9 @@ public class Obstacle implements ContenuCase {
     public String afficher() {
         return "[ ]";
     }
+
+    @Override
+    public boolean estParticipant() {
+        return false;
+    }
 }

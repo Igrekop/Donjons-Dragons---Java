@@ -2,14 +2,13 @@ package personnages;
 
 import classes.Archetype;
 import equipements.Equipement;
-import equipements.GestionEquipements;
 import interfacejeu.ContenuCase;
-import interfacejeu.map_milieu;
+import interfacejeu.MapMilieu;
 import monstres.*;
 import personnages.Entité.entite;
 import races.Races;
 
-import Des.*;
+import des.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -30,7 +29,6 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
         race.appliquerBonus(this);
         classe.genererEquipementDeBase(this);
-        GestionEquipements.equiperPremiereArmeEtArmure(this);
     }
 
     public void attaquer(Monstre cible) {
@@ -209,7 +207,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
 
 
-    public void seDeplacer(String direction, map_milieu map, int nbCase) {
+    public void seDeplacer(String direction, MapMilieu map, int nbCase) {
         int newX = posX;
         int newY = posY;
 
@@ -251,7 +249,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
 
 
 
-    public void ramasserEquipement(map_milieu map) {
+    public void ramasserEquipement(MapMilieu map) {
         Equipement equip = map.recupererEquipement(posX, posY);
         if (equip != null) {
             ajouterEquipement(equip);
@@ -268,7 +266,7 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     public int getPosY() {return this.posY;
     }
 
-    public boolean setPosXY(int x, int y,map_milieu map) {
+    public boolean setPosXY(int x, int y, MapMilieu map) {
         if (map.isValidPositionAndFree(x,y)) {
             this.posX = x;
             this.posY = y;
@@ -336,4 +334,8 @@ public class Joueur extends Personnage implements ContenuCase, entite {
     @Override
     public boolean estMonstre(){return false;}
 
+    @Override
+    public boolean estParticipant() {
+        return true;
+    }
 }

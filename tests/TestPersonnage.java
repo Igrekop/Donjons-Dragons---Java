@@ -1,4 +1,3 @@
-package Test;
 
 import classes.*;
 import org.junit.Test;
