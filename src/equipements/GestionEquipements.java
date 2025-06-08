@@ -1,9 +1,8 @@
 package equipements;
 
-import equipements.Armes.*;
-import equipements.Armures.*;
+import equipements.armes.*;
+import equipements.armures.*;
 import personnages.Joueur;
-import personnages.Personnage;
 
 import java.util.ArrayList;
 import java.util.List;

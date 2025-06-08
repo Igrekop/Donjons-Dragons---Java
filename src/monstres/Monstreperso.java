@@ -1,9 +1,7 @@
 package monstres;
 
-import Des.Des;
+import des.Des;
 import personnages.Joueur;
-
-import javax.swing.*;
 
 public class Monstreperso extends Monstre {
 
@@ -110,7 +108,9 @@ public class Monstreperso extends Monstre {
         return m_PvDeBase;
     }
 
-
-
+    @Override
+    public boolean estParticipant() {
+        return true;
+    }
 
 }

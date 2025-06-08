@@ -1,6 +1,6 @@
 package monstres;
 
-import Des.Des;
+import des.Des;
 import personnages.Joueur;
 
 public class Gobelin extends Monstre {
@@ -91,5 +91,10 @@ public class Gobelin extends Monstre {
     @Override
     public String afficher() {
         return "\uD83D\uDC7A" + " ";
+    }
+
+    @Override
+    public boolean estParticipant() {
+        return true;
     }
 }

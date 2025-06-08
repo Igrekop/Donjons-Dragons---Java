@@ -1,7 +1,7 @@
 package races;
 
 import personnages.Personnage;
-import Des.Des;
+import des.Des;
 
 public abstract class Races {
     protected String m_nom;

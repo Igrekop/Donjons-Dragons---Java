@@ -1,5 +1,5 @@
 package personnages.Entité;
-import interfacejeu.map_milieu;
+import interfacejeu.MapMilieu;
 
 public interface entite {
     String affichageClass();
@@ -8,7 +8,7 @@ public interface entite {
 
     int getPosX();
     int getPosY();
-    boolean setPosXY(int x, int y, map_milieu map);
+    boolean setPosXY(int x, int y, MapMilieu map);
     String getNom();
     int getInitiative();
     String AfficherPVDB();

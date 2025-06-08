@@ -1,9 +1,14 @@
-package equipements.Armures;
+package equipements.armures;
 
-public class ArmureLourde extends Armure {
+public class ArmureLegere extends Armure {
 
-    public ArmureLourde(String nom, int classeArmure) {
-        super(nom, classeArmure, "Armure lourde");
+    public ArmureLegere(String nom, int classeArmure) {
+        super(nom, classeArmure, "Armure légère");
+    }
+
+    @Override
+    public String toString() {
+        return "Armure légère : " + getNom() + " [Classe d'armure : " + getClasseArmure() + "]";
     }
 
     @Override
@@ -17,11 +22,6 @@ public class ArmureLourde extends Armure {
     }
 
     @Override
-    public int getModificateurVitesse() {
-        return -4;  // Réduction de la vitesse
-    }
-
-    @Override
     public int getPortee() {
         return 0;
     }
@@ -32,14 +32,10 @@ public class ArmureLourde extends Armure {
     }
 
     @Override
-    public String toString() {
-        return "Armure lourde : " + getNom() + " [Classe d'armure : " + getClasseArmure() + "]";
-    }
-
-    @Override
     public int getClasseArmure() {
         return super.getClasseArmure();
     }
+
     @Override
     public boolean estArmure() {
         return true;
@@ -47,6 +43,11 @@ public class ArmureLourde extends Armure {
 
     @Override
     public boolean estArme() {
+        return false;
+    }
+
+    @Override
+    public boolean estParticipant() {
         return false;
     }
 }

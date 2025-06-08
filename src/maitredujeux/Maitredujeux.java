@@ -2,13 +2,13 @@ package maitredujeux;
 
 import java.util.*;
 
-import Des.Des;
-import interfacejeu.map_milieu;
+import des.Des;
+import interfacejeu.MapMilieu;
 import monstres.*;
 import personnages.Entité.entite;
 import personnages.Joueur;
 
-import static Des.Des.lancerDes;
+import static des.Des.lancerDes;
 
 public class Maitredujeux {
     private ArrayList<String> m_lignes;
@@ -204,7 +204,7 @@ public class Maitredujeux {
         return valeur;
     }
 
-    public void intervenir(List<entite> participants, map_milieu map) {
+    public void intervenir(List<entite> participants, MapMilieu map) {
         System.out.println("=== Intervention du Maître du Jeu ===");
         System.out.println("1. Commenter l'action");
         System.out.println("2. Déplacer un monstre ou un joueur");
@@ -237,7 +237,7 @@ public class Maitredujeux {
         }
     }
 
-    public void deplacerEntite(List<entite> entites, map_milieu map) {
+    public void deplacerEntite(List<entite> entites, MapMilieu map) {
         System.out.println("=== Déplacement d'une entité ===");
         for (int i = 0; i < entites.size(); i++) {
             entite e = entites.get(i);
@@ -300,7 +300,7 @@ public class Maitredujeux {
     }
 
 
-    private void controlerMonstre(List<entite> participants, map_milieu map) {
+    private void controlerMonstre(List<entite> participants, MapMilieu map) {
         // Filtrer les monstres vivants
         List<Monstre> monstresDisponibles = participants.stream()
                 .filter(e -> e.estMonstre() && !e.estMort())
@@ -404,7 +404,7 @@ public class Maitredujeux {
         return Math.abs(e1.getPosX() - e2.getPosX()) + Math.abs(e1.getPosY() - e2.getPosY());
     }
 
-    public void deplacerMonstre(Monstre monstre, map_milieu map) {
+    public void deplacerMonstre(Monstre monstre, MapMilieu map) {
         System.out.println("Directions: haut, bas, gauche, droite");
         System.out.print("Direction: ");
         String direction = m_scanner.nextLine().toLowerCase();

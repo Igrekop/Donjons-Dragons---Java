@@ -1,10 +1,11 @@
 import classes.*;
 import equipements.Equipement;
+import equipements.GestionEquipements;
 import maitredujeux.Maitredujeux;
 import monstres.*;
 import personnages.*;
 import interfacejeu.*;
-import Des.*;
+import des.*;
 
 import java.util.*;
 import java.util.List;
@@ -12,12 +13,12 @@ import java.util.List;
 import personnages.Entité.entite;
 import Sort.*;
 
-import interfacejeu.map_milieu;
+import interfacejeu.MapMilieu;
 
 import static equipements.GestionEquipements.initialiserEquipements;
 
 public class Jeu {
-    public void demarrer(Scanner scanner, List<entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, map_milieu map) {
+    public void demarrer(Scanner scanner, List<entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, MapMilieu map) {
         String art = """
                 ▀██▀▀█▄                       ██                                      ▄      ▀██▀▀█▄                                                   
                  ██   ██    ▄▄▄   ▄▄ ▄▄▄     ▄▄▄   ▄▄▄   ▄▄ ▄▄▄    ▄▄▄▄       ▄▄▄▄  ▄██▄      ██   ██  ▄▄▄ ▄▄   ▄▄▄▄     ▄▄▄ ▄   ▄▄▄   ▄▄ ▄▄▄    ▄▄▄▄  
@@ -49,12 +50,13 @@ public class Jeu {
             Joueur joueur = CreationPersonnage.creerPersonnage(scanner, numeroJoueur);
             joueurs.add(joueur);
             participants.add(joueur);
+            GestionEquipements.equiperPremiereArmeEtArmure(joueur);
             numeroJoueur++;
         }
     }
 
 
-    public void partie(Scanner scanner, List<entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, map_milieu map, int numeroTour) {
+    public void partie(Scanner scanner, List<entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, MapMilieu map, int numeroTour) {
         while (!joueurs.isEmpty()) {
             // Nettoyer les morts
             monstres.removeIf(Monstre::estMort);
@@ -555,8 +557,8 @@ public class Jeu {
     }
 
 
-    private map_milieu choisirNouvelleCarte(Scanner scanner) {
-        map_milieu map = null;
+    private MapMilieu choisirNouvelleCarte(Scanner scanner) {
+        MapMilieu map = null;
         boolean verif = false;
         while (!verif) {
             System.out.println("\nChoisir la nouvelle map :");
@@ -566,15 +568,15 @@ public class Jeu {
             String reponse = scanner.nextLine().trim().toLowerCase();
             switch (reponse) {
                 case "1":
-                    map = map_milieu.map1();
+                    map = MapMilieu.map1();
                     verif = true;
                     break;
                 case "2":
-                    map = map_milieu.map2();
+                    map = MapMilieu.map2();
                     verif = true;
                     break;
                 case "3":
-                    map = map_milieu.map3();
+                    map = MapMilieu.map3();
                     verif = true;
                     break;
                 default:
@@ -595,7 +597,7 @@ public class Jeu {
         Maitredujeux mj = new Maitredujeux();
         int numeroDonjon = 1;
         int numeroTour = 1;
-        map_milieu map = null;
+        MapMilieu map = null;
 
         // Démarrer le jeu
         jeu.demarrer(scanner, participants, joueurs, monstres, mj, numeroDonjon, map);

@@ -1,4 +1,4 @@
-package equipements.Armes;
+package equipements.armes;
 
 public class ArmeDeGuerre extends Armes {
 
@@ -32,6 +32,11 @@ public class ArmeDeGuerre extends Armes {
     }
     @Override
     public boolean estArmure() {
+        return false;
+    }
+
+    @Override
+    public boolean estParticipant() {
         return false;
     }
 }

@@ -1,7 +1,6 @@
-package Test;
 
-import equipements.Armes.*;
-import equipements.Armures.*;
+import equipements.armes.*;
+import equipements.armures.*;
 import equipements.Equipement;
 import equipements.GestionEquipements;
 import org.junit.jupiter.api.Test;
@@ -89,5 +88,18 @@ public class TestEquipement {
         List<Equipement> equipements = GestionEquipements.initialiserEquipements();
         assertFalse(equipements.isEmpty());
         assertTrue(equipements.stream().anyMatch(e -> e.getNom().equals("Épée longue")));
+    }
+
+    @Test
+    void testInitialiserEquipementsContientDesExemplesConnus() {
+        List<Equipement> equipements = GestionEquipements.initialiserEquipements();
+
+        assertNotNull(equipements);
+        assertTrue(equipements.size() >= 10);
+
+        // Vérifie quelques équipements précis
+        assertTrue(equipements.stream().anyMatch(e -> e.getNom().equals("Épée longue")));
+        assertTrue(equipements.stream().anyMatch(e -> e.getNom().equals("Arbalète légère")));
+        assertTrue(equipements.stream().anyMatch(e -> e.getNom().equals("Armure d'écailles")));
     }
 }
