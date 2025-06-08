@@ -1,6 +1,6 @@
 package Sort;
 
-import personnages.Entité.entite;
+import personnages.entite.entite;
 import personnages.Joueur;
 import des.*;
 

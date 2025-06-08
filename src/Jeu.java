@@ -10,7 +10,7 @@ import des.*;
 import java.util.*;
 import java.util.List;
 
-import personnages.Entité.entite;
+import personnages.entite.entite;
 import Sort.*;
 
 import interfacejeu.MapMilieu;
@@ -301,7 +301,7 @@ public class Jeu {
 
                                             if (choix >= 0 && choix < joueur.getEquipements().size()) {
                                                 Equipement equipementChoisi = joueur.getEquipements().remove(choix);
-                                                joueur.equiper(equipementChoisi, null);
+                                                joueur.equiper(equipementChoisi);
 
                                                 System.out.println("Commentaire ? ");
                                                 System.out.println(scanner.nextLine());

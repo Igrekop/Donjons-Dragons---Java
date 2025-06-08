@@ -2,7 +2,7 @@ package personnages;
 
 import equipements.Equipement;
 import monstres.Monstre;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public abstract class Personnage implements entite {
     }
 
 
-    public abstract void equiper(Equipement equipement, Object equipe);
+    public abstract void equiper(Equipement equipement);
 
     @Override
     public String toString() {

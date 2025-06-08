@@ -4,7 +4,7 @@ import equipements.armes.ArmeCourante;
 import equipements.armures.ArmureLegere;
 import equipements.Equipement;
 import equipements.GestionEquipements;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 
 import java.util.ArrayList;
 import java.util.List;

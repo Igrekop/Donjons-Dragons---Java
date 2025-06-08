@@ -1,5 +1,5 @@
 package interfacejeu;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package personnages.Entité;
+package personnages.entite;
 import interfacejeu.MapMilieu;
 
 public interface entite {

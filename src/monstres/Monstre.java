@@ -2,7 +2,7 @@ package monstres;
 
 import interfacejeu.ContenuCase;
 import interfacejeu.MapMilieu;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 import personnages.Joueur;
 
 public abstract class Monstre implements ContenuCase, entite {
@@ -20,9 +20,8 @@ public abstract class Monstre implements ContenuCase, entite {
     private int m_posX;
     private int m_posY;
 
-
     public Monstre(String espece, int numero, int pointDeVie, int force, int dexterite, int initiative,
-                   int classeArmure, String typeAttaque, int portee, String degats, int vit) {
+                   int classeArmure, String typeAttaque, int portee, String degats, int vitesse) {
         m_espece = espece;
         m_numero = numero;
         m_pointDeVie = pointDeVie;
@@ -33,10 +32,15 @@ public abstract class Monstre implements ContenuCase, entite {
         m_typeAttaque = typeAttaque;
         m_portee = portee;
         m_degats = degats;
-        m_vitesse = vit;
+        m_vitesse = vitesse;
     }
 
-    public abstract void attaquer(Joueur cible);
+    // Méthode à implémenter dans chaque monstre
+    public abstract CombatResultat attaquerEtObtenirResultat(Joueur cible);
+
+    public abstract int getPvDeBase();
+
+    public abstract String afficher();
 
     @Override
     public String toString() {
@@ -44,98 +48,71 @@ public abstract class Monstre implements ContenuCase, entite {
                 ", Dégâts: " + m_degats + ", Portée: " + m_portee + "]";
     }
 
-    public int getPointDeVie() {
-        return m_pointDeVie;
+    // === Getters ===
+    public int getPointDeVie() { return m_pointDeVie; }
+
+    public int getForce() { return m_force; }
+
+    public int getDexterite() { return m_dexterite; }
+
+    public int getInitiative() { return m_initiative; }
+
+    public int getClasseArmure() { return m_classeArmure; }
+
+    public String getTypeAttaque() { return m_typeAttaque; }
+
+    public int getPortee() { return m_portee; }
+
+    public String getDegats() { return m_degats; }
+
+    public String getEspece() { return m_espece; }
+
+    public int getNumero() { return m_numero; }
+
+    public int getVitesse() { return m_vitesse; }
+
+    public int getPosX() { return m_posX; }
+
+    public int getPosY() { return m_posY; }
+
+    // === Setters et actions ===
+    public void setPV(int variation) {
+        addPdV(variation);
     }
 
-    public abstract int getPvDeBase();
-
-    public String getDegats() {
-        return m_degats;
-    }
-
-    public int getForce() {
-        return m_force;
-    }
-
-    public int getPortee() {
-        return m_portee;
-    }
-
-    public String getTypeAttaque() {
-        return m_typeAttaque;
-    }
-
-    public String getEspece() {
-        return m_espece;
-    }
-
-    public int getNumero() {
-        return m_numero;
-    }
-
-    public int getDexterite() {
-        return m_dexterite;
-    }
-
-    public int getVitesse() {
-        return m_vitesse;
-    }
-
-    /**
-     * Réduit les points de vie du monstre.
-     * @param degatsSubis points de vie à soustraire (doit être positif)
-     * @return points de vie restants
-     */
-    public int subirDegats(int degatsSubis) {
-        if (degatsSubis < 0) {
-            throw new IllegalArgumentException("Les dégâts subis doivent être positifs");
-        }
-        m_pointDeVie -= degatsSubis;
-        if (m_pointDeVie < 0) {
-            m_pointDeVie = 0;
-        }
-        return m_pointDeVie;
-    }
-
-    public int getClasseArmure() {
-        return m_classeArmure;
-    }
-
-    public int getInitiative() {
-        return m_initiative;
-    }
-
-    @Override
-    public boolean estMort() {
-        if (this.getPointDeVie() <= 0) {
-            return true;
-        }
-        else {return false;}
-    }
-
-    public int getPosX() {return this.m_posX;
-    }
-
-    public int getPosY() {return this.m_posY;
+    public void addPdV(int pv) {
+        m_pointDeVie += pv;
+        if (m_pointDeVie < 0) m_pointDeVie = 0;
     }
 
     public boolean setPosXY(int x, int y, MapMilieu map) {
-        if (map.isValidPositionAndFree(x,y)) {
-            this.m_posX = x;
-            this.m_posY = y;
+        if (map.isValidPositionAndFree(x, y)) {
+            m_posX = x;
+            m_posY = y;
             return true;
         }
-        else  {return false;}
+        return false;
     }
 
-    public abstract String afficher();
+    @Override
+    public void setPosSansVerif(int x, int y) {
+        m_posX = x;
+        m_posY = y;
+    }
+
+    // === Interface entite ===
+    @Override
+    public boolean estMort() {
+        return m_pointDeVie <= 0;
+    }
 
     @Override
-    public boolean estMonstre(){return true;}
+    public boolean estMonstre() {
+        return true;
+    }
 
     @Override
-    public String affichageClass(){
+    public String affichageClass() {
         return getClass().toString();
     }
 
@@ -160,20 +137,24 @@ public abstract class Monstre implements ContenuCase, entite {
         return "";
     }
 
-    @Override
-    public void setPV(int degats){
-        this.addPdV(degats);
+    public void subirDegats(int degats) {
+        m_pointDeVie -= degats;
     }
 
-    public void addPdV(int pv) {
-        m_pointDeVie += pv;
+    // === Résultat d'une attaque ===
+    public static class CombatResultat {
+        public final int jetAttaque;
+        public final int modificateur;
+        public final boolean succes;
+        public final int degatsInfliges;
+        public final int classeArmureCible;
+
+        public CombatResultat(int jetAttaque, int modificateur, boolean succes, int degatsInfliges, int classeArmureCible) {
+            this.jetAttaque = jetAttaque;
+            this.modificateur = modificateur;
+            this.succes = succes;
+            this.degatsInfliges = degatsInfliges;
+            this.classeArmureCible = classeArmureCible;
+        }
     }
-
-    @Override
-    public void setPosSansVerif(int x, int y) {
-        this.m_posX = x;
-        this.m_posY = y;
-    }
-
-
 }

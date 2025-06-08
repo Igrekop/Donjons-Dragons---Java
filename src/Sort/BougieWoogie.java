@@ -1,9 +1,7 @@
 package Sort;
 
-import monstres.Monstre;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 import personnages.Joueur;
-import interfacejeu.*;
 
 public class BougieWoogie extends Sort{
 

@@ -1,7 +1,7 @@
 package Sort;
 
 import personnages.Joueur;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 
 abstract class Sort {
     protected String nom;

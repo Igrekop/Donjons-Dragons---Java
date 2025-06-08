@@ -5,7 +5,7 @@ import java.util.*;
 import des.Des;
 import interfacejeu.MapMilieu;
 import monstres.*;
-import personnages.Entité.entite;
+import personnages.entite.entite;
 import personnages.Joueur;
 
 import static des.Des.lancerDes;
@@ -78,7 +78,7 @@ public class Maitredujeux {
         }
     }
 
-    private Monstre creerMonstreEspece(String espece) {
+    public Monstre creerMonstreEspece(String espece) {
         m_compteurMonstres.putIfAbsent(espece, 0);
         int numero = m_compteurMonstres.get(espece) + 1;
         m_compteurMonstres.put(espece, numero);
