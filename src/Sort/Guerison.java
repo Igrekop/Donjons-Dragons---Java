@@ -1,6 +1,6 @@
 package Sort;
 
-import personnages.entite.entite;
+import personnages.entite.Entite;
 import personnages.Joueur;
 import des.*;
 
@@ -28,7 +28,7 @@ public class Guerison extends Sort{
     }
 
     @Override
-    public void utiliser(entite cible1, entite cible2) {
+    public void utiliser(Entite cible1, Entite cible2) {
         
     }
 }

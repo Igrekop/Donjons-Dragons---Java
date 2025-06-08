@@ -10,7 +10,7 @@ import des.*;
 import java.util.*;
 import java.util.List;
 
-import personnages.entite.entite;
+import personnages.entite.Entite;
 import Sort.*;
 
 import interfacejeu.MapMilieu;
@@ -18,7 +18,7 @@ import interfacejeu.MapMilieu;
 import static equipements.GestionEquipements.initialiserEquipements;
 
 public class Jeu {
-    public void demarrer(Scanner scanner, List<entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, MapMilieu map) {
+    public void demarrer(Scanner scanner, List<Entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, MapMilieu map) {
         String art = """
                 ▀██▀▀█▄                       ██                                      ▄      ▀██▀▀█▄                                                   
                  ██   ██    ▄▄▄   ▄▄ ▄▄▄     ▄▄▄   ▄▄▄   ▄▄ ▄▄▄    ▄▄▄▄       ▄▄▄▄  ▄██▄      ██   ██  ▄▄▄ ▄▄   ▄▄▄▄     ▄▄▄ ▄   ▄▄▄   ▄▄ ▄▄▄    ▄▄▄▄  
@@ -56,7 +56,7 @@ public class Jeu {
     }
 
 
-    public void partie(Scanner scanner, List<entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, MapMilieu map, int numeroTour) {
+    public void partie(Scanner scanner, List<Entite> participants, List<Joueur> joueurs, List<Monstre> monstres, Maitredujeux mj, int numeroDonjon, MapMilieu map, int numeroTour) {
         while (!joueurs.isEmpty()) {
             // Nettoyer les morts
             monstres.removeIf(Monstre::estMort);
@@ -66,7 +66,7 @@ public class Jeu {
                 boolean partiegagné = false;
                 participants.removeIf(participant -> participant.estMort());
                 map = choisirNouvelleCarte(scanner);
-                for (entite participant : participants) {
+                for (Entite participant : participants) {
                     if (!participant.estMonstre()) {
                         Joueur joueur = (Joueur) participant;
                         joueur.soignerComplet();
@@ -142,8 +142,8 @@ public class Jeu {
                 while (partieEnCours && partiegagné == false) {
                     System.out.println("\n=== Donjon " + numeroDonjon + " ===");
 
-                    Map<entite, Integer> initiativeMap = new HashMap<>();
-                    for (entite p : participants) {
+                    Map<Entite, Integer> initiativeMap = new HashMap<>();
+                    for (Entite p : participants) {
                         int mod = p.getInitiative();
                         int score = Des.lancerDes("1d20") + mod;
                         initiativeMap.put(p, score);
@@ -210,7 +210,7 @@ public class Jeu {
 
                     int index = 0;
                     while (true) {
-                        entite p = participants.get(index);
+                        Entite p = participants.get(index);
 
                         if (!p.estMonstre() && !p.estMort()) {
                             Joueur joueur = (Joueur) p;
@@ -258,8 +258,8 @@ public class Jeu {
 
                                         // Vérifie si tous les monstres sont morts après l'attaque
                                         boolean tousLesMonstresMorts = participants.stream()
-                                                .filter(entite::estMonstre)
-                                                .allMatch(entite::estMort);
+                                                .filter(Entite::estMonstre)
+                                                .allMatch(Entite::estMort);
 
                                         if (tousLesMonstresMorts) {
                                             System.out.println("\n=== Tous les monstres sont vaincus ! Victoire ! ===");
@@ -346,14 +346,14 @@ public class Jeu {
                                             switch (choixSort) {
                                                 case "1" -> {
                                                     System.out.println("Cibles disponibles pour Guérison :");
-                                                    ArrayList<entite> ciblesPossibles = new ArrayList<>();
-                                                    for (entite e : participants) {
+                                                    ArrayList<Entite> ciblesPossibles = new ArrayList<>();
+                                                    for (Entite e : participants) {
                                                         if (!e.estMonstre()) {
                                                             ciblesPossibles.add(e);
                                                         }
                                                     }
                                                     for (int i = 0; i < ciblesPossibles.size(); i++) {
-                                                        entite e = ciblesPossibles.get(i);
+                                                        Entite e = ciblesPossibles.get(i);
                                                         System.out.println((i + 1) + " - " + e.getNom());
                                                     }
                                                     System.out.print("Entrez le numéro de la cible à soigner : ");
@@ -375,27 +375,27 @@ public class Jeu {
                                                 case "2" -> {
                                                     if (type.equals("Magicien")) {
                                                         System.out.println("Cibles disponibles pour Bougie-Woogie :");
-                                                        List<entite> ciblesPossibles = participants;
+                                                        List<Entite> ciblesPossibles = participants;
                                                         for (int i = 0; i < ciblesPossibles.size(); i++) {
-                                                            entite e = ciblesPossibles.get(i);
+                                                            Entite e = ciblesPossibles.get(i);
                                                             System.out.println((i + 1) + " - " + e.getNom());
                                                         }
                                                         System.out.print("Entrez le numéro de la premiere cible à echanger : ");
                                                         try {
                                                             int choix = Integer.parseInt(scanner.nextLine()) - 1;
                                                             if (choix >= 0 && choix < ciblesPossibles.size()) {
-                                                                entite cible1 = ciblesPossibles.get(choix);
+                                                                Entite cible1 = ciblesPossibles.get(choix);
                                                                 BougieWoogie sort = new BougieWoogie();
                                                                 System.out.println("Cibles disponibles pour Bougie-Woogie :");
                                                                 for (int i = 0; i < ciblesPossibles.size(); i++) {
-                                                                    entite e = ciblesPossibles.get(i);
+                                                                    Entite e = ciblesPossibles.get(i);
                                                                     System.out.println((i + 1) + " - " + e.getNom());
                                                                 }
                                                                 System.out.print("Entrez le numéro de la deuxième cible à échanger : ");
                                                                 try {
                                                                     int choix2 = Integer.parseInt(scanner.nextLine()) - 1;
                                                                     if (choix2 >= 0 && choix2 < ciblesPossibles.size()) {
-                                                                        entite cible2 = ciblesPossibles.get(choix2);
+                                                                        Entite cible2 = ciblesPossibles.get(choix2);
                                                                         sort.utilisermap(cible1, cible2);
                                                                         actionsRestantes--;
                                                                     } else {
@@ -417,14 +417,14 @@ public class Jeu {
                                                 case "3" -> {
                                                     if (type.equals("Magicien")) {
                                                         System.out.println("Cibles disponibles pour l'enchantement :");
-                                                        ArrayList<entite> ciblesPossibles = new ArrayList<>();
-                                                        for (entite e : participants) {
+                                                        ArrayList<Entite> ciblesPossibles = new ArrayList<>();
+                                                        for (Entite e : participants) {
                                                             if (!e.estMonstre()) {
                                                                 ciblesPossibles.add(e);
                                                             }
                                                         }
                                                         for (int i = 0; i < ciblesPossibles.size(); i++) {
-                                                            entite e = ciblesPossibles.get(i);
+                                                            Entite e = ciblesPossibles.get(i);
                                                             System.out.println((i + 1) + " - " + e.getNom());
                                                         }
                                                         System.out.print("Entrez le numéro de la cible à enchanter : ");
@@ -591,7 +591,7 @@ public class Jeu {
         Jeu jeu = new Jeu();
         Scanner scanner = new Scanner(System.in);
 
-        List<entite> participants = new ArrayList<>();
+        List<Entite> participants = new ArrayList<>();
         List<Joueur> joueurs = new ArrayList<>();
         List<Monstre> monstres = new ArrayList<>();
         Maitredujeux mj = new Maitredujeux();

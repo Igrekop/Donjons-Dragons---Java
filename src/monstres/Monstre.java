@@ -2,10 +2,10 @@ package monstres;
 
 import interfacejeu.ContenuCase;
 import interfacejeu.MapMilieu;
-import personnages.entite.entite;
+import personnages.entite.Entite;
 import personnages.Joueur;
 
-public abstract class Monstre implements ContenuCase, entite {
+public abstract class Monstre implements ContenuCase, Entite {
     private String m_espece;
     private int m_numero;
     private int m_pointDeVie;
@@ -132,7 +132,7 @@ public abstract class Monstre implements ContenuCase, entite {
     }
 
     @Override
-    public String AfficherPVDB() {
+    public String afficherPVDB() {
         System.out.print(getPointDeVie() + "/" + getPvDeBase());
         return "";
     }
