@@ -1,6 +1,11 @@
- @startuml '[https://plantuml.com/sequence-diagram](https://plantuml.com/sequence-diagram)'
+@startuml
 skinparam linetype ortho
 
+' Ajout des stéréotypes pour les interfaces et classes abstraites
+skinparam class {
+    BackgroundInterface<<interface>> LightGreen
+    BackgroundAbstract<<abstract>> LightGray
+}
 
 class CreationPersonnage {
     + creerPersonnage(scanner: Scanner, numeroJoueur: int): Joueur
@@ -24,7 +29,7 @@ class Jeu {
 Jeu --> equipements.GestionEquipements : utilise
 Jeu --> equipements.Equipement : utilise
 Jeu --> "classes" : utilise
-Jeu o--> "maitredujeux.Maitredujeux" : compose
+Jeu *--> "maitredujeux.Maitredujeux" : compose > m_mj
 Jeu --> interfacejeu : gère
 Jeu --> Des.Des : utilise
 Jeu --> Sort : utilise
@@ -32,7 +37,7 @@ Jeu --> monstres: utilise
 Jeu --> personnages: utilise
 
 package classes {
-    abstract class Archetype {
+    abstract class Archetype <<abstract>> {
         - m_nom : String
         - m_pvDeBase : int
         + Archetype(nom : String, pvDeBase)
@@ -89,7 +94,7 @@ package Des {
 }
 
 package equipements {
-    interface Equipement {
+    interface Equipement <<interface>> {
         + getEnchante(): int
         + setEnchante(enchante: int): void
         + getNom(): String
@@ -110,7 +115,7 @@ package equipements {
     }
 
     package Armes {
-        abstract class Armes {
+        abstract class Armes <<abstract>> {
             - m_nom: String
             - m_degats: String
             - m_portee: int
@@ -163,7 +168,7 @@ package equipements {
     }
 
     package Armures {
-        abstract class Armure {
+        abstract class Armure <<abstract>> {
             - m_nom: String
             - m_classeArmure: int
             - m_type: String
@@ -219,7 +224,7 @@ package equipements {
 }
 
 package interfacejeu {
-    interface ContenuCase {
+    interface ContenuCase <<interface>> {
         + getTypeContenu(): String
         + afficher(): String
         + estParticipant(): boolean
@@ -275,7 +280,7 @@ package interfacejeu {
         + addRandomEquipment(int, int): void
         + getCase(int, int): Case
     }
-    map_milieu *--> Case : compose
+    map_milieu *--> "1..*" Case : compose > m_map
     map_milieu --> equipements.GestionEquipements : utilise
 
     class Obstacle {
@@ -286,7 +291,7 @@ package interfacejeu {
 
     ContenuCase <|.. Obstacle
 
-    Case o--> ContenuCase : agrège
+    Case o--> "0..1" ContenuCase : agrège > m_contenu
     map_milieu --> Case
 
     Inter_manag --> BarreHaut
@@ -328,12 +333,12 @@ package maitredujeux {
 
 maitredujeux.Maitredujeux --> personnages.Entité.entite : gère
 maitredujeux.Maitredujeux --> Des : utilise
-maitredujeux.Maitredujeux o--> monstres.Monstre : compose
-maitredujeux.Maitredujeux o--> monstres.Monstreperso : compose
+maitredujeux.Maitredujeux *--> "0..*" monstres.Monstre : compose > m_monstres
+maitredujeux.Maitredujeux *--> "0..*" monstres.Monstreperso : compose > m_monstresPersonnalises
 maitredujeux.Maitredujeux --> interfacejeu.map_milieu : interagis
 
 package monstres {
-    abstract class Monstre {
+    abstract class Monstre <<abstract>> {
         - m_espece: String
         - m_numero: int
         - m_pointDeVie: int
@@ -438,7 +443,7 @@ monstres.Gobelin --> Des.Des : utilise
 monstres.Squelette --> Des.Des : utilise
 
 package personnages {
-    abstract class Personnage {
+    abstract class Personnage <<abstract>> {
         - String m_nom
         - int m_pointDeVie
         - int m_force
@@ -475,8 +480,6 @@ package personnages {
     }
 
     class Joueur {
-        - Archetype m_classe
-        - Races m_race
         - ArrayList<Equipement> m_inventaire
         - int m_posX
         - int m_posY
@@ -510,8 +513,8 @@ package personnages {
         + boolean estParticipant()
     }
 
-    package Entité{
-        interface entite {
+    package Entité {
+        interface entite <<interface>> {
             + affichageClass(): String
             + getAffichageCourt(): String
             + getAffichageLong(): String
@@ -526,18 +529,18 @@ package personnages {
     Joueur ..|> entite
     Joueur ..|> interfacejeu.ContenuCase
 
-    Joueur *--> classes.Archetype : compose
-    Joueur *--> races.Races : compose
-    Joueur o--> equipements.Equipement : agrège
+    Joueur *--> "1" classes.Archetype : compose > m_classe
+    Joueur *--> "1" races.Races : compose > m_race
+    Joueur o--> "0..*" equipements.Equipement : agrège > m_inventaire
     Joueur --> monstres.Monstre
     Joueur --> interfacejeu.map_milieu
     Joueur --> Des.Des
-    Personnage o--> equipements.Equipement : agrège
+    Personnage o--> "0..*" equipements.Equipement : agrège > m_equipementEquipe
     Personnage --> monstres.Monstre
 }
 
 package races {
-    abstract class Races {
+    abstract class Races <<abstract>> {
         - m_nom: String
         - m_bonusForce: int
         - m_bonusDexterite: int
@@ -577,7 +580,7 @@ package races {
 }
 
 package Sort {
-    abstract class Sort {
+    abstract class Sort <<abstract>> {
         - nom: String
         + Sort(nom: String)
         + {abstract} utiliser(Joueur : cible1, Joueur : cible2): void
@@ -615,6 +618,3 @@ package Sort {
 }
 
 @enduml
-
-
-
