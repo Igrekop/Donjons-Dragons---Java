@@ -1,6 +1,6 @@
 # DOOnjon&Dragon Project
 
-On souhaite développer une application pour **un nouveau un jeu D&D**.
+On souhaite développer une application pour **un nouveau un jeu D&D**. 
 C'est un jeu de rôle de Medieval Fantasy où les joueurs incarnent des personnages affrontant des monstres dans plusieurs donjons successifs.
 
 ## Organisation
