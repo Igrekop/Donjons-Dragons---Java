@@ -6,7 +6,7 @@ On souhaite ajouter les fonctionnalités suivantes au jeu.
 En plus de pouvoir commenter l'action d'un joueur, le maître du jeu peut intervenir à la fin d'une action d'un joueur ou d'un monstre pour :
 - déplacer un monstre ou un personnage
 - par le jet de dés de son choix(nombre de dés et nombre de faces au choix), il peut infliger des dégâts à un joueur ou un monstre,
-- ajouter des obstacles dans le donjon
+- ajouter des obstacles dans le donjon 
 
 ## Sorts
 Certains personnages vont se voir dotés de sorts. L'utilisation d'un sort se fait au tour de jeu du personnage doté de ce sort. L'utilisation d'un sort compte comme une action. Les monstres ne peuvent pas être dotés de sorts.
